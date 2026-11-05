@@ -368,12 +368,14 @@ export class NavBarPage extends BasePage {
     });
     await this.closeDropdown();
   }
+
+  // Methods for Admin Dropdown
   async openAdminDropdown() {
     await step("Open Admin Menu", async () => {
       await this.adminMenu.click();
     });
-    await this.closeDropdown();
   }
+  
   async selectGLMapping() {
     await step("Navigate to G/L Mapping", async () => {
       await this.glMapping.click();
