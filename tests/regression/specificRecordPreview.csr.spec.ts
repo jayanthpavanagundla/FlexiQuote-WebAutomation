@@ -296,7 +296,7 @@ test.describe("Listing Preview", () => {
     await subNavBarPage.verifyPdfLoadedAndNoError("rptTableCustomerDetails",SUBREPORT_ERROR);
   });
 
-  test.only("Specific Vendor Listing Preview", async ({ page }) => {
+  test("Specific Vendor Listing Preview", async ({ page }) => {
     await feature("Specific Tables Listing Preview");
 
     await navBarPage.openTablesDropdown();
