@@ -1,0 +1,64 @@
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+PartsCheck
+TOTAL LABOUR =$0.00
+Owner :Automation3736 
+Test3628
+Address :
+ 
+Atten :
+Insurer :Insurance Australia Limited
+Address :
+ 
+ABN :11000016722
+        Quoted By : Ramos
+        Date In : 17/10/2026
+        Date to Complete : 19/10/2026
+        Policy : 
+        Claim No :CLDFN8W5FX
+Email :                                                  Insurer Email : swann.motor.claims@swanninsurance.com.au
+Home :                   Mobile :                   Fax :                    Insurer Phone :  
+Make : FORD
+Model : FAIRMONT ED GHIA
+Cylinders : 69
+Year : 1 / 1993
+V.I.N. : VINFFLD5M8QLR
+Schedule No. : F712
+Colour : GREEN
+Paint Group: S1   P Code:96571055
+        Registration : RSGZELHXJ
+        Body : 4 DOOR
+        Transmission : CVT
+        Km :  186,348        
+PartsTypePart No.Qty      Price   Markup
+647L/H FRT ROAD WHEEL 
+DRESS RIM
+New10.00$0.00
+735R/H FRT WINDSCREEN 
+WIPER BLADE
+New852208772399
+A
+117.90$17.90
+907R/H REAR CHASSIS 
+RAIL EXTENSION
+New5764187703000131.50$31.50
+571PLENUM SEALNew5338387707000134.75$34.75
+537R/H FRT APRON PANEL 
+LOWER
+New10.00$0.00
+$84.15$0.00
+TOTAL PARTS =$84.15
+                             SUB-TOTAL   $84.15
+     GST   $8.42
+        Signed : ---------------------------------------------                  GRAND TOTAL  $92.56
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully guaranteed.Unfortunately parts 
+prices are beyond our control & subject to supplier invoice. Estimate is based on external inspection. Further internal 
+damage could result in additional costs.
+ESTIMATE NO. 41716
+ESTIMATE
+DATE  : 16/10/2026
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 1

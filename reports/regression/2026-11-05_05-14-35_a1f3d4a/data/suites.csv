@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","13540","CSR Sign In","csr-setup","Thu Nov 05 05:15:00 UTC 2026","passed","Thu Nov 05 05:15:13 UTC 2026","","auth-setup/auth.csr.setup.ts","",""
+"","9636","Specific Vendor Listing Preview","flexiquote-csr","Thu Nov 05 05:15:15 UTC 2026","passed","Thu Nov 05 05:15:24 UTC 2026","Listing Preview","tests/regression/specificRecordPreview.csr.spec.ts","",""
