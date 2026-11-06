@@ -1,0 +1,639 @@
+import { expect, type Page, type Locator } from "@playwright/test";
+import { step } from "allure-js-commons";
+import { BasePage } from "../Base/BasePage.js";
+import {generateRandomCustomer,generateInsuranceClaimNo,generateRegistrationNo,generateVinNo,getFutureDateTime,randomNumbersGenerate} from "../../helpers/dataGenerators.js";
+
+type SelectionResult = {
+  oldLabel: string;
+  selectedLabel: string;
+  selectedValue: string;
+};
+
+type HeaderFillResult = {
+    insurer: string;
+    vin: string;
+    engineNo: string;
+    odometer: string;
+    cylinders: string;
+    engineSize: string;
+    trimCode: string;
+    paintCode: string;
+    firstName: string;
+    lastName: string;
+};
+
+export class HeaderTab extends BasePage {
+    private previousState?: string;
+
+    searchInput: Locator;
+    filterButton: Locator;
+    headerTab: Locator;
+    regoInput: Locator;
+    stateDropdown: Locator;
+    scheduleBtn: Locator;
+    scheduleInput: Locator;
+    makeModelTitle: Locator;
+    filterBtn: Locator;
+    paintGroup: Locator;
+    transmission: Locator;
+    colorInput: Locator;
+    vinInput: Locator;
+    engineInput: Locator;
+    odometerInput: Locator;
+    yearInput: Locator;
+    cylInput: Locator;
+    ccInput: Locator;
+    trimCode: Locator;
+    paintCode: Locator;
+    firstName: Locator;
+    lastName: Locator;
+    insurerDropdown: Locator;
+    insurerInput: Locator;
+    selectedInsurer: Locator;
+    claimNumberInput: Locator;
+    estimateStartDateInput: Locator;
+    estimateEndDateInput: Locator;
+
+    constructor(page: Page) {
+        super(page);
+
+        this.searchInput = this.page.locator('input[placeholder="Search..."]');
+        this.filterButton = this.page.getByRole("button", { name: "Filter" });
+        // Header Navbar
+        this.headerTab = page.getByText("Header").first();
+        // Vehicle Section
+        this.regoInput = page.locator("//div[contains(@class,'autocomplete')]//input[@type='text' and @maxlength='10']");
+        this.stateDropdown = page.getByRole("combobox").first();
+        this.scheduleBtn = page.getByRole("button", { name: "󰍉 Schedules" });
+        this.scheduleInput = page.getByRole("textbox", { name: "MTA Schedule" });
+        this.makeModelTitle = page.locator("p.modal-card-title", {hasText: "Make/Model"});
+        this.filterBtn = page.getByRole("button", { name: "󰍉 Filter" });
+        this.paintGroup = page.locator("//label[contains(.,'Paint Group')]/following-sibling::div//select").first();
+        this.transmission = page.locator("//label[contains(.,'Transmission')]/following-sibling::div//select").first();
+        this.colorInput = page.locator("//label[contains(.,'Colour')]/following-sibling::p//input");
+        this.vinInput = page.locator('input[name="vin"]');
+        this.engineInput = page.locator(".field-body > div:nth-child(2) > .control > .input").first();
+        this.odometerInput = page.locator('input[placeholder="e.g. 6"]').first();
+        this.yearInput = page.getByRole("textbox", { name: "e.g." }).first();
+        this.cylInput = page.getByRole("textbox", { name: "e.g." }).nth(1);
+        this.ccInput = page.getByRole("textbox", { name: "e.g. 1300" });
+        this.trimCode = page.locator("div:nth-child(11) > .field-body > div > .control > .input").first();
+        this.paintCode = page.locator("div:nth-child(11) > .field-body > div:nth-child(2) > .control > .input");
+        // Customer Section
+        this.firstName = page.getByRole("textbox", { name: "First Name" }).first();
+        this.lastName = page.getByRole("textbox", { name: "Last Name" }).first();
+        // Insurance Section
+        this.insurerDropdown = page.locator(".multiselect__select");
+        this.insurerInput = page.locator(".multiselect__input");
+        this.selectedInsurer = page.locator(".multiselect__single");
+        this.claimNumberInput = page.getByRole("textbox", { name: "Claim Number" });
+        // Key Dates
+        this.estimateStartDateInput = this.page.locator('input[placeholder="Job Start Date"]').first();
+        this.estimateEndDateInput = this.page.locator('input[placeholder="Job End Date"]').first();
+    }
+
+    async searchAndOpenQuoteByNumber(quoteNumber: string): Promise<void> {
+        await step(`Search and open Quote No: ${quoteNumber}`, async () => {
+            await this.searchInput.fill(quoteNumber);
+            await expect(this.searchInput).toHaveValue(quoteNumber);
+            await this.filterButton.click();
+            const quoteLink = this.page.locator("table:visible tbody tr td:first-child a[href]",{ hasText: new RegExp(`^\\s*${quoteNumber}\\s*$`) });
+            await expect(quoteLink).toBeVisible({ timeout: 30000 });
+            await Promise.all([
+                this.page.waitForURL(/\/v2\/quotes\//, {
+                waitUntil: "domcontentloaded",
+                }),
+                quoteLink.click(),
+            ]);
+        });
+    }
+    
+    // Click Header Tab
+    async goToHeaderTab() {
+        await step("Click Header tab", async () => {
+        await this.headerTab.click();
+        });
+    }
+
+    // Commom Methods
+    private async selectDifferentDropdownOption(params: {fieldName: string;dropdown: Locator;stepName: string;clickBeforeSelect?: boolean}): Promise<SelectionResult> {
+        const { fieldName, dropdown, stepName, clickBeforeSelect = false } = params;
+        return await step(stepName, async () => {
+            await dropdown.waitFor({ state: "visible" });
+            const oldOption = await dropdown.evaluate(
+                (select: HTMLSelectElement) => ({
+                label: select.selectedOptions[0]?.textContent?.trim() || "",
+                value: select.value || "",
+                }),
+            );
+            await step(`Extracted ${fieldName}: ${oldOption.label || "Empty / Placeholder"}`,async () => {});
+            const dropdownOptions = await dropdown
+                .locator("option")
+                .evaluateAll((options: HTMLOptionElement[]) =>
+                options
+                    .map((option) => ({
+                    label: option.textContent?.trim() || "",
+                    value: option.value,
+                    disabled: option.disabled,
+                    }))
+                    .filter(
+                    (option) => option.label && option.value && !option.disabled,
+                    ),
+                );
+            const availableOptions = dropdownOptions.filter((option) => option.label !== oldOption.label && option.value !== oldOption.value);
+            if (availableOptions.length === 0) {
+                throw new Error(`No other ${fieldName} option available apart from: ${oldOption.label}`);
+            }
+            const randomOption = availableOptions[Math.floor(Math.random() * availableOptions.length)];
+            if (clickBeforeSelect) {
+                await dropdown.click();
+            }
+            await dropdown.selectOption(randomOption.value);
+            await step(`Filled ${fieldName}: ${randomOption.label}`, async () => {});
+            const selectedOption = await dropdown.evaluate(
+                (select: HTMLSelectElement) => ({
+                label: select.selectedOptions[0]?.textContent?.trim() || "",
+                value: select.value || "",
+                }),
+            );
+            await step(`Newly Selected ${fieldName}: ${selectedOption.label}`,async () => {} );
+            return {
+                oldLabel: oldOption.label,
+                selectedLabel: selectedOption.label,
+                selectedValue: selectedOption.value,
+            };
+        });
+    }
+
+    private async selectDifferentAutocompleteOption(params: {fieldName: string;input: Locator;values: string[];stepName: string;exclude?: string}): Promise<SelectionResult> {
+        const { fieldName, input, values, stepName, exclude } = params;
+        return await step(stepName, async () => {
+            await input.waitFor({ state: "visible" });
+            // 1. Extract current value from UI
+            const oldValue = (await input.inputValue()).trim();
+            await step(`Extracted ${fieldName}: ${oldValue || "Empty / Placeholder"}`,async () => {});
+            // 2. Select value apart from current value
+            const availableValues = values.filter(
+                (value) => value !== oldValue && value !== exclude,
+            );
+            if (availableValues.length === 0) {
+                throw new Error(`No other ${fieldName} option available apart from: ${oldValue}`);
+            }
+            const randomValue = availableValues[Math.floor(Math.random() * availableValues.length)];
+            await input.click();
+            await input.fill(randomValue);
+            await input.press("Enter");
+            await input.blur();
+            await step(`Filled ${fieldName}: ${randomValue}`, async () => {});
+            // 3. Extract selected value again from UI
+            const selectedValue = (await input.inputValue()).trim();
+            await step(`Newly Selected ${fieldName}: ${selectedValue}`,async () => {});
+            return {
+                oldLabel: oldValue,
+                selectedLabel: selectedValue,
+                selectedValue,
+            };
+        });
+    }
+
+    private async fillGeneratedInput(params: {fieldName: string;input: Locator;generate: () => string;clear?: boolean}): Promise<string> {
+        const { fieldName, input, generate, clear = false } = params;
+        return await step(`Fill ${fieldName}`, async () => {
+            const value = generate();
+            if (clear) {
+                await input.click({ clickCount: 3 });
+                await input.pressSequentially(value);
+            } else {
+                await input.fill(value);
+            }
+            await input.blur();
+            await step(`Filled ${fieldName}: ${value}`, async () => {});
+            return value;
+        });
+    }
+
+    async selectRandomInsurer(exclude?: string): Promise<string> {
+        let insurerName = "";
+        await step("Select random insurer", async () => {
+            await this.insurerDropdown.click();
+            const options = this.page.locator('li[id^="null-"][role="option"]');
+            const count = Math.min(await options.count(), 10);
+            if (count === 0) {
+                throw new Error("No insurers found");
+            }
+            const names: string[] = [];
+            for (let i = 0; i < count; i++) {
+                names.push(((await options.nth(i).textContent()) ?? "").trim());
+            }
+            const candidates = names.map((name, idx) => ({ name, idx })).filter(({ name }) => name !== exclude);
+            if (candidates.length === 0) {
+                throw new Error("No insurer candidates after exclusion");
+            }
+            const picked = candidates[Math.floor(Math.random() * candidates.length)];
+            insurerName = picked.name;
+            await Promise.all([
+                this.page.waitForResponse(
+                (r) =>
+                    r.url().includes("/UniqApi/v1/insurers/") &&
+                    r.request().method() === "GET" &&
+                    r.status() === 200,
+                ),
+                options.nth(picked.idx).click(),
+            ]);
+        });
+        return insurerName.trim();
+    }
+
+    // Vehicle Section
+    async fillRegNo() {
+        await step("Fill Registration Number", async () => {
+            await this.regoInput.fill(generateRegistrationNo());
+        });
+    }
+    async selectState() {
+        await step("Select Random State", async () => {
+            const states = ["ACT", "NSW", "NT", "QLD", "SA"];
+            let randomState: string;
+            do {
+                randomState = states[Math.floor(Math.random() * states.length)];
+            } while (randomState === this.previousState);
+            this.previousState = randomState;
+            await this.stateDropdown.selectOption(randomState);
+        });
+    }
+    async makeAndModel() {
+        await step("Select Random Make and Model", async () => {
+            const makeAndModels = ["F687", "F685", "F620", "F680", "F615"];
+            const randomMakeModel = makeAndModels[Math.floor(Math.random() * makeAndModels.length)];
+            await this.scheduleBtn.click();
+            await expect(this.makeModelTitle).toBeVisible();
+            await this.scheduleInput.fill("F");
+            await this.filterBtn.click();
+            await this.page.getByRole("cell", { name: randomMakeModel }).first().click();
+            await expect(this.makeModelTitle).not.toBeVisible();
+            await step(`Filled Make and Model: ${randomMakeModel}`, async () => {});
+        });
+    }
+    async selectPaintGroup(): Promise<{oldPaintGroup: string;selectedPaintGroup: string;selectedPaintGroupValue: string}> {
+        const result = await this.selectDifferentDropdownOption({fieldName: "Paint Group",dropdown: this.paintGroup,stepName: "Select Different Paint Group"});
+        return {
+            oldPaintGroup: result.oldLabel,
+            selectedPaintGroup: result.selectedLabel,
+            selectedPaintGroupValue: result.selectedValue,
+        };
+    }
+    async selectTransmission(): Promise<{oldTransmission: string;selectedTransmission: string;selectedTransmissionValue: string}> {
+        const result = await this.selectDifferentDropdownOption({fieldName: "Transmission",dropdown: this.transmission,stepName: "Select Different Transmission",clickBeforeSelect: true});
+        return {
+            oldTransmission: result.oldLabel,
+            selectedTransmission: result.selectedLabel,
+            selectedTransmissionValue: result.selectedValue,
+        };
+    }
+    async selectColor(exclude?: string): Promise<{oldColor: string;selectedColor: string;selectedColorValue: string}> {
+        const result = await this.selectDifferentAutocompleteOption({
+            fieldName: "Colour",
+            input: this.colorInput,
+            stepName: "Select Different Colour",
+            values: ["BLACK", "BLUE", "GREEN", "GREY", "RED", "SILVER", "WHITE"],
+            exclude,
+        });
+        return {
+            oldColor: result.oldLabel,
+            selectedColor: result.selectedLabel,
+            selectedColorValue: result.selectedValue,
+        };
+    }
+    async fillVinNo(): Promise<string> {
+        return this.fillGeneratedInput({
+            fieldName: "VIN Number",
+            input: this.vinInput,
+            generate: generateVinNo,
+        });
+    }
+    async fillEngineNo(): Promise<string> {
+        return this.fillGeneratedInput({
+            fieldName: "Engine Number",
+            input: this.engineInput,
+            generate: () => randomNumbersGenerate(10),
+        });
+    }
+    async fillOdometer(): Promise<string> {
+        return this.fillGeneratedInput({
+            fieldName: "Odometer",
+            input: this.odometerInput,
+            generate: () => randomNumbersGenerate(6),
+        });
+    }
+    async fillCylinders(): Promise<string> {
+        return this.fillGeneratedInput({
+            fieldName: "Cylinders",
+            input: this.cylInput,
+            generate: () => randomNumbersGenerate(2),
+        });
+    }
+    async fillEngineSize(): Promise<string> {
+        return this.fillGeneratedInput({
+            fieldName: "Engine Size",
+            input: this.ccInput,
+            generate: () => randomNumbersGenerate(4),
+        });
+    }
+    async fillTrimCode(): Promise<string> {
+        return this.fillGeneratedInput({
+            fieldName: "Trim Code",
+            input: this.trimCode,
+            generate: () => randomNumbersGenerate(10),
+        });
+    }
+    async fillPaintCode(): Promise<string> {
+        return this.fillGeneratedInput({
+            fieldName: "Paint Code",
+            input: this.paintCode,
+            generate: () => randomNumbersGenerate(8),
+        });
+    }
+
+    // Customer Section
+    async fillFirstName(): Promise<string> {
+        return await step("Fill First Name", async () => {
+            const name = generateRandomCustomer().firstName;
+            await this.firstName.fill(name);
+            return name;
+        });
+    }
+    async fillLastName(): Promise<string> {
+        return await step("Fill Last Name", async () => {
+            const name = generateRandomCustomer().lastName;
+            await this.lastName.fill(name);
+            return name;
+        });
+    }
+    async selectDifferentFirstName(): Promise<{oldFirstName: string;newFirstName: string}> {
+        return await step("Select Different First Name", async () => {
+            await this.firstName.waitFor({ state: "visible" });
+            const oldFirstName = (await this.firstName.inputValue()).trim();
+            await step(`Extracted First Name: ${oldFirstName || "Empty"}`,async () => {});
+            const newFirstName = generateRandomCustomer().firstName;
+            await this.firstName.click();
+            await this.firstName.press("End");
+            for (let i = 0; i < oldFirstName.length; i++) {
+                await this.firstName.press("Backspace");
+            }
+            await this.firstName.pressSequentially(newFirstName);
+            await this.firstName.press("Tab");
+            await step(`Newly Filled First Name: ${newFirstName}`, async () => {});
+            return { oldFirstName, newFirstName };
+        });
+    }
+    async selectDifferentLastName(): Promise<{oldLastName: string;newLastName: string}> {
+        return await step("Select Different Last Name", async () => {
+            await this.lastName.waitFor({ state: "visible" });
+            const oldLastName = (await this.lastName.inputValue()).trim();
+            await step(`Extracted Last Name: ${oldLastName || "Empty"}`,async () => {});
+            const newLastName = generateRandomCustomer().lastName;
+            await this.lastName.click();
+            await this.lastName.press("End");
+            for (let i = 0; i < oldLastName.length; i++) {
+                await this.lastName.press("Backspace");
+            }
+            await this.lastName.pressSequentially(newLastName);
+            await step(`Newly Filled Last Name: ${newLastName}`, async () => {});
+            return { oldLastName, newLastName };
+        });
+    }
+    async handleUpdateCustomerModal(): Promise<void> {
+        const option: "create" | "modify" = Math.random() < 0.5 ? "create" : "modify";
+        const label = option === "create"? "Create a new customer profile" : "Update the existing customer's details";
+        await step(`Handle Update Customer modal — selected: "${label}"`,async () => {
+            const modal = this.page.locator(".modal-card:has(> .modal-card-head)");
+            await step("Verify Update Customer modal is visible", async () => {
+                await expect(modal).toBeVisible({ timeout: 8000 });
+                await expect(modal.getByText("Update Customer")).toBeVisible();
+            });
+            await step(`Select option: ${label}`, async () => {
+                await modal.locator(`label:has(input[type="radio"][value="${option}"])`).click();
+            });
+            await modal.locator("button.is-primary").click();
+            await expect(modal).not.toBeVisible();
+        });
+    }
+
+    // Insurance Section
+    async selectInsurer(primary: string) {
+        await step(`Select Insurer "${primary}"`, async () => {
+            await this.insurerDropdown.click();
+            await this.insurerInput.fill(primary);
+            await Promise.all([
+                this.page.waitForResponse(
+                (r) =>
+                    r.url().includes("/UniqApi/v1/insurers/") &&
+                    r.request().method() === "GET" &&
+                    r.status() === 200,
+                ),
+                this.page.locator(".multiselect__option span", { hasText: primary }).first().click(),
+            ]);
+        });
+    }
+    async selectDifferentInsurer(): Promise<{oldInsurer: string;selectedInsurer: string}> {
+        return await step("Select Different Insurer", async () => {
+            // 1. Extract currently selected insurer name from the multiselect display
+            const oldInsurer = ((await this.selectedInsurer.textContent()) ?? "").trim();
+            await step(`Extracted Insurer: ${oldInsurer || "Empty"}`, async () => {});
+            // 2. Open the dropdown
+            await this.insurerDropdown.click();
+            // 3. Collect all visible options (cap at 10 to keep iteration fast)
+            const options = this.page.locator('li[id^="null-"][role="option"]');
+            const count = Math.min(await options.count(), 10);
+            if (count === 0) {
+                throw new Error("No insurer options found");
+            }
+            const names: string[] = [];
+            for (let i = 0; i < count; i++) {
+                names.push(((await options.nth(i).textContent()) ?? "").trim());
+            }
+            // 4. Exclude the current selection
+            const candidates = names
+                .map((name, idx) => ({ name, idx }))
+                .filter(({ name }) => name !== oldInsurer);
+            if (candidates.length === 0) {
+                throw new Error(`No other insurer available apart from: ${oldInsurer}`);
+            }
+            // 5. Pick a random candidate
+            const picked = candidates[Math.floor(Math.random() * candidates.length)];
+            await step(`Filled Insurer: ${picked.name}`, async () => {});
+            // 6. Click and wait for the insurer detail API call to complete
+            await Promise.all([
+                this.page.waitForResponse(
+                (r) =>
+                    r.url().includes("/UniqApi/v1/insurers/") &&
+                    r.request().method() === "GET" &&
+                    r.status() === 200,
+                ),
+                options.nth(picked.idx).click(),
+            ]);
+            // 7. Wait for the multiselect label to update, then read back the selection
+            await expect(this.selectedInsurer).not.toHaveText(oldInsurer);
+            const newInsurer = ((await this.selectedInsurer.textContent()) ?? "").trim();
+            await step(`Newly Selected Insurer: ${newInsurer}`, async () => {});
+            return { oldInsurer, selectedInsurer: newInsurer };
+        });
+    }
+    async fillClaimNumber() {
+        await step("Fill Claim Number", async () => {
+            await this.claimNumberInput.fill(generateInsuranceClaimNo());
+        });
+    }
+
+    // Key Dates
+    async enterEstimateStartDate(): Promise<void> {
+        await step("Enter Estimate Start Date as tomorrow", async () => {
+            const startDate = getFutureDateTime(1);
+            await this.estimateStartDateInput.fill(startDate);
+            await this.estimateStartDateInput.press("Tab");
+        });
+    }
+
+    async enterEstimateEndDate(): Promise<void> {
+        await step("Enter Estimate End Date as 3 days from today", async () => {
+            const endDate = getFutureDateTime(3);
+            await this.estimateEndDateInput.fill(endDate);
+            await this.estimateEndDateInput.press("Tab");
+        });
+    }
+
+    // Shared flow: Reg No -> ... -> Estimate End Date (insurer step is injected)
+    private async fillHeaderFlow(selectInsurerStep: () => Promise<string>): Promise<HeaderFillResult> {
+        // Vehicle Section
+        await this.fillRegNo();
+        await this.selectState();
+        await this.makeAndModel();
+        await this.selectPaintGroup();
+        await this.selectTransmission();
+        await this.selectColor();
+        const vin = await this.fillVinNo();
+        const engineNo = await this.fillEngineNo();
+        const odometer = await this.fillOdometer();
+        const cylinders = await this.fillCylinders();
+        const engineSize = await this.fillEngineSize();
+        const trimCode = await this.fillTrimCode();
+        const paintCode = await this.fillPaintCode();
+        // Customer Section
+        const firstName = await this.fillFirstName();
+        const lastName = await this.fillLastName();
+        // Insurance Section (differs per flow)
+        const insurer = await selectInsurerStep();
+        await this.fillClaimNumber();
+        // Key Dates
+        await this.enterEstimateStartDate();
+        await this.enterEstimateEndDate();
+        return { insurer, vin, engineNo, odometer, cylinders, engineSize, trimCode, paintCode, firstName, lastName };
+    }
+    // Flow 1: uses selectRandomInsurer
+    async fillHeaderWithRandomInsurer(excludeInsurer?: string): Promise<HeaderFillResult> {
+        return await step("Fill Header (Reg No to Estimate End Date) with Random Insurer", async () => {
+            return await this.fillHeaderFlow(() => this.selectRandomInsurer(excludeInsurer));
+        });
+    }
+    // Flow 2: uses selectInsurer
+    async fillHeaderWithInsurer(primaryInsurer: string): Promise<HeaderFillResult> {
+        return await step(`Fill Header (Reg No to Estimate End Date) with Insurer "${primaryInsurer}"`, async () => {
+            return await this.fillHeaderFlow(async () => {
+                await this.selectInsurer(primaryInsurer);
+                return primaryInsurer;
+            });
+        });
+    }
+
+    // Edit and Verify Header Methods
+    async captureCustomerAndInsurer(): Promise<{firstName: string;lastName: string;insurer: string}> {
+        return await step("Capture customer + insurer from UI", async () => {
+            await this.page.waitForLoadState("networkidle");
+            await expect(this.firstName).not.toHaveValue("");
+            await expect(this.lastName).not.toHaveValue("");
+            await expect(this.selectedInsurer).not.toBeEmpty();
+
+            const firstName = (await this.firstName.inputValue()).trim();
+            const lastName = (await this.lastName.inputValue()).trim();
+            const insurer = ((await this.selectedInsurer.textContent()) ?? "").trim();
+            await step(`Captured First Name: ${firstName}`, async () => {});
+            await step(`Captured Last Name: ${lastName}`, async () => {});
+            await step(`Captured Insurer: ${insurer}`, async () => {});
+            return { firstName, lastName, insurer };
+        });
+    }
+    async verifyEditedQuoteValuesAfterReload(expected: {
+        transmission: string;
+        paintGroup: string;
+        color: string;
+        vin: string;
+        engineNo: string;
+        odometer: string;
+        cylinders: string;
+        engineSize: string;
+        trimCode: string;
+        paintCode: string;
+        insurer: string;
+        firstName: string;
+        lastName: string;
+    }) {
+        await step("Verify Edited Quote Values After Reload", async () => {
+            // 1. Transmission
+            const actualTransmission = await this.transmission.evaluate((select: HTMLSelectElement) =>select.selectedOptions[0]?.textContent?.trim() || "");
+            expect.soft(actualTransmission, "Verify Transmission after reload").toBe(expected.transmission);
+
+            // 2. Paint Group
+            const actualPaintGroup = await this.paintGroup.evaluate((select: HTMLSelectElement) =>select.selectedOptions[0]?.textContent?.trim() || "");
+            expect.soft(actualPaintGroup, "Verify Paint Group after reload").toBe(expected.paintGroup);
+
+            // 3. Colour
+            const actualColor = (await this.colorInput.inputValue()).trim();
+            expect.soft(actualColor, "Verify Colour after reload").toBe(expected.color);
+
+            // 4. VIN
+            await expect.soft(this.vinInput, "Verify VIN after reload").toHaveValue(expected.vin);
+
+            // 5. Engine No
+            await expect.soft(this.engineInput, "Verify Engine No after reload").toHaveValue(expected.engineNo);
+
+            // 6. Odometer
+            await expect.soft(this.odometerInput, "Verify Odometer after reload").toHaveValue(expected.odometer);
+
+            // 7. Cylinders
+            await expect.soft(this.cylInput, "Verify Cylinders after reload").toHaveValue(expected.cylinders);
+
+            // 8. Engine Size
+            await expect.soft(this.ccInput, "Verify Engine Size after reload").toHaveValue(expected.engineSize);
+
+            // 9. Trim Code
+            await expect.soft(this.trimCode, "Verify Trim Code after reload").toHaveValue(expected.trimCode);
+
+            // 10. Paint Code
+            await expect.soft(this.paintCode, "Verify Paint Code after reload").toHaveValue(expected.paintCode);
+
+            // 11. Insurer
+            await expect.soft(this.selectedInsurer, "Verify Insurer after reload").toHaveText(expected.insurer);
+
+            // 12. First Name
+            await expect.soft(this.firstName, "Verify First Name after reload").toHaveValue(expected.firstName);
+
+            // 13. Last Name
+            await expect.soft(this.lastName, "Verify Last Name after reload").toHaveValue(expected.lastName);
+
+            // Allure Steps
+            await step(`Transmission Verified: ${actualTransmission}`,async () => {},);
+            await step(`Paint Group Verified: ${actualPaintGroup}`, async () => {});
+            await step(`Colour Verified: ${actualColor}`, async () => {});
+            await step(`VIN Verified: ${expected.vin}`, async () => {});
+            await step(`Engine No Verified: ${expected.engineNo}`, async () => {});
+            await step(`Odometer Verified: ${expected.odometer}`, async () => {});
+            await step(`Cylinders Verified: ${expected.cylinders}`, async () => {});
+            await step(`Engine Size Verified: ${expected.engineSize}`,async () => {},);
+            await step(`Trim Code Verified: ${expected.trimCode}`, async () => {});
+            await step(`Paint Code Verified: ${expected.paintCode}`, async () => {});
+            await step(`Insurer Verified: ${expected.insurer}`, async () => {});
+            await step(`First Name Verified: ${expected.firstName}`, async () => {});
+            await step(`Last Name Verified: ${expected.lastName}`, async () => {});
+        });
+    }
+}
