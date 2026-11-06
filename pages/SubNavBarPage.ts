@@ -5,7 +5,14 @@ import { step, attachment, ContentType} from "allure-js-commons";
 import { BasePage } from "./Base/BasePage.js";
 
 export class SubNavBarPage extends BasePage {
+  addNewButton: Locator;
+  quoteNumberText: Locator;
+  createButton: Locator;
+  cloudDoneIcon: Locator;
+  syncIcon: Locator;
   ellipsis: Locator;
+  assessmentHistoryOff: Locator;
+  assessmentHistoryOn: Locator;
   saveButton: Locator;
   previewButton: Locator;
   quoteAnalysis: Locator;
@@ -16,8 +23,15 @@ export class SubNavBarPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    
+
+    this.addNewButton = page.getByText("addNew");
+    this.quoteNumberText = page.locator("div.quote-info span.is-size-4.has-text-weight-bold");
+    this.createButton = page.getByText("saveCreate");
+    this.cloudDoneIcon = page.locator("span.material-symbols-rounded", { hasText: "cloud_done" }).first();
+    this.syncIcon = page.locator("span.material-symbols-rounded.loading", { hasText: "sync" }).first();
     this.ellipsis = page.getByText("more_vert");
+    this.assessmentHistoryOff = page.getByText("check_box_outline_blank Enable Assessment History");
+    this.assessmentHistoryOn = page.getByText("check_box Enable Assessment History");
     this.saveButton = page.locator("a#save").nth(1);
     this.previewButton = page.locator("#preview");
     this.quoteAnalysis = page.locator('label[for="quoteAnalysis"]').filter({ hasText: /^\s*Quote Analysis\s*$/i });
@@ -25,6 +39,92 @@ export class SubNavBarPage extends BasePage {
     this.printButton = page.locator('button[data-tooltip="Print report"]').filter({ hasText: /^\s*Print\s*$/i });
     this.okButton = page.locator('button[data-tooltip="Generate report(s)"]:has-text("Ok")');
     this.noRecordsMessage = page.locator("div.content.has-text-centered").filter({ has: page.locator("i.mdi-emoticon-sad") }).filter({ hasText: /^\s*Nothing\s*$/ });
+  }
+
+  // Toast Validation Method
+  getToast(message: string): Locator {
+    const toastMsg = this.page.getByRole("alert").filter({ hasText: message });
+    return toastMsg;
+  }
+  async expectToast(message: string): Promise<void> {
+    await step(`Verify toast message: "${message}"`, async () => {
+      await expect(this.getToast(message)).toBeVisible();
+    });
+  }
+
+  async clickCreateButton() {
+    await step("Click Create button", async () => {
+      await this.createButton.click();
+    });
+  }
+
+  // Quote Number Extraction and Storage
+  async extractAndStoreQuoteNumber(): Promise<string> {
+    return await step("Extract quote number", async () => {
+      await expect(this.quoteNumberText).toBeVisible();
+      const quoteNumber = (await this.quoteNumberText.textContent())?.trim();
+      if (!quoteNumber) {
+        throw new Error("Quote number was not found or text is empty");
+      }
+      await step(`Extracted Quote Number: ${quoteNumber}`, async () => {});
+      return quoteNumber;
+    });
+  }
+
+  // New + Button Click
+  async clickPlusNewButton() {
+    await step("Click New button", async () => {
+      await this.addNewButton.click();
+    });
+  }
+
+  // Handle AutoSave Sync
+  async waitForAutoSaveCloudDone() {
+    await step("Wait for Auto Save Cloud Done", async () => {
+      try {
+        await expect(this.syncIcon).toBeVisible();
+      } catch {
+        // sync may finish very fast, so ignore
+      }
+      await expect(this.syncIcon).toBeHidden();
+      await expect(this.cloudDoneIcon).toBeVisible();
+    });
+  }
+
+  // Enable Assessment History (AH-ON)
+  async enableAssessmentHistory() {
+    await step("Enable Assessment History", async () => {
+      const menuAlreadyOpen =(await this.assessmentHistoryOn.isVisible()) || (await this.assessmentHistoryOff.isVisible());
+      if (!menuAlreadyOpen) {
+        await this.ellipsis.click();
+      }
+      if (await this.assessmentHistoryOn.isVisible()) {
+        // Already enabled
+        await this.ellipsis.click();
+        return;
+      }
+      if (await this.assessmentHistoryOff.isVisible()) {
+        await this.assessmentHistoryOff.click();
+      }
+    });
+  }
+
+  // Disable Assessment History (AH-OFF)
+  async disableAssessmentHistory() {
+    await step("Disable Assessment History", async () => {
+      const menuAlreadyOpen =(await this.assessmentHistoryOn.isVisible()) || (await this.assessmentHistoryOff.isVisible());
+      if (!menuAlreadyOpen) {
+        await this.ellipsis.click();
+      }
+      if (await this.assessmentHistoryOff.isVisible()) {
+        // Already disabled
+        await this.ellipsis.click();
+        return;
+      }
+      if (await this.assessmentHistoryOn.isVisible()) {
+        await this.assessmentHistoryOn.click();
+      }
+    });
   }
   
   // Wait for table rows to fully load before opening preview
@@ -69,18 +169,18 @@ export class SubNavBarPage extends BasePage {
   }
 
   async isNoRecordsFound(timeout = 3000): Promise<boolean> {
-  return await step("Check if records exist in table", async () => {
-    const firstDataRow = this.page.getByRole("table").first().getByRole("row").filter({ has: this.page.locator("td") }).first();
-    // Wait for either a data row or the empty-state message
-    await firstDataRow.or(this.noRecordsMessage).first()
-      .waitFor({ state: "visible", timeout });
-    const noRecords = await this.noRecordsMessage.isVisible();
-    if (noRecords) {
-      await step("No Records Found - skipping remaining steps", async () => {});
-    }
-    return noRecords;
-  });
-}
+    return await step("Check if records exist in table", async () => {
+      const firstDataRow = this.page.getByRole("table").first().getByRole("row").filter({ has: this.page.locator("td") }).first();
+      // Wait for either a data row or the empty-state message
+      await firstDataRow.or(this.noRecordsMessage).first()
+        .waitFor({ state: "visible", timeout });
+      const noRecords = await this.noRecordsMessage.isVisible();
+      if (noRecords) {
+        await step("No Records Found - skipping remaining steps", async () => {});
+      }
+      return noRecords;
+    });
+  }
 
   //------------------------- Print Preview Methods -------------------------//
   // Repairer Quote Option Model Flow
