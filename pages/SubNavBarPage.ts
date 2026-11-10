@@ -71,6 +71,24 @@ export class SubNavBarPage extends BasePage {
     });
   }
 
+  // Quote header totals: Total (Ex GST) and Total (Inc GST)
+  async fetchHeaderTotals(): Promise<{totalExGst: string;totalIncGst: string}> {
+    return await step("Fetch header totals (Ex GST, Inc GST) from sub nav bar", async () => {
+      const header = this.page.locator("section.quote-header-row");
+      const valueFor = async (label: RegExp): Promise<string> => {
+        const value = header.locator("div").filter({ has: this.page.locator("span.subtext", { hasText: label }) }).last().locator("span.has-text-success");
+        await expect(value).toBeVisible();
+        const text = (await value.innerText()).replace(/\s+/g, " ").trim();
+        if (!text) {throw new Error(`Header total matching ${label} is empty`)}
+        return text;
+      };
+      return {
+        totalExGst: await valueFor(/\(Ex GST\)/i),
+        totalIncGst: await valueFor(/\(Inc GST\)/i),
+      };
+    });
+  }
+
   // New + Button Click
   async clickPlusNewButton() {
     await step("Click New button", async () => {
@@ -215,6 +233,27 @@ export class SubNavBarPage extends BasePage {
       await expect(page).toHaveURL(/printpreview/);
       await expect(page).toHaveTitle(/Print Preview/i);
     });
+  }
+
+  // Verify Text PDF
+  async verifyTextInPdf(expectedText: string,page: Page = this.page,preCapturedResponse?: PlaywrightResponse): Promise<PlaywrightResponse> {
+    await expect(page).toHaveURL(/printpreview/);
+    const response = preCapturedResponse
+      ? preCapturedResponse
+      : await page.waitForResponse(
+          (res) =>
+            res.url().includes("/reports/postreport/") &&
+            res.status() === 200 &&
+            res.headers()["content-type"]?.includes("application/pdf"),
+        );
+    await step(`Verify "${expectedText}" is present in PDF`, async () => {
+      const pdfBuffer = await response.body();
+      const pdfData = await pdfParse(pdfBuffer);
+      const normalizedPdfText = pdfData.text.replace(/\s+/g, "");
+      const normalizedExpectedText = expectedText.replace(/\s+/g, "");
+      expect(normalizedPdfText,`Expected "${expectedText}" to be present in PDF`).toContain(normalizedExpectedText);
+    });
+    return response;
   }
 
   // PDF Verification Method

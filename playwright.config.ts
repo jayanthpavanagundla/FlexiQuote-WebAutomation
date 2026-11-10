@@ -125,7 +125,7 @@ export default defineConfig({
     baseURL: process.env.BASE_URL,
     viewport: { width: 1400, height: 800 },
     browserName,
-    trace: "on",
+    trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
     permissions: ["geolocation"],

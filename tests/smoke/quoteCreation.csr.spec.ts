@@ -7,12 +7,13 @@ import { epic, feature } from "allure-js-commons";
 
 let quoteNumber: string;
 let addedParts: string[] = [];
-let headerTab: HeaderTab;
-let quotingTab: QuotingTab;
+
 
 test.describe("Quote Creation Flow and Validation", () => {
   let navBarPage: NavBarPage;
   let subNavBarPage: SubNavBarPage;
+  let headerTab: HeaderTab;
+  let quotingTab: QuotingTab;
 
   test.beforeEach(async ({ page }) => {
     await epic("Auto Save");
