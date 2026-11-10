@@ -48,7 +48,7 @@ env:
   # inputs.* is empty on pull_request, so it runs every test on play.
   # SUITE (display label) is set by the 'Resolve tests' step.
   TARGET_ENV: ${{ inputs.environment || 'play' }}
-  KEEP_RUNS: 30  # archived Allure reports kept on gh-pages
+  KEEP_RUNS: 05  # archived Allure reports kept on gh-pages
   PAGES_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
 
 jobs:
