@@ -127,7 +127,7 @@ export default defineConfig({
     browserName,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
-    video: "retain-on-failure",
+    video: "off",
     permissions: ["geolocation"],
   },
 });

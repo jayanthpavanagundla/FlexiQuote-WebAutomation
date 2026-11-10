@@ -239,9 +239,9 @@ jobs:
           mkdir -p "${DEST}/${RUN_DIR}"
           cp -r allure-report/. "${DEST}/${RUN_DIR}/"
 
-          # Pages caps the site at 1 GB. Drop attachments >2 MB
-          # (Playwright trace/video zips); they remain in the raw build artifact.
-          find "${DEST}/${RUN_DIR}/data/attachments" -type f -size +2M -print -delete 2>/dev/null || true
+          # Pages caps the site at 1 GB. Playwright keeps only screenshot + trace
+          # for failed tests (video off), so just guard against a huge outlier.
+          find "${DEST}/${RUN_DIR}/data/attachments" -type f -size +30M -print -delete 2>/dev/null || true
 
           # latest/ = history for the next run + a redirect to the newest report
           # (avoids storing every report twice).
@@ -254,6 +254,11 @@ jobs:
 
           node .github/scripts/update-dashboard.js
           touch ghp/.nojekyll
+
+          # Fail early (after pruning) instead of a stuck Pages deploy.
+          SIZE_MB=$(du -sm --exclude=.git ghp | cut -f1)
+          echo "gh-pages size: ${SIZE_MB} MB"
+          [ "$SIZE_MB" -lt 950 ] || { echo "::error::gh-pages is ${SIZE_MB} MB; Pages rejects >1 GB"; exit 1; }
 
       - name: Publish gh-pages
         working-directory: ghp
