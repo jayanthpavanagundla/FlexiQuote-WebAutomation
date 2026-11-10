@@ -7,3 +7,5 @@ playwright-report/
 playwright/.cache/
 allure-results
 claude.md
+
+.test-state/

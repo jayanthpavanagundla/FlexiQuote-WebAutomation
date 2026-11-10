@@ -4,7 +4,9 @@ import { SubNavBarPage } from "../../pages/SubNavBarPage";
 import { HeaderTab } from "../../pages/RepairerQuote/HeaderTab";
 import { QuotingTab } from "../../pages/RepairerQuote/QuotingTab";
 import { epic, feature } from "allure-js-commons";
+import { saveState, loadState, clearState } from "../../helpers/sharedState";
 
+const QUOTE_KEY = "quoteCreation.quoteNumber";
 let quoteNumber: string;
 let addedParts: string[] = [];
 
@@ -24,15 +26,19 @@ test.describe("Quote Creation Flow and Validation", () => {
     headerTab = new HeaderTab(page);
     quotingTab = new QuotingTab(page);
 
+    quoteNumber ??= loadState<string>(QUOTE_KEY)!;
+
     await page.goto("v2/");
     await expect(page).toHaveURL(/\/v2\/$/);
   });
 
   test("Quote Creation", async ({ page }) => {
+    clearState(QUOTE_KEY);
     await navBarPage.openQuoteDropdown();
     await navBarPage.selectRepairerQuote();
     await subNavBarPage.clickPlusNewButton();
     quoteNumber = await subNavBarPage.extractAndStoreQuoteNumber();
+    saveState(QUOTE_KEY, quoteNumber);
     await headerTab.fillHeaderWithRandomInsurer();
     await subNavBarPage.clickCreateButton();
     await subNavBarPage.expectToast(`New quote ${quoteNumber} added`);

@@ -24,13 +24,29 @@ if (unknown.length) {
 }
 const specs = wanted.length ? ORDER.filter((s) => wanted.includes(s)) : ORDER;
 
+const cwd = path.resolve(__dirname, "..");
+
+// Log in as CSR ONCE; the session is saved to .auth/csr.json and reused by
+// every spec below (they run with --no-deps so the setup is not repeated).
+console.log("\n::group::csr-setup\n=== CSR login (once) ===");
+const setup = spawnSync(
+  "npx",
+  ["playwright", "test", "--project=csr-setup", ...flags.filter((f) => !f.startsWith("--project"))],
+  { stdio: "inherit", shell: true, cwd },
+);
+console.log("::endgroup::");
+if (setup.status !== 0) {
+  console.error("CSR login failed - aborting, no specs were run.");
+  process.exit(1);
+}
+
 let failed = 0;
 for (const s of specs) {
   console.log(`\n::group::${s}\n=== ${s} ===`);
-  const r = spawnSync("npx", ["playwright", "test", s, ...flags], {
+  const r = spawnSync("npx", ["playwright", "test", s, "--no-deps", ...flags], {
     stdio: "inherit",
     shell: true,
-    cwd: path.resolve(__dirname, ".."),
+    cwd,
   });
   console.log("::endgroup::");
   if (r.status !== 0) failed = 1; // keep going, fail at the end

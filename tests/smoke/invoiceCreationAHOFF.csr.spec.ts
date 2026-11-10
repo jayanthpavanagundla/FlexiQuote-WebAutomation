@@ -5,7 +5,9 @@ import { HeaderTab } from "../../pages/RepairerQuote/HeaderTab";
 import { QuotingTab } from "../../pages/RepairerQuote/QuotingTab";
 import { InvoiceTab } from "../../pages/RepairerQuote/InvoiceTab";
 import { epic, feature, step } from "allure-js-commons";
+import { saveState, loadState, clearState } from "../../helpers/sharedState";
 
+const QUOTE_KEY = "invoiceCreationAHOFF.quoteNumber";
 let quoteNumber: string;
 let addedParts: string[] = [];
 
@@ -26,15 +28,20 @@ test.describe("Invoice for AH-OFF Quotes", () => {
     quotingTab = new QuotingTab(page);
     invoiceTab = new InvoiceTab(page);
 
+    // A retry runs in a fresh worker (module variables reset), so reload from disk
+    quoteNumber ??= loadState<string>(QUOTE_KEY)!;
+
     await page.goto("v2/");
     await expect(page).toHaveURL(/\/v2\/$/);
   });
 
   test("Quote Creation", async ({ page }) => {
+    clearState(QUOTE_KEY);
     await navBarPage.openQuoteDropdown();
     await navBarPage.selectRepairerQuote();
     await subNavBarPage.clickPlusNewButton();
     quoteNumber = await subNavBarPage.extractAndStoreQuoteNumber();
+    saveState(QUOTE_KEY, quoteNumber);
     await headerTab.fillHeaderWithInsurer("Insurance Australia Limited");
     await subNavBarPage.clickCreateButton();
     await subNavBarPage.expectToast(`New quote ${quoteNumber} added`);

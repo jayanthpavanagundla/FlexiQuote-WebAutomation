@@ -160,6 +160,19 @@ export class SubNavBarPage extends BasePage {
     await step("Click Preview", async () => {
       await this.previewButton.click();
     });
+    await this.handleUnsavedChangesModal();
+  }
+
+  // "Unsaved Changes" modal: if it shows up, click "Save & Continue" once; otherwise do nothing
+  async handleUnsavedChangesModal(timeout = 3000): Promise<void> {
+    await step("Handle Unsaved Changes modal if shown", async () => {
+      const modal = this.page.locator(".modal-card").filter({ hasText: "Unsaved Changes" });
+      const isVisible = await modal.waitFor({ state: "visible", timeout }).then(() => true).catch(() => false);
+      if (isVisible) {
+        await modal.getByRole("button", { name: /Save\s*&\s*Continue/i }).click();
+        await modal.waitFor({ state: "hidden" });
+      }
+    });
   }
 
   async clickSaveButton(timeout = 3000): Promise<void> {
