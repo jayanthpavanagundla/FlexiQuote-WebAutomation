@@ -3,16 +3,27 @@ name: FlexiQuote E2E (Playwright + Allure)
 on:
   workflow_dispatch:
     inputs:
-      suite:
-        description: 'Which tests to run'
-        type: choice
-        required: true
-        default: 'Tests'
-        options:
-          - 'Tests'        # whole tests/ folder
-          - 'Regression'   # tests/regression
-          - 'Smoke'        # tests/smoke     (upcoming)
-          - 'AutoSave'     # tests/autoSave  (upcoming)
+      # Tick one or more test files. Tick nothing = run ALL tests.
+      listing_preview:
+        description: 'Regression - Listing Preview'
+        type: boolean
+        default: false
+      specific_record_preview:
+        description: 'Regression - Specific Record Preview'
+        type: boolean
+        default: false
+      quote_creation:
+        description: 'Smoke - Quote Creation'
+        type: boolean
+        default: false
+      invoice_ahoff:
+        description: 'Smoke - Invoice Creation (AH-OFF)'
+        type: boolean
+        default: false
+      invoice_ahon:
+        description: 'Smoke - Invoice Creation (AH-ON)'
+        type: boolean
+        default: false
       environment:
         description: 'Target environment'
         type: choice
@@ -34,10 +45,10 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # inputs.* is empty on pull_request, so fall back to the full suite on play.
-  SUITE: ${{ inputs.suite || 'Tests' }}
+  # inputs.* is empty on pull_request, so it runs every test on play.
+  # SUITE (display label) is set by the 'Resolve tests' step.
   TARGET_ENV: ${{ inputs.environment || 'play' }}
-  KEEP_RUNS: 15  # archived Allure reports kept per suite on gh-pages
+  KEEP_RUNS: 30  # archived Allure reports kept on gh-pages
   PAGES_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
 
 jobs:
@@ -55,30 +66,55 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Resolve suite
+      - name: Resolve tests
         id: suite
+        env:
+          SEL_LISTING_PREVIEW: ${{ inputs.listing_preview }}
+          SEL_SPECIFIC_RECORD_PREVIEW: ${{ inputs.specific_record_preview }}
+          SEL_QUOTE_CREATION: ${{ inputs.quote_creation }}
+          SEL_INVOICE_AHOFF: ${{ inputs.invoice_ahoff }}
+          SEL_INVOICE_AHON: ${{ inputs.invoice_ahon }}
         run: |
-          # To add a folder: add it to the `suite` options above and a line here.
-          case "$SUITE" in
-            "Regression") TEST_PATH="tests/regression"; SLUG="regression" ;;
-            "Smoke")      TEST_PATH="tests/smoke";      SLUG="smoke" ;;
-            "AutoSave")   TEST_PATH="tests/autoSave";   SLUG="autosave" ;;
-            *)            TEST_PATH="tests";            SLUG="tests" ;;
-          esac
-          if [ ! -d "$TEST_PATH" ]; then
-            echo "::error::Suite '$SUITE' has no folder yet ($TEST_PATH). Add specs there first."
-            exit 1
+          # To add a test file: add an input above, a SEL_ env var, and a line here.
+          # Format: selected-flag | spec path | label shown on the dashboard
+          ENTRIES=(
+            "$SEL_LISTING_PREVIEW|tests/regression/listingPreview.csr.spec.ts|Listing Preview"
+            "$SEL_SPECIFIC_RECORD_PREVIEW|tests/regression/specificRecordPreview.csr.spec.ts|Specific Record Preview"
+            "$SEL_QUOTE_CREATION|tests/smoke/quoteCreation.csr.spec.ts|Quote Creation"
+            "$SEL_INVOICE_AHOFF|tests/smoke/invoiceCreationAHOFF.csr.spec.ts|Invoice Creation (AH-OFF)"
+            "$SEL_INVOICE_AHON|tests/smoke/invoiceCreationAHON.csr.spec.ts|Invoice Creation (AH-ON)"
+          )
+          SEL_PATHS=(); SEL_LABELS=(); ALL_LABELS=()
+          for e in "${ENTRIES[@]}"; do
+            IFS='|' read -r flag path label <<< "$e"
+            ALL_LABELS+=("$label")
+            if [ "$flag" = "true" ]; then SEL_PATHS+=("$path"); SEL_LABELS+=("$label"); fi
+          done
+
+          if [ ${#SEL_PATHS[@]} -eq 0 ]; then
+            RUN_ARGS="tests"
+            LABELS=("${ALL_LABELS[@]}")
+            SUITE_LABEL="All tests"
+          else
+            RUN_ARGS="${SEL_PATHS[*]}"
+            LABELS=("${SEL_LABELS[@]}")
+            SUITE_LABEL="${#SEL_PATHS[@]} of ${#ENTRIES[@]} test files"
           fi
+          TESTS_JSON=$(jq -nc '$ARGS.positional' --args "${LABELS[@]}")
+
           # playwright.config.ts loads .env.<ENV>; keep the local names.
           case "$TARGET_ENV" in
             prod) PW_ENV="production" ;;
             *)    PW_ENV="staging" ;;
           esac
-          echo "path=$TEST_PATH" >> "$GITHUB_OUTPUT"
-          echo "slug=$SLUG"      >> "$GITHUB_OUTPUT"
+          echo "args=$RUN_ARGS"  >> "$GITHUB_OUTPUT"
+          echo "slug=tests"      >> "$GITHUB_OUTPUT"
           echo "pw_env=$PW_ENV"  >> "$GITHUB_OUTPUT"
           echo "run_dir=$(date -u +%Y-%m-%d_%H-%M-%S)_${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
-          echo "Running '$SUITE' ($TEST_PATH) against $TARGET_ENV"
+          # Available to every later step (executor.json, dashboard, summary)
+          echo "SUITE=$SUITE_LABEL" >> "$GITHUB_ENV"
+          echo "TESTS_JSON=$TESTS_JSON" >> "$GITHUB_ENV"
+          echo "Running $SUITE_LABEL: ${LABELS[*]} against $TARGET_ENV"
 
       # =========================================================
       # Setup Node, Java (for Allure CLI) and browsers
@@ -106,11 +142,12 @@ jobs:
       # (.env.<env> is gitignored; dotenv never overrides real env
       #  vars, so the values below are what playwright.config.ts reads)
       # =========================================================
-      - name: Run Playwright tests (${{ env.SUITE }})
+      - name: Run Playwright tests
         id: tests
         continue-on-error: true
         env:
           ENV: ${{ steps.suite.outputs.pw_env }}
+          RUN_ARGS: ${{ steps.suite.outputs.args }}
           # Every value comes from the GitHub Environment picked in the dropdown
           # (Settings -> Environments -> play / prod). Non-sensitive values
           # can be Variables (visible) or Secrets (masked) - either works.
@@ -126,7 +163,7 @@ jobs:
           SUPER_ADMIN_USERNAME: ${{ vars.SUPER_ADMIN_USERNAME || secrets.SUPER_ADMIN_USERNAME }}
           SUPER_ADMIN_PASSWORD: ${{ secrets.SUPER_ADMIN_PASSWORD }}
           SUPER_ADMIN_COMPANY_ID: ${{ vars.SUPER_ADMIN_COMPANY_ID || secrets.SUPER_ADMIN_COMPANY_ID }}
-        run: npx playwright test "${{ steps.suite.outputs.path }}"
+        run: npx playwright test $RUN_ARGS
 
       # =========================================================
       # Checkout gh-pages (or start it on the very first run)
@@ -201,6 +238,10 @@ jobs:
           DEST="ghp/reports/${SUITE_SLUG}"
           mkdir -p "${DEST}/${RUN_DIR}"
           cp -r allure-report/. "${DEST}/${RUN_DIR}/"
+
+          # GitHub rejects files >100 MB (warns >50 MB). Drop oversized attachments
+          # (Playwright trace/video zips); they remain in the raw build artifact.
+          find "${DEST}/${RUN_DIR}/data/attachments" -type f -size +40M -print -delete 2>/dev/null || true
 
           # latest/ = history for the next run + a redirect to the newest report
           # (avoids storing every report twice).

@@ -28,15 +28,27 @@ const fmtDuration = (ms) => {
 const esc = (v) =>
   String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
+// Older runs were recorded per folder and have no `tests` list.
+const testsOf = (r) => (Array.isArray(r.tests) && r.tests.length ? r.tests : [r.suite]);
+const chips = (r) => testsOf(r).map((t) => `<span class="chip">${esc(t)}</span>`).join("");
+
 // --- 1. Record this run ---------------------------------------------------------
 const summary = readJson(path.join(reportDir, "widgets", "summary.json"), {});
 const st = summary.statistic || {};
 const failed = (st.failed || 0) + (st.broken || 0);
 const total = st.total || 0;
 
+let selectedTests = [];
+try {
+  selectedTests = JSON.parse(env.TESTS_JSON || "[]");
+} catch {
+  selectedTests = [];
+}
+
 const run = {
   id: runDir,
   suite: env.SUITE,
+  tests: selectedTests,
   slug,
   env: env.TARGET_ENV,
   status: failed > 0 || total === 0 ? "failed" : "passed",
@@ -104,28 +116,19 @@ const badge = (status) =>
 
 const time = (iso) => `<time data-ts="${esc(iso)}">${esc(iso.replace("T", " ").slice(0, 19))} UTC</time>`;
 
-// One "latest" card per suite, newest suite first.
-const latestBySuite = [];
-const seen = new Set();
-for (const r of runs) {
-  if (!seen.has(r.slug)) {
-    seen.add(r.slug);
-    latestBySuite.push(r);
-  }
-}
-
 const latestCard = (r) => `
   <section class="card latest">
     <div class="card-head">
       <div class="title-wrap">
         <div class="icon-box">${icons.window}</div>
         <div>
-          <div class="title-row"><h2>Latest ${esc(r.suite)} Run</h2>${badge(r.status)}</div>
-          <div class="muted">${time(r.timestamp)} &middot; ${esc(r.env)}</div>
+          <div class="title-row"><h2>Latest Run &middot; ${esc(r.suite)}</h2>${badge(r.status)}</div>
+          <div class="muted">${time(r.timestamp)} &middot; ${esc(r.env)} &middot; ${esc(r.actor)}</div>
         </div>
       </div>
-      <a class="link" href="#history" data-suite="${esc(r.slug)}">View All ${esc(r.suite)} Runs ${icons.arrow}</a>
+      <a class="link" href="#history">View Run History ${icons.arrow}</a>
     </div>
+    <div class="chips"><span class="chips-label">Tests run:</span>${chips(r)}</div>
     <div class="stats">
       <div class="stat"><span class="dot green">${icons.check}</span><div><b>${r.passed}</b><span>Passed</span></div></div>
       <div class="stat"><span class="dot red">${icons.cross}</span><div><b>${r.failed}</b><span>Failed</span></div></div>
@@ -144,9 +147,9 @@ const latestCard = (r) => `
 const rows = runs
   .map(
     (r) => `
-        <tr data-suite="${esc(r.slug)}">
+        <tr data-tests="${esc(JSON.stringify(testsOf(r)))}" data-status="${esc(r.status)}">
           <td>${time(r.timestamp)}</td>
-          <td>${esc(r.suite)}</td>
+          <td class="tests-cell">${chips(r)}</td>
           <td>${badge(r.status)}</td>
           <td>${esc(r.env)}</td>
           <td>${r.passed}</td>
@@ -159,7 +162,8 @@ const rows = runs
   )
   .join("");
 
-const suiteOptions = latestBySuite.map((r) => `<option value="${esc(r.slug)}">${esc(r.suite)}</option>`).join("");
+const allTests = [...new Set(runs.flatMap(testsOf))].sort();
+const testOptions = allTests.map((t) => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
 
 const html = `<!doctype html>
 <html lang="en">
@@ -216,6 +220,10 @@ const html = `<!doctype html>
   .pager { display:flex; justify-content:flex-end; align-items:center; gap:14px; margin-top:16px; color:var(--muted); font-size:15px; }
   .pager button { padding:8px 16px; border:1px solid var(--line); border-radius:8px; background:#fff; font:inherit; font-weight:600; color:var(--text); cursor:pointer; }
   .pager button:disabled { opacity:.45; cursor:default; }
+  .chips { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:20px; }
+  .chips-label { color:var(--muted); font-size:15px; font-weight:600; margin-right:4px; }
+  .chip { display:inline-block; padding:3px 11px; border-radius:999px; background:#e6edfb; color:#1a3d99; font-size:13px; font-weight:600; white-space:nowrap; }
+  .tests-cell { white-space:normal; min-width:240px; } .tests-cell .chip { margin:2px 4px 2px 0; }
   .empty { padding:40px; text-align:center; color:var(--muted); }
   @media (max-width:900px) {
     .stats { grid-template-columns:repeat(2,1fr); }
@@ -245,7 +253,8 @@ const html = `<!doctype html>
     <div class="hist-head">
       <h2>${icons.history} Historical E2E Runs</h2>
       <div class="filters">
-        <select id="suiteFilter" aria-label="Suite"><option value="all">All suites</option>${suiteOptions}</select>
+        <select id="testFilter" aria-label="Test file"><option value="all">All tests</option>${testOptions}</select>
+        <select id="statusFilter" aria-label="Status"><option value="all">Any status</option><option value="passed">Passed</option><option value="failed">Failed</option></select>
         <select id="limit" aria-label="Number of runs">
           <option value="10">Last 10 runs</option><option value="15">Last 15 runs</option>
         </select>
@@ -253,7 +262,7 @@ const html = `<!doctype html>
     </div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Run Time</th><th>Suite</th><th>Status</th><th>Env</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Total</th><th>Duration</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Run Time</th><th>Tests Run</th><th>Status</th><th>Env</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Total</th><th>Duration</th><th>Actions</th></tr></thead>
         <tbody id="rows">${rows}</tbody>
       </table>
       ${runs.length ? "" : '<div class="empty">No runs yet.</div>'}
@@ -272,15 +281,16 @@ const html = `<!doctype html>
     var d = new Date(t.dataset.ts);
     if (!isNaN(d)) t.textContent = d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit", second:"2-digit" });
   });
-  var suiteSel = document.getElementById("suiteFilter"), limitSel = document.getElementById("limit");
+  var testSel = document.getElementById("testFilter"), statusSel = document.getElementById("statusFilter"), limitSel = document.getElementById("limit");
   // The table shows at most PAGE_SIZE rows; picking "Last 15 runs" spills the extra rows onto page 2.
   var PAGE_SIZE = 10, page = 0;
   var prevBtn = document.getElementById("prev"), nextBtn = document.getElementById("next"), info = document.getElementById("pageInfo");
   function applyFilter() {
-    var max = +limitSel.value, s = suiteSel.value, n = 0, matched = [];
+    var max = +limitSel.value, t = testSel.value, st = statusSel.value, n = 0, matched = [];
     document.querySelectorAll("#rows tr").forEach(function (tr) {
       tr.style.display = "none";
-      if ((s === "all" || tr.dataset.suite === s) && n < max) { n++; matched.push(tr); }
+      var has = t === "all" || JSON.parse(tr.dataset.tests).indexOf(t) !== -1;
+      if (has && (st === "all" || tr.dataset.status === st) && n < max) { n++; matched.push(tr); }
     });
     var pages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
     page = Math.min(page, pages - 1);
@@ -290,12 +300,9 @@ const html = `<!doctype html>
     info.textContent = "Page " + (page + 1) + " of " + pages;
     document.getElementById("pager").style.display = pages > 1 ? "" : "none";
   }
-  suiteSel.onchange = limitSel.onchange = function () { page = 0; applyFilter(); };
+  testSel.onchange = statusSel.onchange = limitSel.onchange = function () { page = 0; applyFilter(); };
   prevBtn.onclick = function () { page--; applyFilter(); };
   nextBtn.onclick = function () { page++; applyFilter(); };
-  document.querySelectorAll("a[data-suite]").forEach(function (a) {
-    a.addEventListener("click", function () { suiteSel.value = a.dataset.suite; limitSel.value = "15"; page = 0; applyFilter(); });
-  });
   applyFilter();
 </script>
 </body>
