@@ -71,10 +71,9 @@ let runs = [run, ...readJson(runsFile, [])];
 
 // --- 2. Prune: keep the newest KEEP_RUNS per suite --------------------------------
 const kept = [];
-const perSuite = {};
+// Global cap: newest KEEP_RUNS overall, so stale suite folders can't pile up.
 for (const r of runs) {
-  perSuite[r.slug] = (perSuite[r.slug] || 0) + 1;
-  if (perSuite[r.slug] <= keepRuns) kept.push(r);
+  if (kept.length < keepRuns) kept.push(r);
 }
 runs = kept;
 
