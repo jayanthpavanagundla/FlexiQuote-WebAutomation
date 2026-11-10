@@ -13,7 +13,11 @@
     "test:local": "cross-env ENV=local playwright test",
     "test:local:firefox": "cross-env ENV=local BROWSER=firefox playwright test",
     "test:local:webkit": "cross-env ENV=local BROWSER=webkit playwright test",
-    "report": "playwright show-report"
+    "test:ordered": "node helpers/run-ordered.cjs",
+    "test:ordered:staging": "cross-env ENV=staging node helpers/run-ordered.cjs",
+    "test:ordered:prod": "cross-env ENV=production node helpers/run-ordered.cjs",
+    "test:ordered:local": "cross-env ENV=local node helpers/run-ordered.cjs",
+    "report":"playwright show-report"
   },
   "keywords": [],
   "author": "",

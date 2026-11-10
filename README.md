@@ -127,6 +127,23 @@ npm run test:staging -- --debug                 # step-through debugger
 npm run test:staging -- tests/quote.details.spec.ts   # one file
 ```
 
+### Running test files in a fixed order
+
+The order is defined in one place: the `ORDER` list in `helpers/run-ordered.cjs`
+(used by both the GitHub Actions workflow and local runs). When you add a new
+test file, add its path to `ORDER` at the position you want it to run.
+
+```bash
+npm run test:ordered            # run all files in order (uses current ENV)
+npm run test:ordered:staging    # same, against staging (also :prod, :local)
+npm run test:ordered -- tests/smoke/quoteCreation.csr.spec.ts   # only some files, still in order
+
+# List the test files in execution order (without running them)
+node -e "const s=require('fs').readFileSync('helpers/run-ordered.cjs','utf8');console.log(s.match(/ORDER = \[([\s\S]*?)\];/)[1].match(/tests\/[^\"]+/g).join('\n'))"
+```
+
+A failing file does not stop the rest; the command exits non-zero at the end.
+
 ### Reports
 
 After any run, view the HTML report:
