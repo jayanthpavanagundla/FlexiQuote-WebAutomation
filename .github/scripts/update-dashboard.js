@@ -30,7 +30,10 @@ const esc = (v) =>
 
 // Older runs were recorded per folder and have no `tests` list.
 const testsOf = (r) => (Array.isArray(r.tests) && r.tests.length ? r.tests : [r.suite]);
-const chips = (r) => testsOf(r).map((t) => `<span class="chip">${esc(t)}</span>`).join("");
+const chips = (r) =>
+  r.testsLabel
+    ? `<span class="chip">${esc(r.testsLabel)}</span>`
+    : testsOf(r).map((t) => `<span class="chip">${esc(t)}</span>`).join("");
 
 // --- 1. Record this run ---------------------------------------------------------
 const summary = readJson(path.join(reportDir, "widgets", "summary.json"), {});
@@ -49,6 +52,7 @@ const run = {
   id: runDir,
   suite: env.SUITE,
   tests: selectedTests,
+  testsLabel: env.TESTS_LABEL || "",
   slug,
   env: env.TARGET_ENV,
   status: failed > 0 || total === 0 ? "failed" : "passed",
@@ -254,9 +258,6 @@ const html = `<!doctype html>
       <div class="filters">
         <select id="testFilter" aria-label="Test file"><option value="all">All tests</option>${testOptions}</select>
         <select id="statusFilter" aria-label="Status"><option value="all">Any status</option><option value="passed">Passed</option><option value="failed">Failed</option></select>
-        <select id="limit" aria-label="Number of runs">
-          <option value="10">Last 10 runs</option><option value="15">Last 15 runs</option>
-        </select>
       </div>
     </div>
     <div class="table-wrap">
@@ -280,16 +281,16 @@ const html = `<!doctype html>
     var d = new Date(t.dataset.ts);
     if (!isNaN(d)) t.textContent = d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit", second:"2-digit" });
   });
-  var testSel = document.getElementById("testFilter"), statusSel = document.getElementById("statusFilter"), limitSel = document.getElementById("limit");
-  // The table shows at most PAGE_SIZE rows; picking "Last 15 runs" spills the extra rows onto page 2.
+  var testSel = document.getElementById("testFilter"), statusSel = document.getElementById("statusFilter");
+  // The table shows at most PAGE_SIZE rows per page; extra runs spill onto further pages.
   var PAGE_SIZE = 10, page = 0;
   var prevBtn = document.getElementById("prev"), nextBtn = document.getElementById("next"), info = document.getElementById("pageInfo");
   function applyFilter() {
-    var max = +limitSel.value, t = testSel.value, st = statusSel.value, n = 0, matched = [];
+    var t = testSel.value, st = statusSel.value, matched = [];
     document.querySelectorAll("#rows tr").forEach(function (tr) {
       tr.style.display = "none";
       var has = t === "all" || JSON.parse(tr.dataset.tests).indexOf(t) !== -1;
-      if (has && (st === "all" || tr.dataset.status === st) && n < max) { n++; matched.push(tr); }
+      if (has && (st === "all" || tr.dataset.status === st)) matched.push(tr);
     });
     var pages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
     page = Math.min(page, pages - 1);
@@ -299,7 +300,7 @@ const html = `<!doctype html>
     info.textContent = "Page " + (page + 1) + " of " + pages;
     document.getElementById("pager").style.display = pages > 1 ? "" : "none";
   }
-  testSel.onchange = statusSel.onchange = limitSel.onchange = function () { page = 0; applyFilter(); };
+  testSel.onchange = statusSel.onchange =function () { page = 0; applyFilter(); };
   prevBtn.onclick = function () { page--; applyFilter(); };
   nextBtn.onclick = function () { page++; applyFilter(); };
   applyFilter();

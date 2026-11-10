@@ -78,27 +78,42 @@ jobs:
           # To add a test file: add an input above, a SEL_ env var, and a line here.
           # Format: selected-flag | spec path | label shown on the dashboard
           ENTRIES=(
+            "$SEL_QUOTE_CREATION|tests/smoke/quoteCreation.csr.spec.ts|Quote Creation"
+            "$SEL_INVOICE_AHON|tests/smoke/invoiceCreationAHON.csr.spec.ts|Invoice Creation (AH-ON)"
+            "$SEL_INVOICE_AHOFF|tests/smoke/invoiceCreationAHOFF.csr.spec.ts|Invoice Creation (AH-OFF)"
             "$SEL_LISTING_PREVIEW|tests/regression/listingPreview.csr.spec.ts|Listing Preview"
             "$SEL_SPECIFIC_RECORD_PREVIEW|tests/regression/specificRecordPreview.csr.spec.ts|Specific Record Preview"
-            "$SEL_QUOTE_CREATION|tests/smoke/quoteCreation.csr.spec.ts|Quote Creation"
-            "$SEL_INVOICE_AHOFF|tests/smoke/invoiceCreationAHOFF.csr.spec.ts|Invoice Creation (AH-OFF)"
-            "$SEL_INVOICE_AHON|tests/smoke/invoiceCreationAHON.csr.spec.ts|Invoice Creation (AH-ON)"
           )
           SEL_PATHS=(); SEL_LABELS=(); ALL_LABELS=()
+          TOT_SMOKE=0; TOT_REG=0; SEL_SMOKE=0; SEL_REG=0
           for e in "${ENTRIES[@]}"; do
             IFS='|' read -r flag path label <<< "$e"
             ALL_LABELS+=("$label")
-            if [ "$flag" = "true" ]; then SEL_PATHS+=("$path"); SEL_LABELS+=("$label"); fi
+            case "$path" in tests/smoke/*) TOT_SMOKE=$((TOT_SMOKE+1));; tests/regression/*) TOT_REG=$((TOT_REG+1));; esac
+            if [ "$flag" = "true" ]; then
+              SEL_PATHS+=("$path"); SEL_LABELS+=("$label")
+              case "$path" in tests/smoke/*) SEL_SMOKE=$((SEL_SMOKE+1));; tests/regression/*) SEL_REG=$((SEL_REG+1));; esac
+            fi
           done
 
-          if [ ${#SEL_PATHS[@]} -eq 0 ]; then
-            RUN_ARGS="tests"
+          if [ ${#SEL_PATHS[@]} -eq 0 ] || [ ${#SEL_PATHS[@]} -eq ${#ENTRIES[@]} ]; then
+            RUN_ARGS=""
             LABELS=("${ALL_LABELS[@]}")
             SUITE_LABEL="All tests"
+            TESTS_LABEL="All Tests"
           else
             RUN_ARGS="${SEL_PATHS[*]}"
             LABELS=("${SEL_LABELS[@]}")
             SUITE_LABEL="${#SEL_PATHS[@]} of ${#ENTRIES[@]} test files"
+            # Whole group(s) selected -> group name; otherwise the file name(s).
+            SMOKE_ALL=0; REG_ALL=0
+            [ "$SEL_SMOKE" -eq "$TOT_SMOKE" ] && [ "$TOT_SMOKE" -gt 0 ] && SMOKE_ALL=1
+            [ "$SEL_REG" -eq "$TOT_REG" ] && [ "$TOT_REG" -gt 0 ] && REG_ALL=1
+            if [ $SMOKE_ALL -eq 1 ] && [ $REG_ALL -eq 1 ]; then TESTS_LABEL="Smoke and Regression"
+            elif [ $SMOKE_ALL -eq 1 ] && [ "$SEL_REG" -eq 0 ]; then TESTS_LABEL="Smoke"
+            elif [ $REG_ALL -eq 1 ] && [ "$SEL_SMOKE" -eq 0 ]; then TESTS_LABEL="Regression"
+            else TESTS_LABEL=$(printf '%s, ' "${SEL_LABELS[@]}"); TESTS_LABEL="${TESTS_LABEL%, }"
+            fi
           fi
           TESTS_JSON=$(jq -nc '$ARGS.positional' --args "${LABELS[@]}")
 
@@ -114,6 +129,7 @@ jobs:
           # Available to every later step (executor.json, dashboard, summary)
           echo "SUITE=$SUITE_LABEL" >> "$GITHUB_ENV"
           echo "TESTS_JSON=$TESTS_JSON" >> "$GITHUB_ENV"
+          echo "TESTS_LABEL=$TESTS_LABEL" >> "$GITHUB_ENV"
           echo "Running $SUITE_LABEL: ${LABELS[*]} against $TARGET_ENV"
 
       # =========================================================
@@ -163,7 +179,7 @@ jobs:
           SUPER_ADMIN_USERNAME: ${{ vars.SUPER_ADMIN_USERNAME || secrets.SUPER_ADMIN_USERNAME }}
           SUPER_ADMIN_PASSWORD: ${{ secrets.SUPER_ADMIN_PASSWORD }}
           SUPER_ADMIN_COMPANY_ID: ${{ vars.SUPER_ADMIN_COMPANY_ID || secrets.SUPER_ADMIN_COMPANY_ID }}
-        run: npx playwright test $RUN_ARGS
+        run: node helpers/run-ordered.cjs $RUN_ARGS
 
       # =========================================================
       # Checkout gh-pages (or start it on the very first run)
