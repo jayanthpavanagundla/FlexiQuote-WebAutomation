@@ -239,9 +239,9 @@ jobs:
           mkdir -p "${DEST}/${RUN_DIR}"
           cp -r allure-report/. "${DEST}/${RUN_DIR}/"
 
-          # GitHub rejects files >100 MB (warns >50 MB). Drop oversized attachments
+          # Pages caps the site at 1 GB. Drop attachments >2 MB
           # (Playwright trace/video zips); they remain in the raw build artifact.
-          find "${DEST}/${RUN_DIR}/data/attachments" -type f -size +40M -print -delete 2>/dev/null || true
+          find "${DEST}/${RUN_DIR}/data/attachments" -type f -size +2M -print -delete 2>/dev/null || true
 
           # latest/ = history for the next run + a redirect to the newest report
           # (avoids storing every report twice).
