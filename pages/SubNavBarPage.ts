@@ -160,7 +160,6 @@ export class SubNavBarPage extends BasePage {
     await step("Click Preview", async () => {
       await this.previewButton.click();
     });
-    await this.handleUnsavedChangesModal();
   }
 
   // "Unsaved Changes" modal: if it shows up, click "Save & Continue" once; otherwise do nothing
