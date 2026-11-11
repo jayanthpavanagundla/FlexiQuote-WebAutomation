@@ -28,6 +28,7 @@ test.describe("Listing Preview", () => {
     await navBarPage.selectRepairerQuote();
     await subNavBarPage.openFirstRecordFromTable("/v2/quotes");
     await subNavBarPage.openPreview();
+    await subNavBarPage.handleUnsavedChangesModal();
     await subNavBarPage.clickOkButton();
     await subNavBarPage.verifyPrintPreviewTitle();
     await subNavBarPage.verifyPdfLoadedAndNoError(["rptQuoteDollarHour", "rptQuoteDollarHourAdditionals"],SUBREPORT_ERROR);
