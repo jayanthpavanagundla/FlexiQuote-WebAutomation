@@ -11,6 +11,11 @@ export class SubNavBarPage extends BasePage {
   cloudDoneIcon: Locator;
   syncIcon: Locator;
   ellipsis: Locator;
+  copyQuoteOption: Locator;
+  existingQuote: Locator;
+  existingQuoteNumber: Locator;
+  overwriteExistingQuote: Locator;
+  copyQuoteBtn: Locator;
   assessmentHistoryOff: Locator;
   assessmentHistoryOn: Locator;
   saveButton: Locator;
@@ -30,6 +35,11 @@ export class SubNavBarPage extends BasePage {
     this.cloudDoneIcon = page.locator("span.material-symbols-rounded", { hasText: "cloud_done" }).first();
     this.syncIcon = page.locator("span.material-symbols-rounded.loading", { hasText: "sync" }).first();
     this.ellipsis = page.getByText("more_vert");
+    this.copyQuoteOption = page.getByText("content_copy Copy Quote");
+    this.existingQuote = page.locator("#existingQuote");
+    this.existingQuoteNumber = page.getByRole("textbox", { name: "Quote No." });
+    this.overwriteExistingQuote = page.locator("#chk-overwrite-quote");
+    this.copyQuoteBtn = page.getByRole("button", { name: "Copy" });
     this.assessmentHistoryOff = page.getByText("check_box_outline_blank Enable Assessment History");
     this.assessmentHistoryOn = page.getByText("check_box Enable Assessment History");
     this.saveButton = page.locator("a#save").nth(1);
@@ -68,6 +78,43 @@ export class SubNavBarPage extends BasePage {
       }
       await step(`Extracted Quote Number: ${quoteNumber}`, async () => {});
       return quoteNumber;
+    });
+  }
+
+  // Clicking Three dots
+  async clickEllipisBtn() {
+    await step("Click more options menu", async () => {
+      await this.ellipsis.click();
+    });
+  }
+
+  // Clicking Copy Quote
+  async selectCopyQuote() {
+    await step("Select Copy Quote Option", async () => {
+      await this.copyQuoteOption.click();
+    });
+  }
+
+  // Copy to New Quote
+  async copyToNewQuote() {
+    await step("Clicking Copy Button", async () => {
+      await this.copyQuoteBtn.click();
+    });
+  }
+
+  // Copy to Existing Quote
+  async copyToExistingQuote(quoteNo: string) {
+    await step("Clicking Existing Quote Radio Button", async () => {
+      await this.existingQuote.click();
+    });
+    await step("Filling existing quote number", async () => {
+      await this.existingQuoteNumber.fill(quoteNo);
+    });
+    await step("Select the Overwrite checkbox", async () => {
+      await this.overwriteExistingQuote.check();
+    });
+    await step("Clicking Copy Button", async () => {
+      await this.copyQuoteBtn.click();
     });
   }
 

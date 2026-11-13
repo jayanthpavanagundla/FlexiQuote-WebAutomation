@@ -19,7 +19,7 @@ test.describe("Invoice for AH-OFF Quotes", () => {
   let invoiceTab: InvoiceTab;
 
   test.beforeEach(async ({ page }) => {
-    await epic("Auto Save");
+    await epic("Smoke");
     await feature("AHOFF Quotes Invoice Creation");
 
     navBarPage = new NavBarPage(page);
