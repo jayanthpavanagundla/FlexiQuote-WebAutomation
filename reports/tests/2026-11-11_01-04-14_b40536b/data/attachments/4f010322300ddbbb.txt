@@ -1,0 +1,404 @@
+PartsCheck
+DATE : 11/11/2026
+INSURANCE  COMPANIES
+Insurer NameAddressSuburbPhoneFaxEmail AddressEcomIs Active
+ A.A.M.I                             
+      
+√
+A & G Insurance Services1800 797 209 (Mobile)mail.robot@agiservices.
+com.au (Home)
+√
+A.A.M.I132244 (Home)nswregional@aami.com.
+au (Home)
+ORM
+√
+A.A.M.I. Insurance132244 (Home)PNET
+√
+A.I.B. Pty Ltdclaims@aibinsurance.co
+m.au (Home)
+√
+A.M.P. Insurance
+√
+A.M.P. Insurance Jo
+√
+A.O.N. Risk Services 
+Australia Limited Brisbane
+√
+AAI Limited9898989899 (Home)test1@gmail.com 
+(Work)
+PNET
+√
+AAMC(QA)EstImage
+√
+Abc Insurance0422222222 (Mobile)abc@insurance.com.au 
+(Home)
+ORM
+√
+Accident Ins. Mutual
+√
+Accident Ins. Mutual Jo
+√
+All States Auto 
+Management P/l Jo
+601 St.Kilda Road
+PNET
+√
+Search Filter Criteria
+Insurer Name : All
+Suburb : All
+State :  All
+Labour Times :  All
+Quoting Method : All
+Active Status : Active
+Sort By : Name
+E-com Types : All
+PAGE 1
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 11/11/2026
+All States Auto 
+Management P/l.
+601 St.Kilda Road
+PNET
+√
+Allianz131000 (Home)EstImage
+√
+Allianz (QA)
+500 Elizabeth Street
+Melbourne VIC 3000EstImage
+√
+Allianz Australia 
+Insurance Limited
+132 664 (Home)EstImage
+√
+Allianz Australia Vehicle 
+Assessing Cost Control
+1300 657 215 (Home)claims@allianz.com.au 
+(Home)
+√
+Allianz Insuranceemail1@allianze.com.au 
+(Work)
+√
+APIAPNET
+√
+Auda Bridge Insurance
+√
+Australian Truck & 4wd 
+Rentals
+91318400 (Home)melton@hertztrucks.com
+.au (Home)
+√
+Auto And General 
+Insurance Company Ltd
+PNET
+√
+Blue Zebra Insurance
+√
+BLUEGUM
+√
+Budget Direct
+√
+C.G.U. Insurance92543600 (Home)CGUCLAIMS.WACOM
+MERCIALMOTOR@C
+GU.COM.AU (Work)
+ORM
+√
+C.G.U. Insurance Limited 
+(Qld)
+132 480 (Home)claims@cgu.com.au 
+(Home)
+ORM
+√
+C.I.C. Insurance
+√
+C.I.C. Insurance Jo
+√
+Cecily Test Insurer
+√
+CGU Insurance
+PO BOX 329
+SALISBURY QLD 4107ORM
+√
+Club 4X4 Pty Ltdrepairinvoice@helloclai
+ms.com.au (Home)
+√
+Commercial Union
+√
+Commercial Union Jo
+√
+Comminsure02 9248 1110 (Home)comminsmotass@lumley
+.com.au (Home)
+√
+Complete Crash Repairs 
+Pty Ltd
+0884435360 (Home)ORM
+√
+DemoEstImage
+√
+PAGE 2
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 11/11/2026
+Elders Insurance, Qbe 
+Insurance (Aus) Ltd
+1300 554 184 (Home)motorclaims@eldersinsu
+rance.com.au (Home)
+√
+Emta
+√
+EstimagesEstImage
+√
+FLEXI5215_01
+√
+Fortron Insurance Group1800999977 (Home)
+√
+G.I.O.  General  Limited13 10 10 (Home)
+√
+Giant Nissan9445 5666 (Home)
+√
+GIO GENERAL LTDPNET
+√
+Heena Test Pty Ltd
+√
+Hollard Insurance Partners 
+Limited
+22222222 (Mobile)EstImage
+√
+HORIZON
+√
+Insurance Australia 
+Limited
+1300 657 318 (Home)swann.motor.claims@sw
+anninsurance.com.au 
+(Home)
+ORM
+√
+Insurance Quick Repair 
+Test
+ORM
+√
+Insurance Test Repairer Id1234567 (Home)repairertest@gmail.com 
+(Home)
+√
+Insurer Test Abn1234567 (Home)abntest@yahoo.com 
+(Home)
+√
+Integration Test Auto 
+Costcontrol
+EstImage
+√
+Integration Test Non EI-
+Insurer
+EstImage
+√
+Integration Test ProfileEstImage
+√
+International General 
+Alliance Of Cooperative 
+Insurance And Financial 
+Protection Services 
+Limited Liability 
+Corporation 
+√
+Lawrence(vic) - Pty Ltd99040019 (Home)accidents@vic1-
+sixt.com.au (Home)
+√
+Lloyds Panel Master
+√
+LTAR
+√
+Lumley Insurance92481111 (Home)
+√
+PAGE 3
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 11/11/2026
+Lumley Insurance Jo
+Po Box Q338,q.V.B.Post Shop
+√
+Mercantile Mutual
+√
+Mercantile Mutual Jo
+√
+N R M A  Insurance 
+Limited
+02 8895 0400 (Home)ORM
+√
+N.R.M.A - NtarORM
+√
+Napranum Aboriginal 
+Shire Council
+√
+Not Insured
+.
+√
+Not Insured Jo
+.
+√
+Not Insured SydneyORM
+√
+NRMA InsuranceORM
+√
+NRMA INSURANCE 
+AUSTRALIA
+ORM
+√
+Nrma Insurance Jo
+√
+NRMA Insurance LtdORM
+√
+NRMA OFFORM
+√
+Nrma/ Ntar42224586 (Home)ORM
+√
+NtarORM
+√
+NTARORM
+√
+O IC
+√
+OI C
+√
+Open Insurance Pty LtdPNET
+√
+ORM FQT TestORM
+√
+ORM NTAR TestORM
+√
+ORM Universal Insurer
+√
+Path Transit
+√
+Private
+√
+Private Hours
+√
+PRIVATE WORK
+√
+Private.
+√
+Q.B.E Insurance 
+(Australia) Limited
+133 723 (Home)repair@qbe.com (Home)
+√
+PAGE 4
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 11/11/2026
+Quick Start Test InsuranceORM
+√
+R.A.C.I92897900 (Home)raci@arnie.com.au 
+(Home)
+√
+RACQbeelean.kuah@partschec
+k.net.au (Work)
+√
+Racq Insurance33612444 (Home)bruce.chua@partscheck.
+net.au (Home)
+√
+RACV Test 
+Aaaaaaaaaaaaaaaaaaa
+ORM
+√
+Rental Car Holdings Dba 
+East Coast Car Rentals
+0755558988 (Home)alii@eccr.com.au 
+(Home)
+√
+S K Y
+√
+Sgio Insurance1300763324 (Home)motorclaimswa@iag.co
+m.au (Home)
+ORM
+√
+Sixt Car Rental92416222 (Home)accounts.payable@sixt.c
+om.au (Home)
+√
+SK Y
+√
+SKY
+√
+SKY INSURER
+√
+SKY NTAR
+√
+SKY Smash Insurance
+√
+SUN Arnie Insurer
+√
+SUNCORPPNET
+√
+Suncorp Metway 
+Insurance Motor Costs 
+Control
+40 356 755 (Home)arnie@suncorp.com.au 
+(Home)
+√
+Tesla InsuranceORM
+√
+Test 156
+√
+Test Insurance 1
+√
+Test Insurance 2
+√
+Test Insurance 3
+√
+Test Insurance 4
+√
+Test Insurance Co0485906541 (Work)
+√
+Test Insurer
+√
+Testing Insurance 0001
+√
+PAGE 5
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 11/11/2026
+Tobin Bros Pty Ltd93737000 (Home)AccountsStaff@tobinbro
+thers.com.au (Home)
+√
+UD Test 100EstImage
+√
+Uma User
+186 Sussex Street
+Sydney NSW 2000234234234234 (Work)ORM
+√
+UnityEstImage
+√
+Vero Insurance LtdPNET
+√
+Veronz
+√
+W.F.I.1300 00 3375 (Home)wfiqldclaims@wfi.com.a
+u (Home)
+ORM
+√
+Wesf
+√
+Wesfarmers Federation 
+Ins. Ltd. Desk Assessing
+wfiqldclaims@wfi.com.a
+u (Home)
+√
+Western Qbe Insurance
+√
+YOUI
+√
+Youi Pty Ltd1300 257 607 (Home)assessing@youi.com.au 
+(Home)
+√
+Zurich Australia Insurance 
+Ltd
+√
+Zurich Australian 
+Insurance Limited
+√
+ZURICH INSURANCE - 
+SYDNEY Test
+EstImage
+√
+TOTAL COUNT : 132  
+PAGE 6
+Copyright © 2024 PartsCheck. All rights reserved.

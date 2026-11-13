@@ -1,0 +1,443 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: tests/regression/specificRecordPreview.csr.spec.ts >> Listing Preview >> Specific Sundry Creditor Listing Preview
+- Location: tests/regression/specificRecordPreview.csr.spec.ts:85:7
+
+# Error details
+
+```
+Test timeout of 60000ms exceeded.
+```
+
+```
+Error: page.waitForResponse: Test timeout of 60000ms exceeded.
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - navigation [ref=e6]:
+      - generic [ref=e7]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /v2/
+          - img "Home" [ref=e9]
+        - text: 󰈙 󰀦 󰍃
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - generic [ref=e13] [cursor=pointer]: Quote
+            - generic:
+              - generic:
+                - link "Repairer Quote":
+                  - /url: /v2/quotes
+              - generic:
+                - link "Misc Quote":
+                  - /url: /v2/miscquotes
+              - generic:
+                - link "Quote Template":
+                  - /url: /v2/quotetemplates
+              - generic:
+                - link "Bookings":
+                  - /url: /v2/booking
+              - generic:
+                - link "AudaNet Tasks":
+                  - /url: /v2/audanettasks
+              - generic:
+                - link "PNET Messages":
+                  - /url: /v2/pnetmessages
+              - generic:
+                - link "Estimage Messages":
+                  - /url: /v2/estimagemessages
+              - generic:
+                - link "ORM Messages":
+                  - /url: /v2/ormmessages
+              - generic:
+                - link "ORM Batching":
+                  - /url: /v2/ormbatching
+              - generic:
+                - link "Image Uploader":
+                  - /url: /v2/imageuploader
+          - generic [ref=e14]:
+            - generic [ref=e15] [cursor=pointer]: Debtor
+            - generic:
+              - generic:
+                - link "Quick Invoice":
+                  - /url: /v2/quickinvoices
+              - generic:
+                - link "Debtor Adjustment":
+                  - /url: /v2/debtoradjustments
+              - generic:
+                - link "Receipt Entry":
+                  - /url: /v2/receiptentry
+          - generic [ref=e16]:
+            - generic [ref=e17] [cursor=pointer]: Creditor
+            - generic:
+              - generic:
+                - link "Sundry Creditor":
+                  - /url: /v2/sundrycreditors
+              - generic:
+                - link "Payment Entry":
+                  - /url: /v2/paymententry
+              - generic:
+                - link "Purchase Order":
+                  - /url: /v2/purchaseorders
+              - generic:
+                - link "Return Parts":
+                  - /url: /v2/returnparts
+              - generic:
+                - link "Dealer Credit Entry":
+                  - /url: /v2/dealercreditentry
+              - generic:
+                - link "Parts Check":
+                  - /url: /Modules/CreditorView/PartsCheck.aspx
+          - generic [ref=e18]:
+            - generic [ref=e19] [cursor=pointer]: Reports
+            - generic:
+              - generic:
+                - link "JCNI":
+                  - /url: /v2/jcni
+              - generic:
+                - link "Due In & Due Out":
+                  - /url: /v2/productioninout
+              - generic:
+                - link "Capacity Calendar":
+                  - /url: /v2/capacity
+              - generic:
+                - link "Job Invoiced":
+                  - /url: /v2/jobinvoiced
+              - generic:
+                - link "Outstanding Parts":
+                  - /url: /v2/outstandingparts
+              - generic:
+                - link "Outstanding Credits":
+                  - /url: /v2/outstandingcredit
+              - generic:
+                - link "Sales Analysis":
+                  - /url: /v2/salesanalysis
+              - generic:
+                - separator
+                - generic: Debtors
+                - link "Debtor List":
+                  - /url: /v2/debtorlists
+                - link "Receipts":
+                  - /url: /v2/debtorsreceipts
+                - separator
+              - generic:
+                - generic: Creditors
+                - link "Creditor List":
+                  - /url: /v2/creditorlist
+                - link "Payment List":
+                  - /url: /v2/paymentlist
+                - separator
+          - generic [ref=e20]:
+            - generic [ref=e21] [cursor=pointer]: Tables
+            - generic:
+              - generic:
+                - link "Insurer":
+                  - /url: /v2/insurers
+              - generic:
+                - link "Customer":
+                  - /url: /v2/customers
+              - generic:
+                - link "Vendor":
+                  - /url: /v2/vendors
+              - generic:
+                - link "Contact Profile":
+                  - /url: /v2/contacts
+              - generic:
+                - link "Recurring Remarks":
+                  - /url: /v2/recurringremarks
+              - generic:
+                - link "Quick Item":
+                  - /url: /v2/quickitems
+              - generic:
+                - link "Item":
+                  - /url: /v2/items
+              - generic:
+                - link "Other labour":
+                  - /url: /v2/otherlabours
+              - generic:
+                - link "Vehicle":
+                  - /url: /v2/vehicles
+              - generic:
+                - link "Unscheduled Model":
+                  - /url: /v2/unscheduledmodels
+          - generic [ref=e22]:
+            - generic [ref=e23] [cursor=pointer]: Admin
+            - generic:
+              - generic:
+                - link "Company Setting":
+                  - /url: /v2/companysetting
+              - generic:
+                - link "Users":
+                  - /url: /v2/users
+              - generic:
+                - link "G/L Mapping":
+                  - /url: /v2/glmapping
+              - generic:
+                - link "Book-In":
+                  - /url: /Modules/QuotesView/VehicleBookIn.aspx
+              - generic:
+                - link "Audit Trail":
+                  - /url: /v2/audittrail
+              - generic:
+                - link "Forgot Password Log":
+                  - /url: /v2/forgotpasswordlog
+              - generic:
+                - link "Email/SMS Log":
+                  - /url: /v2/emailsmslogs
+              - generic:
+                - link "Vehicle Lookup":
+                  - /url: /v2/vehiclelookup
+              - generic:
+                - link "RepX Log":
+                  - /url: /v2/repx
+        - generic [ref=e26]:
+          - generic: search
+          - textbox "Search the system..." [ref=e28]
+        - generic [ref=e29]:
+          - button "routine" [ref=e33] [cursor=pointer]:
+            - generic [ref=e34]: routine
+          - generic [ref=e36]:
+            - generic [ref=e37]: 11:55
+            - generic [ref=e38]: AM
+          - button "notifications" [ref=e41] [cursor=pointer]:
+            - generic [ref=e42]: notifications
+          - generic [ref=e45]:
+            - generic [ref=e47] [cursor=pointer]:
+              - generic [ref=e48]: PartsCheck
+              - generic [ref=e50]: 󰅀
+            - text: 󰀄 󰈙 󱥉 󰀦 󰍃 󰙎
+  - navigation [ref=e54]:
+    - generic: 󰍜 󰈝 󰇮
+    - heading "Print Preview" [level=1] [ref=e57]:
+      - generic [ref=e58]: Print Preview
+    - generic [ref=e61]:
+      - paragraph [ref=e62]:
+        - generic [ref=e63] [cursor=pointer]:
+          - generic [ref=e65]: 󰈝
+          - generic [ref=e66]: Export
+      - paragraph [ref=e67]:
+        - generic [ref=e68] [cursor=pointer]:
+          - generic [ref=e70]: 󰇮
+          - generic [ref=e71]: Email
+      - paragraph [ref=e72]:
+        - generic [ref=e73] [cursor=pointer]:
+          - generic [ref=e75]: 󰜱
+          - generic [ref=e76]: Back
+```
+
+# Test source
+
+```ts
+  177 |   async clickSaveButton(timeout = 3000): Promise<void> {
+  178 |   await step("Click Save if visible", async () => {
+  179 |     const isVisible = await this.saveButton.waitFor({ state: "visible", timeout }).then(() => true).catch(() => false);
+  180 |       if (isVisible) {
+  181 |         await this.saveButton.click();
+  182 |       }
+  183 |     });
+  184 |   }
+  185 | 
+  186 |   // Due In Due Out Date Filter Options
+  187 |   async selectDueInDueOutDateFilter(
+  188 |     option:
+  189 |       | "today"
+  190 |       | "tomorrow"
+  191 |       | "next7days"
+  192 |       | "lastweek"
+  193 |       | "thismonth"
+  194 |       | "custom",
+  195 |   ): Promise<void> {
+  196 |     await step(`Select date filter: ${option}`, async () => {
+  197 |       await this.page.locator("select.has-text-weight-bold").selectOption(option);
+  198 |     });
+  199 |   }
+  200 | 
+  201 |   async isNoRecordsFound(timeout = 3000): Promise<boolean> {
+  202 |     return await step("Check if records exist in table", async () => {
+  203 |       const firstDataRow = this.page.getByRole("table").first().getByRole("row").filter({ has: this.page.locator("td") }).first();
+  204 |       // Wait for either a data row or the empty-state message
+  205 |       await firstDataRow.or(this.noRecordsMessage).first()
+  206 |         .waitFor({ state: "visible", timeout });
+  207 |       const noRecords = await this.noRecordsMessage.isVisible();
+  208 |       if (noRecords) {
+  209 |         await step("No Records Found - skipping remaining steps", async () => {});
+  210 |       }
+  211 |       return noRecords;
+  212 |     });
+  213 |   }
+  214 | 
+  215 |   //------------------------- Print Preview Methods -------------------------//
+  216 |   // Repairer Quote Option Model Flow
+  217 |   async openQuoteAnalysis() {
+  218 |     await step("Click Quote Analysis", async () => {
+  219 |       await expect(this.quoteAnalysis).toBeVisible();
+  220 |       await this.quoteAnalysis.click();
+  221 |     });
+  222 | 
+  223 |     await step("Clicking Print Button", async () => {
+  224 |       await expect(this.printButton).toBeVisible();
+  225 |       await this.printButton.click();
+  226 |     });
+  227 |   }
+  228 | 
+  229 |   // Sales Analysis Option Model Flow
+  230 |   async openSalesAnalysis() {
+  231 |     await step("Click Sales Analysis", async () => {
+  232 |       await expect(this.salesAnalysis).toBeVisible();
+  233 |       await this.salesAnalysis.click();
+  234 |     });
+  235 | 
+  236 |     await step("Clicking Print Button", async () => {
+  237 |       await expect(this.printButton).toBeVisible();
+  238 |       await this.printButton.click();
+  239 |     });
+  240 |   }
+  241 | 
+  242 |   // Method to Verify Print Preview H1 Title
+  243 |   async verifyPrintPreviewTitle(page: Page = this.page): Promise<void> {
+  244 |     await step("Verify Print Preview title", async () => {
+  245 |       await expect(page).toHaveURL(/printpreview/);
+  246 |       await expect(page).toHaveTitle(/Print Preview/i);
+  247 |     });
+  248 |   }
+  249 | 
+  250 |   // Verify Text PDF
+  251 |   async verifyTextInPdf(expectedText: string,page: Page = this.page,preCapturedResponse?: PlaywrightResponse): Promise<PlaywrightResponse> {
+  252 |     await expect(page).toHaveURL(/printpreview/);
+  253 |     const response = preCapturedResponse
+  254 |       ? preCapturedResponse
+  255 |       : await page.waitForResponse(
+  256 |           (res) =>
+  257 |             res.url().includes("/reports/postreport/") &&
+  258 |             res.status() === 200 &&
+  259 |             res.headers()["content-type"]?.includes("application/pdf"),
+  260 |         );
+  261 |     await step(`Verify "${expectedText}" is present in PDF`, async () => {
+  262 |       const pdfBuffer = await response.body();
+  263 |       const pdfData = await pdfParse(pdfBuffer);
+  264 |       const normalizedPdfText = pdfData.text.replace(/\s+/g, "");
+  265 |       const normalizedExpectedText = expectedText.replace(/\s+/g, "");
+  266 |       expect(normalizedPdfText,`Expected "${expectedText}" to be present in PDF`).toContain(normalizedExpectedText);
+  267 |     });
+  268 |     return response;
+  269 |   }
+  270 | 
+  271 |   // PDF Verification Method
+  272 |   async verifyPdfLoadedAndNoError(reportName: string | string[], errorText?: string, page: Page = this.page, preCapturedResponse?: PlaywrightResponse) {
+  273 |     await expect(page).toHaveURL(/printpreview/);
+  274 |     const reportNames = Array.isArray(reportName) ? reportName : [reportName];
+  275 |     const response = preCapturedResponse
+  276 |       ? preCapturedResponse
+> 277 |       : await page.waitForResponse(
+      |                    ^ Error: page.waitForResponse: Test timeout of 60000ms exceeded.
+  278 |           (res) =>
+  279 |             reportNames.some((name) =>
+  280 |               res.url().includes(`/reports/postreport/${name}/pdf`),
+  281 |             ) &&
+  282 |             res.status() === 200 &&
+  283 |             res.headers()["content-type"]?.includes("application/pdf"),
+  284 |         );
+  285 |     await step(`Verify PDF "${reportNames.join(" or ")}" loaded successfully`, async () => {
+  286 |         expect(response.ok()).toBeTruthy();
+  287 |     });
+  288 |     // NEW: always attach the PDF text, whether the later check passes or fails
+  289 |     await step("PDF content", async () => {
+  290 |       const pdfBuffer = await response.body();
+  291 |       let content: string;
+  292 |       try {
+  293 |         content = (await pdfParse(pdfBuffer)).text.trim() || "(PDF has no extractable text)";
+  294 |       } catch (e) {
+  295 |         content = `Could not read PDF text: ${String(e)}`;
+  296 |       }
+  297 |       await attachment(`${reportNames.join("_")} - PDF content`, content, ContentType.TEXT);
+  298 |     });
+  299 |     if (errorText) {
+  300 |       await step(`Verify "${errorText}" is not in PDF`, async () => {
+  301 |         const pdfBuffer = await response.body();
+  302 |         const isPdfValid =
+  303 |           pdfBuffer[0] === 0x25 &&
+  304 |           pdfBuffer[1] === 0x50 &&
+  305 |           pdfBuffer[2] === 0x44 &&
+  306 |           pdfBuffer[3] === 0x46;
+  307 |         expect(isPdfValid, "Response is not a valid PDF").toBeTruthy();
+  308 |         const pdfData = await pdfParse(pdfBuffer);
+  309 |         const normalizedPdfText = pdfData.text.replace(/\s+/g, " ");
+  310 |         const normalizedErrorText = errorText.replace(/\s+/g, " ");
+  311 |         expect.soft(normalizedPdfText,`Error found in PDF: "${errorText}" should NOT be present`).not.toContain(normalizedErrorText);
+  312 |       });
+  313 |     }
+  314 |     return response;
+  315 |   }
+  316 | 
+  317 |   // Select First Row from Table
+  318 |   async openFirstRecordFromTable(route: string, excludeInvPrefix?: string, clickEdit: boolean = false): Promise<void> {
+  319 |     await step(`Open first record from table on route: ${route}${excludeInvPrefix ? ` (skip Inv No starting with ${excludeInvPrefix})` : ""}${clickEdit ? " (via Edit button)" : ""}`, async () => {
+  320 |       await this.page.waitForURL(`**${route}**`);
+  321 |       const table = this.page.getByRole("table").first();
+  322 |       let rows = table.getByRole("row").filter({ has: this.page.locator("td") });
+  323 |       if (excludeInvPrefix) {
+  324 |         rows = rows.filter({
+  325 |           hasNot: this.page.locator("td:first-child a", {
+  326 |             hasText: new RegExp(`^\\s*${excludeInvPrefix}`, "i"),
+  327 |           }),
+  328 |         });
+  329 |       }
+  330 |       const firstDataRow = rows.first();
+  331 |       await expect(firstDataRow,excludeInvPrefix ? `No row found without Inv No prefix "${excludeInvPrefix}"` : undefined).toBeVisible();
+  332 |       let link: Locator;
+  333 |       if (clickEdit) {
+  334 |         // Edit (pencil) button in the row
+  335 |         link = firstDataRow.locator("a:has(i.mdi-lead-pencil)").first();
+  336 |       } else {
+  337 |         const firstHrefLink = firstDataRow.locator("a[href]").first();
+  338 |         const hasVisibleHref = await firstHrefLink.isVisible().catch(() => false);
+  339 |         link = hasVisibleHref ? firstHrefLink : firstDataRow.locator("a").first();
+  340 |       }
+  341 |       await expect(link).toBeVisible();
+  342 |       const urlBeforeClick = this.page.url();
+  343 |       await link.click();
+  344 |       await this.page.waitForURL((url) => url.toString() !== urlBeforeClick, {waitUntil: "domcontentloaded"});
+  345 |       await Promise.race([
+  346 |         this.page.locator('div[name="headerMoreButtons"]').waitFor({ state: "visible" }),
+  347 |         this.page.locator("a.button.is-primary.is-outlined.is-inverted").waitFor({ state: "visible" }),
+  348 |         this.page.locator("button.button.is-primary").first().waitFor({ state: "visible" }),
+  349 |       ]);
+  350 |     });
+  351 |   }
+  352 | 
+  353 |   // Specific Preview OK Modal 
+  354 |   async clickOkButton(opensNewTab: boolean = false): Promise<Page | undefined> {
+  355 |     let newTab: Page | undefined;
+  356 |     await step("Click Ok button", async () => {
+  357 |       if (opensNewTab) {
+  358 |         // Case 2: New tab
+  359 |         const [tab] = await Promise.all([
+  360 |           this.page.context().waitForEvent("page"),
+  361 |           this.okButton.click(),
+  362 |         ]);
+  363 |         await tab.waitForLoadState("domcontentloaded");
+  364 |         await expect(tab).toHaveURL(/printpreview/);
+  365 |         newTab = tab;
+  366 |       } else {
+  367 |         // Case 1: Same tab
+  368 |         await this.okButton.click();
+  369 |       }
+  370 |     });
+  371 |     return newTab;
+  372 |   }
+  373 | 
+  374 |   // Check First Row Checkbox [Receipt Entry]
+  375 |   async checkFirstRowCheckbox(printButtonText: string = "Print Statement"): Promise<{ newTab: Page; response: PlaywrightResponse }> {
+  376 |     let newTab!: Page;
+  377 |     let response!: PlaywrightResponse;
+```

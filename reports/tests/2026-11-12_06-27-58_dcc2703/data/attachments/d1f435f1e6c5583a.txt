@@ -1,0 +1,23 @@
+Recurring Remarks List
+DATE : 12/11/2026
+PartsCheck
+Remark DescriptionCreated ByIs-Active
+Part Damaged after taking out of Wrappingjo
+√
+retestuma
+√
+test1uma
+√
+test2uma
+√
+This is a TEST Descriptionsanjay
+√
+This is part of tesstingumatest3
+√
+Total Count :  6
+Remark Description : All
+Active : Active
+Sort By : Remark Description
+Search Filter Criteria 
+PAGE 1
+Copyright © 2024 PartsCheck. All rights reserved.

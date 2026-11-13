@@ -1,0 +1,100 @@
+PartsCheck
+Insurer - Details 
+DATE : 11/11/2026
+ A.A.M.I                                   
+Name : 
+ABN : 
+Address : 
+Phone : 
+41000 Sales Revenue
+Contact Person 
+Active
+G/L Account : 
+Active : 
+E - Com : 
+TypePhone No
+Email : 
+First NameLast Name
+BSB : 
+Your Repairer ID :
+Accout No : 
+Arnie Insurer Brand
+Insurer Brand :
+Invoice w/o GST
+Excess : 
+HoursQuote Method : NTAR
+Labour Time :
+Rates 
+Rates TypeRate
+CD80.00
+CRUSH80.00
+FIBER80.00
+MECH80.00
+REP80.00
+RR80.00
+RWA80.00
+Default Paint Rates : 
+Paint Rates TypeRate
+M180.00
+M280.00
+M380.00
+S180.00
+S280.00
+S380.00
+Consumable : 
+Description ConsumableCategoryValue
+Paint Consumables. Per Paint hourPAINT9.20
+Panel Consumables. Per Repair hourRA5.20
+RACQ Consumables. PercentageLAB2.70
+Panel Consumables. No RepairsRA7.25
+eMTA R&R Welded AllowancesR&R6.97
+Loading Value : 
+TypeAddress1Suburb
+TypeEmail Addres
+ARBN : 
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 11/11/2026
+Description LoadingCategoryValueLower 
+Treshold
+Upper Treshold
+Exchanged PartsPRT0.25F2F2
+R&R Doos re-skinnedR&R0.25F2F2
+Repair hour above 0.25RA0.10F2F2
+Repair hour above 1RA0.25F2F2
+Used PartsPRT0.10F2F2
+Paint Material :
+Item NoTypeValue
+9996M240.20
+9994S232.20
+9995M135.00
+9989S318.92
+9997M345.80
+9970M3Plus0.32
+9993S128.90
+Special Rates : 
+Item NoDescriptionValue
+9998Setup / Colour Match 1 Colour as MIS (hrs x 
+labour rate)
+0.33
+4912Sound Deadener factory pre-cut 
+(hrs/decimetre)
+0.02
+9999Setup / Colour Match 2 Colour as MIS (hrs x 
+labour rate)
+0.50
+4911Sound Deadener simple shape (hrs/decimetre)0.02
+491Sound Deadener complex shape 
+(hrs/decimetre))
+0.04
+Quote Template : 
+Auto Items : 
+Item NoDescriptionValueReport
+Default Markup
+0.00 %New Markup
+20.00 %Used
+20.0000 %Recore
+20.0000 %After Market
+20.0000 %Exchange
+20.0000 %Reconditioned
+Copyright © 2024 PartsCheck. All rights reserved.

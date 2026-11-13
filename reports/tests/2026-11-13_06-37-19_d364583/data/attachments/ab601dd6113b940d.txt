@@ -1,0 +1,60 @@
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+PartsCheck
+TOTAL LABOUR =$0.00
+Owner :Automation9855 
+Test9464
+Address :
+ 
+Atten :
+Insurer :A.A.M.I. Insurance
+Address :
+ 
+ABN :92004791744
+        Quoted By : John Doe
+        Date In : 05/11/2026
+        Date to Complete : 07/11/2026
+        Policy : 
+        Claim No :CLNCWPX0NM
+Email :                                                  Insurer Email : 
+Home :                   Mobile :                   Fax :                    Insurer Phone :  
+Make : FORD
+Model : LASER KJ LIATA GHIA
+Cylinders : 33
+Year : 1 / 1994
+V.I.N. : VIN10MOK995RL
+Schedule No. : F729
+Colour : SILVER
+Paint Group: M2   P Code:74273223
+        Registration : R3SJ9IB9R
+        Body : 5 DOORS
+        Transmission : CVT
+        Km :  636,664        
+PartsTypePart No.Qty      Price   Markup
+671R/H FRT DOOR BELT 
+MOULD
+NewBC1M506401120.96$120.96
+848R/H BEAVER TAIL 
+PANEL INNER
+New10.00$0.00
+632L/H FRT SUSP CASTER 
+ROD BRACKET
+New10.00$0.00
+865L/H EXHAUST MUFFLERNew10.00$0.00
+886TAILGATE LOCKNewBC6H62310A1370.45$370.45
+$491.41$0.00
+TOTAL PARTS =$491.41
+                             SUB-TOTAL   $491.41
+     GST   $49.14
+        Signed : ---------------------------------------------                  GRAND TOTAL  $540.55
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully guaranteed.Unfortunately parts 
+prices are beyond our control & subject to supplier invoice. Estimate is based on external inspection. Further internal 
+damage could result in additional costs.
+ESTIMATE NO. 41799
+ESTIMATE
+DATE  : 04/11/2026
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 1

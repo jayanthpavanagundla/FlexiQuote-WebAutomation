@@ -1,0 +1,351 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: tests/regression/specificRecordPreview.csr.spec.ts >> Listing Preview >> Specific Repairer Quote Listing Preview
+- Location: tests/regression/specificRecordPreview.csr.spec.ts:24:7
+
+# Error details
+
+```
+Test timeout of 60000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 60000ms exceeded.
+Call log:
+  - waiting for locator('//a[normalize-space()=\'Quote\']')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - article [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e9]: error
+        - generic [ref=e10]: Unable to Complete Request (1 of 2)
+      - generic [ref=e12] [cursor=pointer]: close
+    - generic [ref=e13]:
+      - paragraph
+      - generic [ref=e15] [cursor=pointer]:
+        - generic [ref=e16]: Technical Details
+        - generic [ref=e17]: keyboard_arrow_down
+      - generic [ref=e19]:
+        - generic [ref=e21]: 1 / 2
+        - button "Next" [ref=e23] [cursor=pointer]
+  - generic [ref=e24]:
+    - banner [ref=e25]:
+      - navigation [ref=e26]:
+        - generic [ref=e27]:
+          - link "Home" [ref=e28] [cursor=pointer]:
+            - /url: /v2/
+            - img "Home" [ref=e29]
+          - text: 󰈙 󰀦 󰍃
+        - generic [ref=e30]:
+          - generic [ref=e33]:
+            - generic: search
+            - textbox "Search the system..." [ref=e35]
+          - generic [ref=e36]:
+            - button "routine" [ref=e40] [cursor=pointer]:
+              - generic [ref=e41]: routine
+            - generic [ref=e43]:
+              - generic [ref=e44]: 5:02
+              - generic [ref=e45]: PM
+            - button "notifications" [ref=e48] [cursor=pointer]:
+              - generic [ref=e49]: notifications
+            - generic [ref=e52]:
+              - generic [ref=e54] [cursor=pointer]:
+                - generic [ref=e55]: PartsCheck
+                - generic [ref=e57]: 󰅀
+              - text: 󰀄 󰈙 󱥉 󰀦 󰍃 󰙎
+    - generic [ref=e58]:
+      - generic [ref=e60]:
+        - generic [ref=e62]:
+          - navigation [ref=e64]:
+            - generic [ref=e65]:
+              - paragraph [ref=e66]: QUOTE STATUS
+              - button "󰐕 New" [ref=e67] [cursor=pointer]:
+                - generic [ref=e68]: 󰐕
+                - text: New
+          - navigation [ref=e72]:
+            - generic [ref=e73]: JOB STATUS
+        - navigation [ref=e78]:
+          - generic [ref=e79]: INSURER MESSAGES
+        - navigation [ref=e84]:
+          - generic [ref=e85]: MESSAGE INBOX
+          - list [ref=e88]:
+            - listitem [ref=e89]:
+              - generic [ref=e90] [cursor=pointer]: Today
+            - listitem [ref=e91]:
+              - generic [ref=e92] [cursor=pointer]: Yesterday
+            - listitem [ref=e93]:
+              - generic [ref=e94] [cursor=pointer]: This Week
+          - generic [ref=e96]: No Messages
+      - generic [ref=e100]:
+        - paragraph [ref=e101]: LATEST RELEASES
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e105]: 05/11/2026
+            - generic [ref=e107]:
+              - text: Release 2026.11.1.0
+              - generic [ref=e108]: New
+            - list [ref=e109]:
+              - listitem [ref=e110]:
+                - generic [ref=e111]: "Repairer Quote: Copy Quote no longer overwrites the destination quote's excess"
+              - listitem [ref=e112]:
+                - generic [ref=e113]: "Repairer Quote: Copy Quote no longer copies the source quote's item comments"
+              - listitem [ref=e114]:
+                - generic [ref=e115]: "Repairer Quote: Fixed an error when retrying a new quote after the customer saved but the quote did not"
+              - listitem [ref=e116]:
+                - generic [ref=e117]: "Quote Items: Fixed auto items missing when creating a quote from a PNET, AudaNet, AudaBridge or EstImage RFQ"
+              - listitem [ref=e118]:
+                - generic [ref=e119]: "Global Search: Results now only show the latest search, instead of occasionally showing an earlier one"
+              - listitem [ref=e120]:
+                - generic [ref=e121]: "EstImage Integration: Fixed Load Authority failing when a part number is long or contains free text"
+              - listitem [ref=e122]:
+                - generic [ref=e123]: "EstImage Integration: Fixed creating a supplementary quote incorrectly changing the job status"
+              - listitem [ref=e124]:
+                - generic [ref=e125]: "EstImage Integration: Fixed not being able to raise invoices for manual quotes for insurers with the EstImage flag on"
+              - listitem [ref=e126]:
+                - generic [ref=e127]: "ORM Integration: Fixed NOCODE item codes being trimmed after loading an authority"
+          - generic [ref=e128]:
+            - generic [ref=e129]: 30/10/2026
+            - generic [ref=e131]: Hotfix 2026.10.2.5
+            - list [ref=e132]:
+              - listitem [ref=e133]:
+                - generic [ref=e134]: "Repairer Quote: Fixed changes made to a quote being reverted when a photo was added, edited or deleted from the images pop-out window"
+          - generic [ref=e135]:
+            - generic [ref=e136]: 29/10/2026
+            - generic [ref=e138]: Hotfix 2026.10.2.4
+            - list [ref=e139]:
+              - listitem [ref=e140]:
+                - generic [ref=e141]: "Repairer Quote: Fixed assessment history being turned off when the quote was saved from another open window or tab; it now only changes when Enable Assessment History is ticked or unticked"
+          - generic [ref=e142]:
+            - generic [ref=e143]: 28/10/2026
+            - generic [ref=e145]: Hotfix 2026.10.2.3
+            - list [ref=e146]:
+              - listitem [ref=e147]:
+                - generic [ref=e148]: "ARNIE Integration: Fixed sending a quote to ARNIE intermittently failing"
+          - generic [ref=e149]:
+            - generic [ref=e150]: 27/10/2026
+            - generic [ref=e152]: Hotfix 2026.10.2.2
+            - list [ref=e153]:
+              - listitem [ref=e154]:
+                - generic [ref=e155]: "Email: Block email modal to prevent multiple emails to be sent"
+          - link "View All" [ref=e157] [cursor=pointer]:
+            - /url: "#"
+```
+
+# Test source
+
+```ts
+  42  |   outstandingCredits: Locator;
+  43  |   salesAnalysis: Locator;
+  44  |   debtorList: Locator;
+  45  |   receipts: Locator;
+  46  |   creditorList: Locator;
+  47  |   paymentList: Locator;
+  48  | 
+  49  |   // Tables Dropdown Locators
+  50  |   tablesMenu: Locator;
+  51  |   insurer: Locator;
+  52  |   customer: Locator;
+  53  |   vendor: Locator;
+  54  |   contactProfile: Locator;
+  55  |   recurringRemarks: Locator;
+  56  |   quickItem: Locator;
+  57  |   item: Locator;
+  58  |   otherLabour: Locator;
+  59  |   vehicle: Locator;
+  60  |   unscheduledModel: Locator;
+  61  | 
+  62  |   // Admin Dropdown Locators
+  63  |   adminMenu: Locator;
+  64  |   glMapping: Locator;
+  65  |   emailSMS: Locator;
+  66  | 
+  67  |   constructor(page: Page) {
+  68  |     super(page);
+  69  | 
+  70  |     // Dropdown Containers
+  71  |     this.dropdownContainer = page.locator("#main-nav-menu");
+  72  | 
+  73  |     // Quote Menu
+  74  |     this.quoteMenu = page.locator("//a[normalize-space()='Quote']");
+  75  |     this.repairerQuote = this.dropdownContainer.getByText("Repairer Quote", {exact: true});
+  76  |     this.miscQuote = this.dropdownContainer.getByText("Misc Quote", {exact: true});
+  77  |     this.quoteTemplate = this.dropdownContainer.getByText("Quote Template", {exact: true});
+  78  |     this.bookings = this.dropdownContainer.getByText("Bookings", {exact: true});
+  79  |     this.audaNetTasks = this.dropdownContainer.getByText("AudaNet Tasks", {exact: true});
+  80  |     this.pnetMessages = this.dropdownContainer.getByText("PNET Messages", {exact: true});
+  81  |     this.estimateMessages = this.dropdownContainer.getByText("Estimate Messages",{ exact: true });
+  82  |     this.ormMessages = this.dropdownContainer.getByText("ORM Messages", {exact: true});
+  83  |     this.ormBatching = this.dropdownContainer.getByText("ORM Batching", {exact: true});
+  84  |     this.imageUploader = this.dropdownContainer.getByText("Image Uploader", {exact: true});
+  85  | 
+  86  |      // Debtor Menu
+  87  |     this.debtorMenu = page.locator("a.navbar-link", { hasText: "Debtor" });
+  88  |     this.quickInvoice = this.dropdownContainer.getByText("Quick Invoice", {exact: true});
+  89  |     this.debtorAdjustment = this.dropdownContainer.getByText("Debtor Adjustment",{ exact: true });
+  90  |     this.receiptEntry = this.dropdownContainer.getByText("Receipt Entry", {exact: true});
+  91  | 
+  92  |     // Creditor Menu
+  93  |     this.creditorMenu = page.locator("a.navbar-link", { hasText: "Creditor" });
+  94  |     this.sundryCreditor = this.dropdownContainer.getByText("Sundry Creditor", {exact: true});
+  95  |     this.paymentEntry = this.dropdownContainer.getByText("Payment Entry", {exact: true});
+  96  |     this.paymentEntryTitle = this.page.locator("h1.title span").filter({ hasText: "Payment Entry" }).first();
+  97  |     this.purchaseOrder = this.dropdownContainer.getByText("Purchase Order", {exact: true});
+  98  |     this.returnParts = this.dropdownContainer.getByText("Return Parts", {exact: true});
+  99  | 
+  100 |     // Reports Menu
+  101 |     this.reportMenu = page.locator("a.navbar-link", { hasText: "Reports" });
+  102 |     this.jcni = this.dropdownContainer.getByText("JCNI", { exact: true });
+  103 |     this.dueInDueOut = this.dropdownContainer.getByText(" Due In & Due Out ", {exact: true});
+  104 |     this.jobInvoiced = this.dropdownContainer.getByText("Job Invoiced", {exact: true});
+  105 |     this.outStandingParts = this.dropdownContainer.getByText("Outstanding Parts",{ exact: true });
+  106 |     this.outstandingCredits = this.dropdownContainer.getByText("Outstanding Credits",{ exact: true });
+  107 |     this.salesAnalysis = this.dropdownContainer.getByText("Sales Analysis", {exact: true});
+  108 |     this.debtorList = this.dropdownContainer.getByText("Debtor List", {exact: true});
+  109 |     this.receipts = this.dropdownContainer.getByText("Receipts", {exact: true});
+  110 |     this.creditorList = this.dropdownContainer.getByText("Creditor List", {exact: true});
+  111 |     this.paymentList = this.dropdownContainer.getByText("Payment List", {exact: true});
+  112 | 
+  113 |     // Tables Menu
+  114 |     this.tablesMenu = page.locator("//a[normalize-space()='Tables']");
+  115 |     this.insurer = this.dropdownContainer.getByText("Insurer", { exact: true });
+  116 |     this.customer = this.dropdownContainer.getByText("Customer", {exact: true});
+  117 |     this.vendor = this.dropdownContainer.getByText("Vendor", { exact: true });
+  118 |     this.contactProfile = this.dropdownContainer.getByText("Contact Profile", {exact: true});
+  119 |     this.recurringRemarks = this.dropdownContainer.getByText("Recurring Remarks",{ exact: true });
+  120 |     this.quickItem = this.dropdownContainer.getByText("Quick Item", {exact: true});
+  121 |     this.item = this.dropdownContainer.getByText("Item", { exact: true });
+  122 |     this.otherLabour = this.dropdownContainer.getByText("Other labour", {exact: true});
+  123 |     this.vehicle = this.dropdownContainer.getByText("Vehicle", { exact: true });
+  124 |     this.unscheduledModel = this.dropdownContainer.getByText("Unscheduled Model",{ exact: true });
+  125 | 
+  126 |     // Admin Menu
+  127 |     this.adminMenu = page.locator("a.navbar-link", { hasText: "Admin" });
+  128 |     this.glMapping = this.dropdownContainer.getByText("G/L Mapping", {exact: true});
+  129 |     this.emailSMS = this.dropdownContainer.getByText("Email/SMS Log", {exact: true});
+  130 |   }
+  131 | 
+  132 |   // Helper Method to Close Dropdown
+  133 |   private async closeDropdown(): Promise<void> {
+  134 |     await step("Close navbar dropdown", async () => {
+  135 |       await this.page.mouse.move(600, 600); // park the mouse off the navbar so the hover menu closes
+  136 |     });
+  137 |   }
+  138 | 
+  139 |   // Methods for Quote Dropdown
+  140 |   async openQuoteDropdown() {
+  141 |     await step("Open Quote Menu", async () => {
+> 142 |       await this.quoteMenu.click();
+      |                            ^ Error: locator.click: Test timeout of 60000ms exceeded.
+  143 |     });
+  144 |   }
+  145 | 
+  146 |   async selectRepairerQuote() {
+  147 |     await step("Navigate to Repairer Quotes", async () => {
+  148 |       await this.repairerQuote.click();
+  149 |     });
+  150 |      await this.closeDropdown();
+  151 |   }
+  152 |   async selectMiscQuote() {
+  153 |     await step("Navigate to Misc Quotes", async () => {
+  154 |       await this.miscQuote.click();
+  155 |     });
+  156 |     await this.closeDropdown();
+  157 |   }
+  158 |   async selectQuoteTemplate() {
+  159 |     await step("Navigate to Quote Templates", async () => {
+  160 |       await this.quoteTemplate.click();
+  161 |     });
+  162 |     await this.closeDropdown();
+  163 |   }
+  164 |   async selectBookings() {
+  165 |     await step("Navigate to Bookings", async () => {
+  166 |       await this.bookings.click();
+  167 |     });
+  168 |     await this.closeDropdown();
+  169 |   }
+  170 |   async selectORMMessages() {
+  171 |     await step("Navigate to ORM Messages", async () => {
+  172 |       await this.ormMessages.click();
+  173 |     });
+  174 |     await this.closeDropdown();
+  175 |   }
+  176 | 
+  177 |   // Methods for Debtor Dropdown
+  178 |   async openDebtorDropdown() {
+  179 |     await step("Open Debtor Menu", async () => {
+  180 |       await this.debtorMenu.click();
+  181 |     });
+  182 |   }
+  183 |   
+  184 |   async selectQuickInvoice() {
+  185 |     await step("Navigate to Quick Invoice", async () => {
+  186 |       await this.quickInvoice.click();
+  187 |     });
+  188 |     await this.closeDropdown();
+  189 |   }
+  190 |   async selectDebtorAdjustment() {
+  191 |     await step("Navigate to Debtor Adjustment", async () => {
+  192 |       await this.debtorAdjustment.click();
+  193 |     });
+  194 |     await this.closeDropdown();
+  195 |   }
+  196 |   async selectReceiptEntry() {
+  197 |     await step("Navigate to Receipt Entry", async () => {
+  198 |       await this.receiptEntry.click();
+  199 |     });
+  200 |     await this.closeDropdown();
+  201 |   }
+  202 | 
+  203 |   // Methods for Creditor Dropdown
+  204 |   async openCreditorDropdown() {
+  205 |     await step("Open Creditor Menu", async () => {
+  206 |       await this.creditorMenu.click();
+  207 |     });
+  208 |   }
+  209 | 
+  210 |   async selectSundryCreditor() {
+  211 |     await step("Navigate to Sundry Creditor", async () => {
+  212 |       await this.sundryCreditor.click();
+  213 |     });
+  214 |     await this.closeDropdown();
+  215 |   }
+  216 |   async selectPaymentEntry() {
+  217 |     await step("Navigate to Payment Entry", async () => {
+  218 |       await this.paymentEntry.click();
+  219 |       await this.paymentEntryTitle.click();
+  220 |     });
+  221 |     await this.closeDropdown();
+  222 |   }
+  223 |   async selectPurchaseOrder() {
+  224 |     await step("Navigate to Purchase Order", async () => {
+  225 |       await this.purchaseOrder.click();
+  226 |     });
+  227 |     await this.closeDropdown();
+  228 |   }
+  229 |   async selectReturnParts() {
+  230 |     await step("Navigate to Return Parts", async () => {
+  231 |       await this.returnParts.click();
+  232 |     });
+  233 |     await this.closeDropdown();
+  234 |   }
+  235 | 
+  236 |   // Methods for Reports Dropdown
+  237 |   async openReportDropdown() {
+  238 |     await step("Open Reports Menu", async () => {
+  239 |       await this.reportMenu.click();
+  240 |     });
+  241 |   }
+  242 | 
+```

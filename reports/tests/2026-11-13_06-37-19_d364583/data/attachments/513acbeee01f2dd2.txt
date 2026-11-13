@@ -1,0 +1,60 @@
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+PartsCheck
+TOTAL LABOUR =$0.00
+Owner :Automation8021 
+Test8521
+Address :
+ 
+Atten :
+Insurer :A.A.M.I
+Address :
+ 
+ABN :92004791744
+        Quoted By : Ramos
+        Date In : 14/11/2026
+        Date to Complete : 16/11/2026
+        Policy : 
+        Claim No :CLNK4NB7BX
+Email :                                                  Insurer Email : nswregional@aami.com.au
+Home :                   Mobile :                   Fax :                    Insurer Phone :  
+Make : FORD
+Model : FALCON EF GLI
+Cylinders : 03
+Year : 1 / 1994
+V.I.N. : VINP7SGF8IV8S
+Schedule No. : F579
+Colour : BLUE
+Paint Group: S2   P Code:04591385
+        Registration : RM1ANL6NS
+        Body : 4 DOOR
+        Transmission : T
+        Km :  581,100        
+PartsTypePart No.Qty      Price   Markup
+758L/H REAR SCREEN SEALNew10.00$0.00
+5101R/H FRT BUMPER BAR 
+RETAINER CLIPS
+New10.00$0.00
+669R/H FRT DOOR 
+WEATHERSEAL
+New67861877230001142.00$142.00
+660L/H AIRBAG SIDE 
+SENSOR
+New10.00$0.00
+516L/H GRILLE BRACKETNew10.00$0.00
+$142.00$0.00
+TOTAL PARTS =$142.00
+                             SUB-TOTAL   $142.00
+     GST   $14.20
+        Signed : ---------------------------------------------                  GRAND TOTAL  $156.20
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully guaranteed.Unfortunately parts 
+prices are beyond our control & subject to supplier invoice. Estimate is based on external inspection. Further internal 
+damage could result in additional costs.
+ESTIMATE NO. 41964
+ESTIMATE
+DATE  : 13/11/2026
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 1

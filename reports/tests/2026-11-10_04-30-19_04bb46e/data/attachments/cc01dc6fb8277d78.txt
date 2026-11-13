@@ -1,0 +1,25 @@
+PartsCheck
+Vendor Details 
+DATE : 10/11/2026
+AAAName 
+Is Active
+TypeAddress Line 1Address Line 2Address Line 3SuburbDefault
+Work
+Address
+TypePhone NoDefault
+Phone 
+Email Address
+TypeEmail AddressDefault
+Workjo@partscheck.net.au
+Workdc@partscheck.net.au
+Workw@partscheck.net.au
+Workw@partscheck.net.au
+LastnameFirstnameDefault
+Contact
+Vendor Account No
+ABN
+BSB
+Account No 
+Settlement Discount0.00
+G/L Account41210 Other Revenue
+Copyright © 2024 PartsCheck. All rights reserved.PAGE 1

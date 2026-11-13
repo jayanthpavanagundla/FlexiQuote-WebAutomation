@@ -1,0 +1,52 @@
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+PartsCheck
+PartsTypePart No.Qty      Price   Markup
+615L/H REAR ENGINE MOUNTNew121.003.20$24.20
+656R/H AIRBAG SIDE FRT 
+CURTAIN
+New153.008.08$61.08
+$74.00$11.28
+TOTAL PARTS =$85.28
+SUB-TOTAL   $85.28
+     GST  $8.53
+        Signed : ---------------------------------------------                  GRAND TOTAL  $93.81
+Owner :Automation5714 
+Test5763
+Address :
+ 
+Atten :
+Insurer :Insurance Australia Limited
+Address :
+ 
+ABN :11000016722
+        Quoted By : John Doe
+        Date In : 20/10/2026
+        Date to Complete : 22/10/2026
+        Policy : 
+        Claim No :CLE7KG259N
+Email :                                                  Insurer Email : swann.motor.claims@swanninsurance.com.au
+Home :                   Mobile :                   Fax :                    Insurer Phone : 
+Make : FORD
+Model : FALCON EF GLI
+Cylinders : 66
+Year : 1 / 1994
+V.I.N. : VINWRC3P5SENS
+Schedule No. : F579
+Colour : GREY
+Paint Group: M2   P Code:09592437
+        Registration : R3CL1J9CB
+        Body : 4 DOOR
+        Transmission : CVT
+        Km :  734,547        
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully guaranteed.Unfortunately 
+parts prices are beyond our control & subject to supplier invoice. Estimate is based on external inspection. Further 
+internal damage could result in additional costs.
+ESTIMATE NO. 41727
+DATE  : 19/10/2026
+ESTIMATE
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 1

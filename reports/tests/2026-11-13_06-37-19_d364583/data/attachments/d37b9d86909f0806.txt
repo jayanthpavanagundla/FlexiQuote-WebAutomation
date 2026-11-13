@@ -1,0 +1,382 @@
+DATE : 13/11/2026
+RECEIPT LIST
+PartsCheck
+Search Filter Criteria 
+Receipts Date From : All Dates
+Receipts Date To : All Dates
+Invoice No :  All
+Debtor Name : All
+Quote No : All
+Sort By : INVOICEREF
+Inv. No.Debtor NameDate Rec'dCheque No.         AmountGST ReportedReport DateQuote No.
+AJ51601/1A.A.M.I15/05/2026Adjust0.00    0.00      
+AJ51578/1RACV Test 
+Aaaaaaaaaaaaaaaaaaa
+15/05/2026Adjust0.00    0.00      
+AJ51570/1RACV Test 
+Aaaaaaaaaaaaaaaaaaa
+15/05/2026Adjust0.00    0.00      
+AJ51154/1Insurance Australia 
+Limited
+03/03/2026Adjust110.00    10.00      
+AJ51056/1/AA & G Insurance 
+Services
+05/02/2026Adjust22.00    2.00      
+AJ51056/1A & G Insurance 
+Services
+05/02/2026Adjust0.00    0.00      
+AJ51053/1A & G Insurance 
+Services
+05/02/2026Adjust0.00    0.00      
+AJ50911Uma Devi13/11/2025Adjust220.00    20.00      
+AJ50855/1NRMA Insurance13/10/2025Adjust46.20    4.20      
+AJ50848/1A.A.M.I10/10/2025Adjust-22.00    -2.00      
+AJ50841/6KEITH  HARVIE03/10/2025Adjust550.00    50.00      
+AJ50828/1/AAAI Limited29/09/2025Adjust110.00    10.00      
+AJ50828/1AAI Limited16/09/2025Adjust0.00    0.00      
+AJ50778/3Uma Test323/09/2025Adjust0.00    0.00      
+AJ50778/2Uma Test322/09/2025Adjust0.00    0.00      
+AJ50693/1A.A.M.I20/08/2025Adjust110.00    10.00      
+AJ50380/2Uma Test311/06/2025Adjust150.00    0.00      
+AJ50095/1A & G Insurance 
+Services
+22/02/2024Adjust-60.77    -5.52      
+ADV798Uma Devi ORM15/09/2025CH12345300.00    27.27      
+ADV798Uma Devi ORM15/09/2025200.00    18.18      
+ADV798Uma Devi ORM19/03/2026-500.00    -45.45      
+ADV670Uma  Devi 15/09/2025CH123100.00    9.09      
+ADV670Uma  Devi 15/09/2025CH234100.00    9.09      
+ADV670Uma  Devi 15/09/2025CH45678300.00    27.27      
+ADV670Uma  Devi 02/02/2026-600.00    -54.55      
+ADV670Uma  Devi 15/09/2025CH34567890100.00    9.09      
+ADV324Patricia Acandrew14/10/20252,222.00    202.00      
+ADV1251Alter Address13/11/2025100.00    9.09      
+PAGE 1
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 13/11/2026
+Inv. No.Debtor NameDate Rec'dCheque No.         AmountGST ReportedReport DateQuote No.
+ADV1251Alter Address17/12/2025sdsd-100.00    -9.09      
+ADV10JO ANNA14/10/20252516420.00    1.82      
+517157/1AAI Limited09/09/20260.01    0.00      
+517157/1AAI Limited09/09/20262,634.97    239.54      
+517155/1AAI Limited09/09/20260.99    0.09      
+517155/1AAI Limited09/09/20262,789.00    253.55      
+517154/1AAI Limited09/09/2026179.39    16.31      
+517154/1AAI Limited09/09/2026Refrence No.2,500.00    227.27      
+51601/1A.A.M.I15/05/2026Adjust0.00    0.00      40832
+51578/1RACV Test 
+Aaaaaaaaaaaaaaaaaaa
+15/05/2026Adjust0.00    0.00      40796
+51570/1RACV Test 
+Aaaaaaaaaaaaaaaaaaa
+15/05/2026Adjust0.00    0.00      40796
+51333  D  D15/09/2026462.00    42.00      40494
+51154/1Insurance Australia 
+Limited
+03/03/2026Adjust-110.00    -10.00      40362
+51056/1A & G Insurance 
+Services
+05/02/2026Adjust-22.00    -2.00      
+51056/1A & G Insurance 
+Services
+05/02/2026Adjust0.00    0.00      
+51053/1A & G Insurance 
+Services
+05/02/2026Adjust0.00    0.00      
+50993/1Insurance Australia 
+Limited
+19/01/2026Partial3.39    0.31      
+50993/1Insurance Australia 
+Limited
+18/01/202630.00    2.73      
+50993/1Insurance Australia 
+Limited
+18/01/202630.00    2.73      
+50990/1RACQ15/01/2026Heena396.00    36.00      
+50980/1A & G Insurance 
+Services
+13/01/202699.00    9.00      39899
+50973/1Allianz (QA)06/01/2026113.10    10.28      39945
+50968/1A.A.M.I15/01/2026204.60    18.60      39940/1
+50967/1A.A.M.I15/01/2026243.00    22.09      39940
+50964/3David Alaba15/01/202655.00    5.00      39936
+50964/2David Alaba15/01/202650.00    4.55      39936
+50962/1A & G Insurance 
+Services
+24/12/2025ReferenceSKY190.18    17.29      39934
+50959/1A & G Insurance 
+Services
+17/12/2025Refrence63.39    5.76      39906
+50957/1NRMA Insurance17/12/2025Received880.00    80.00      39904
+50956/1A & G Insurance 
+Services
+17/12/2025ReceivedTest110.00    10.00      39905
+50955Sdsd Sdsd15/12/2025479.49    43.59      39881
+50954/1A & G Insurance 
+Services
+23/12/2025220.00    20.00      39874
+50952/1Insurance Australia 
+Limited
+16/01/2026esgfsdgsdg300.00    27.27      38756
+50947/2Erling Haaland23/12/2025dvsdvsdv50.00    4.55      39860
+PAGE 2
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 13/11/2026
+Inv. No.Debtor NameDate Rec'dCheque No.         AmountGST ReportedReport DateQuote No.
+50947/1A & G Insurance 
+Services
+24/12/2025600.00    54.55      39860/1
+50944/1Insurance Australia 
+Limited
+20/01/2026aredfsdfh184.00    16.73      38654
+50944/1Insurance Australia 
+Limited
+19/01/2026500.00    45.45      38654
+50942Uma User Test 
+Company
+13/01/2026440.00    40.00      
+50941Uma  Devi G04/12/2025110.00    10.00      39845
+50937Uma  Devi G04/12/2025200.00    18.18      39758
+50936Uma  Devi G04/12/2025300.00    27.27      39757
+50932/2Uma Devi ORM04/12/2025200.00    18.18      38654
+50931Uma1 UVC127/11/2025GL test1,249.49    113.59      
+50930Uma12 UVC1213/01/2026699.49    63.59      39750
+50929/3Uma1 UVC127/11/2025GL test16.50    1.50      39749
+50929/2Uma1 UVC127/11/2025GL test20.00    1.82      39749
+50929/1A.A.M.I13/01/2026436.50    39.68      39749
+50928Uma GL Company07/01/2026330.00    30.00      
+50927Uma GL Company07/01/2026220.00    20.00      39748
+50926/3Uma GL Company07/01/20265.50    0.50      39742
+50926/2Uma GL Company07/01/202610.00    0.91      39742
+50920/1A.A.M.I19/11/2025358.50    32.59      39637
+50918Uma User Test 
+Company
+18/11/2025new user363.55    33.05      39636
+50911Uma Devi07/01/2026220.00    20.00      
+50911Uma Devi13/11/2025Adjust-220.00    -20.00      
+50911Uma Devi13/11/2025110.00    10.00      
+50910Uma Devi13/11/2025770.00    70.00      39589
+50897/2Uma Test313/01/2026200.00    18.18      39284
+50895/2Uma Devi ORM13/01/2026100.00    9.09      39283
+50872/1A & G Insurance 
+Services
+24/12/2025shdgvhvvever43.42    3.95      
+50870/1NRMA Insurance23/10/2025900.00    81.82      39232
+50858/1A.A.M.I14/10/202522.00    2.00      39199
+50857/1NRMA Insurance14/10/202573.70    6.70      39026
+50855/1NRMA Insurance13/10/2025Adjust-46.20    -4.20      39184
+50850/1Insurance Australia 
+Limited
+24/12/2025fourth700.00    63.64      39150
+50850/1Insurance Australia 
+Limited
+21/01/202665.33    5.94      39150
+50848/1A.A.M.I10/10/2025Adjust22.00    2.00      
+50841KEITH  HARVIE03/10/2025Adjust-550.00    -50.00      39080
+50839/1A.A.M.I02/10/2025sdfadf564.30    51.30      39066
+50835/1Insurance Australia 
+Limited
+29/01/20263.39    0.31      38662
+50835/1Insurance Australia 
+Limited
+24/12/2025third60.00    5.45      38662
+PAGE 3
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 13/11/2026
+Inv. No.Debtor NameDate Rec'dCheque No.         AmountGST ReportedReport DateQuote No.
+50833/1Insurance Australia 
+Limited
+24/12/2025second126.78    11.53      38985
+50828/1AAI Limited15/09/2025CH888220.00    20.00      38997
+50828/1AAI Limited16/09/2025Adjust0.00    0.00      38997
+50828/1AAI Limited29/09/2025Adjust-110.00    -10.00      38997
+50827/1RACQ15/09/2025CH888220.00    20.00      38983
+50826/1RACQ15/09/2025CH888660.00    60.00      38980
+50825/1RACQ15/09/2025CH888738.63    67.15      38980
+50824/1A.A.M.I15/09/2025CH888528.00    48.00      38979/2
+50819/1Insurance Australia 
+Limited
+15/09/2025CH888253.55    23.05      38975
+50812/1Insurance Australia 
+Limited
+24/12/2025first26.78    2.43      38973
+50812/1Insurance Australia 
+Limited
+17/12/2025TEST100.00    9.09      38973
+50796/1Insurance Australia 
+Limited
+29/01/2026126.79    11.53      38955
+50790/1Insurance Australia 
+Limited
+14/01/202655.00    5.00      38655
+50789/1Insurance Australia 
+Limited
+14/01/2026refrrr100.00    9.09      38655
+50789/1Insurance Australia 
+Limited
+14/01/202655.10    5.01      38655
+50779/1RACQ12/09/2025330.00    30.00      38903
+50778/3Uma Test313/01/202622.00    2.00      38766
+50778/3Uma Test323/09/2025Adjust0.00    0.00      38766
+50778/2Uma Test326/01/202610.00    0.91      38766
+50778/2Uma Test322/09/2025Adjust0.00    0.00      38766
+50772/1A.A.M.I01/09/20251,100.00    100.00      38927
+50762/1A.A.M.I. Insurance01/09/2025748.00    68.00      
+50749/2SKY TEST12/09/202510.00    0.91      38910
+50693/1A.A.M.I20/08/2025Adjust-110.00    -10.00      38877
+50627/1Insurance Australia 
+Limited
+14/01/2026dasdasd500.00    45.45      38823
+50623/1Insurance Australia 
+Limited
+17/12/2025198.00    18.00      38762
+50620Uma  Devi 12/09/2025770.00    70.00      38780
+50619Uma Devi13/01/2026770.00    70.00      38779
+50618Uma Devi13/01/2026770.00    70.00      38771
+50599/1Insurance Australia 
+Limited
+17/12/2025ewe3.33    0.30      38765
+50599/1Insurance Australia 
+Limited
+17/12/2025dd2.00    0.18      38765
+50597/1Insurance Australia 
+Limited
+17/12/2025dd76.08    6.92      38752
+50596/1Insurance Australia 
+Limited
+17/12/2025893.11    81.19      38742
+50589/1Insurance Australia 
+Limited
+17/12/2025dsd110.00    10.00      38731
+PAGE 4
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 13/11/2026
+Inv. No.Debtor NameDate Rec'dCheque No.         AmountGST ReportedReport DateQuote No.
+50581/1Insurance Australia 
+Limited
+10/01/2026Total Paid664.12    60.37      38687
+50572/1N.R.M.A - Ntar14/07/20259,708.60    882.60      38702
+50571/1N.R.M.A - Ntar14/07/20259,708.60    882.60      38702
+50569/1Insurance Australia 
+Limited
+24/12/2025reffrence50.00    4.55      38698
+50569/1Insurance Australia 
+Limited
+22/01/2026Refrence 5.00    0.45      38698
+50568/1Insurance Australia 
+Limited
+23/09/2025110.00    10.00      38695
+50565/1Insurance Australia 
+Limited
+23/09/202563.39    5.76      38663
+50558/1Insurance Australia 
+Limited
+23/09/2025-229.56    -20.87      38647
+50546/1Insurance Australia 
+Limited
+23/09/2025330.00    30.00      38637
+50491/1A & G Insurance 
+Services
+23/12/2025receibed324.89    2.26      38557
+50465/3Uma Test320/06/202511.00    1.00      38592
+50465/2Uma Test320/06/202510.00    0.91      38592
+50464/3Uma-S Devi13/01/202611.00    1.00      38591
+50464/2Uma-S Devi13/01/202610.00    0.91      38591
+50462/2Uma  Devi 20/06/202522.00    2.00      38589
+50445/1A & G Insurance 
+Services
+24/12/2025received21,000.00    90.91      38570
+50433/1A & G Insurance 
+Services
+22/12/2025received1700.00    63.64      38563
+50421/1A.A.M.I12/06/2025154.00    14.00      38543
+50420/2Uma Devi26/01/202633.00    3.00      38543
+50418/2Uma Devi26/01/202632.00    2.91      38539
+50408/1A & G Insurance 
+Services
+23/12/20252,250.60    204.60      38528
+50407/2Uma  Devi 20/06/2025155.00    14.09      38524
+50403/3Devi Uma26/01/202622.00    2.00      38519
+50403/2Devi Uma26/01/202610.00    0.91      38519
+50395/2Devi Uma26/01/202610.00    0.91      38512
+50392Uma Devi01/10/2025330.00    30.00      
+50380/2Uma Test311/06/2025Adjust-150.00    0.00      38505
+50380/2Uma Test320/06/2025250.00    22.73      38505
+50356/1AAI Limited02/06/2025616.00    56.00      38462
+50351/1NRMA Insurance15/05/2025132.00    12.00      38377
+50350/1NRMA Insurance08/05/2025515.52    46.87      38377
+50343/1NRMA Insurance11/06/2025100.00    9.09      38447
+50342/3HUMPTY  DUMPTY05/03/202511.00    1.00      
+50342/2HUMPTY  DUMPTY05/03/202510.00    0.91      
+50310KEITH  HARVIE04/04/20250.05    0.00      
+50294/1NRMA Insurance26/03/2025358.06    32.55      10036
+PAGE 5
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 13/11/2026
+Inv. No.Debtor NameDate Rec'dCheque No.         AmountGST ReportedReport DateQuote No.
+50288/3HUMPTY  DUMPTY05/03/202522.00    2.00      38354
+50288/2HUMPTY  DUMPTY05/03/202510.00    0.91      38354
+50284/1NRMA Insurance26/03/20253,190.00    290.00      38359
+50238/1Western Qbe Insurance25/03/202533.00    3.00      38349/1
+50231/1Allianz Australia 
+Insurance Limited
+06/02/20251,998.80    181.71      38018/1
+50203/1Private23/01/2025275.93    25.08      38306/2
+50198/1A.A.M.I20/06/20254,197.70    381.61      38182/1
+50194/1Private20/02/202572.60    6.60      38305
+50190/1Private02/01/202572.60    6.60      38312
+50188/1Private01/02/202572.60    6.60      38306
+50183/1Not Insured Sydney01/01/2025121.00    11.00      1521/1
+50182/1RACQ20/01/2025338.80    30.80      38223
+50180/1Allianz Australia 
+Insurance Limited
+06/02/20256,387.58    580.69      38285
+50159/1Allianz Australia 
+Insurance Limited
+06/02/2025402.33    36.58      38221
+50158/1Allianz Australia 
+Insurance Limited
+06/02/2025512.75    46.61      38222
+50155/1Allianz Australia 
+Insurance Limited
+06/02/2025455.28    41.39      38219
+50143/1A & G Insurance 
+Services
+09/02/20262,332.00    212.00      37921/1
+50135/1A.A.M.I20/06/2025607.20    55.20      38138
+50134/1A & G Insurance 
+Services
+17/12/2025dfefef17,650.33    1604.58      38122
+50128/1A.A.M.I03/06/20253,433.10    312.10      38120/1
+50113/1A.A.M.I03/06/20251,034.00    94.00      38090
+50111/1A.A.M.I03/06/2025748.00    68.00      38085
+50109/1AAI Limited20/01/2026test 2900.00    81.82      
+50108/1Private01/07/2024100.00    9.09      38025
+50108/1Private16/07/2024988.41    89.86      38025
+50104/1AAI Limited13/01/2026test 13,000.00    272.73      37963
+50095/1A & G Insurance 
+Services
+17/12/2025330.01    30.00      37909
+50095/1A & G Insurance 
+Services
+22/02/2024Adjust60.77    5.52      37909
+50023/1NRMA Insurance23/10/20251,819.24    165.39      10002
+50018/1PRIVATE WORK02/03/2023455321,314.96    119.54      10076
+50015/1NRMA Insurance23/10/2025646.23    58.75      10055
+50012/1NRMA Insurance23/10/2025659.03    59.91      10039
+50011/1NRMA Insurance23/10/20251,073.94    97.63      10037
+50003/1NRMA Insurance10/10/2025500.00    45.45      10000
+50003/1NRMA Insurance23/10/2025104.81    9.53      10000
+                                                             TOTAL RECEIPTS   :     
+$116,516.83    
+PAGE 6
+Copyright © 2024 PartsCheck. All rights reserved.
+
+DATE : 13/11/2026
+PAGE 7
+Copyright © 2024 PartsCheck. All rights reserved.

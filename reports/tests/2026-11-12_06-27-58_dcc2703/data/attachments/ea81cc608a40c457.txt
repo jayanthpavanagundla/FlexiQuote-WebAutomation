@@ -1,0 +1,77 @@
+PartsCheck
+Admin GL Mapping
+DATE : 12/11/2026
+Revenue Accounts (Income)MYOB Accounts
+R&R Sales
+41010 Remove & Replace Sales34567
+Remove Weld & Align
+41020 Remove Weld & Align5678
+Repair Sales
+41030 Repair Sales7889
+Painting Sales
+41040 Painting Sales0
+Fibre Glass Sales
+41050 Fibreglass Sales0
+Crush Sales
+41060 Crush Sales0
+Clean and Detail Sales
+41070 Clean & Detail Sales0
+Mechanical Sales
+41080 Mechanical Sales0
+Parts Sales
+41090 Parts Sales0
+OPG Sales
+41100 OPG Sales0
+Misc Sales
+41110 Miscellaneous Sales67890
+Sublet Sales
+41120 Sublet Sales0
+Excess
+41130 Excess0
+Contrib
+41140 Contribution0
+PDR Items Sales
+41150 PDR Items0
+PDR R & R Sales
+41160 PDR R & R0
+Towing Sales
+41170 Towing Revenue23456
+Sales Discount
+41180 Sales Discount0
+Other Revenue
+41210 Other Revenue12345
+Banking Accounts (Asset)
+Main Bank Account
+11030 Bank Account
+Un-Deposited Funds
+11040 Undeposited Funds
+Other Accounts
+Accounts Receivable
+11020 Accounts Receivable
+Accounts Payable
+21400 Accounts Payable
+Retained Profits
+31040 Retained Profits - Prior year
+Parts Expense
+51010 Parts Supplies Expense
+GST
+G/L Acct Collected
+21430 GST Collected
+G/L Acct to be Refunded
+11060 GST to be Refunded
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 1
+
+DATE : 12/11/2026
+G/L Acct With-held
+21440 Tax With-held
+Payroll Defaults
+PAYG Liability A/C
+21460 Provision for Wages PAYG
+Superannuation Liability 
+A/C
+21470 Provision for Superannuation
+Child Support A/C
+21010 Child Support
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 2

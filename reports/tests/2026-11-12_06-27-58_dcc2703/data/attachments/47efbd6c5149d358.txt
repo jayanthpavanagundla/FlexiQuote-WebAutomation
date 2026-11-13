@@ -1,0 +1,67 @@
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+PartsCheck
+Paint M2 @ 75.0000 /HrHoursHourly Rate
+004GRILLE0.74 75.0055.50
+0.74 $55.50
+TOTAL LABOUR =$55.50
+PartsTypePart No.Qty      Price   Markup
+498FRT BUMPER BARNew1600.00$600.00
+557BONNETNew1250.00$250.00
+$850.00$0.00
+TOTAL PARTS =$850.00
+Misc                           
+9992Paint Consumables. Per Paint hour4.72
+9996PAINT MATERIALS M219.40
+9998SETUP / COLOUR MATCH 1 COLOUR24.75
+TOTAL OTHERS =$48.87
+SUB-TOTAL   $1,004.37
+     GST  $100.44
+        Signed : ---------------------------------------------                  GRAND TOTAL  $1,104.81
+test 456
+Sublets                           
+9868MECHANICAL CHECK50.00
+TOTAL OTHERS =$50.00
+Owner :Bruce Chua
+Address :
+ 
+Atten :
+Insurer :NRMA Insurance
+Address :
+ 
+ABN :11000016722
+        Quoted By : Bruce
+        Date In : 
+        Date to Complete : 
+        Policy : 
+        Claim No :M3243453
+Email : bruce.chua@partscheck.net.au                                                 Insurer Email : 
+Home :                   Mobile : 0405685485                  Fax :                    Insurer Phone : 
+Make : TOYOTA
+Model : 86 GT
+Cylinders : 
+Year : 1
+V.I.N. : 
+Schedule No. : T436
+Colour : Red
+Paint Group: M2   P Code:.
+        Registration : ABC123
+        Body : 4 DOOR
+        Transmission : Automatic
+        Km :  0        
+ESTIMATE NO. 10000
+DATE  : 05/10/2022
+ESTIMATE
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 1
+
+ESTIMATE NO. 10000
+DATE  : 05/10/2022
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully guaranteed.Unfortunately 
+parts prices are beyond our control & subject to supplier invoice. Estimate is based on external inspection. Further 
+internal damage could result in additional costs.
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 2
