@@ -1,5 +1,5 @@
 import { expect, type Page, type Locator } from "@playwright/test";
-import { step } from "allure-js-commons";
+import { step, attachment } from "allure-js-commons";
 import { BasePage } from "../Base/BasePage.js";
 import {generateRandomCustomer,generateInsuranceClaimNo,generateRegistrationNo,generateVinNo,getFutureDateTime,randomNumbersGenerate} from "../../helpers/dataGenerators.js";
 
@@ -22,11 +22,28 @@ type HeaderFillResult = {
     lastName: string;
 };
 
+type QuoteFieldValues = {
+  regNo: string;
+  transmission: string;
+  paintGroup: string;
+  color: string;
+  vin: string;
+  engineNo: string;
+  cylinders: string;
+  engineSize: string;
+  trimCode: string;
+  paintCode: string;
+  firstName: string;
+  lastName: string;
+  insurer: string;
+};
+
 export class HeaderTab extends BasePage {
     private previousState?: string;
 
     searchInput: Locator;
     filterButton: Locator;
+    resetButton: Locator;
     headerTab: Locator;
     regoInput: Locator;
     stateDropdown: Locator;
@@ -59,6 +76,7 @@ export class HeaderTab extends BasePage {
 
         this.searchInput = this.page.locator('input[placeholder="Search..."]');
         this.filterButton = this.page.getByRole("button", { name: "Filter" });
+        this.resetButton = this.page.getByRole("button").filter({ hasText: /^\s*Reset\s*$/ });
         // Header Navbar
         this.headerTab = page.getByText("Header").first();
         // Vehicle Section
@@ -92,6 +110,7 @@ export class HeaderTab extends BasePage {
         this.estimateEndDateInput = this.page.locator('input[placeholder="Job End Date"]').first();
     }
 
+    // ---------- Quote List Filters Methods ----------
     async searchAndOpenQuoteByNumber(quoteNumber: string): Promise<void> {
         await step(`Search and open Quote No: ${quoteNumber}`, async () => {
             await this.searchInput.fill(quoteNumber);
@@ -107,7 +126,21 @@ export class HeaderTab extends BasePage {
             ]);
         });
     }
-    
+
+    // Click Filter button
+    async clickFilterButton() {
+        await step("Click Filter button", async () => {
+            await this.filterButton.click();
+        });
+    }
+
+    // Click Reset button 
+    async clickResetButton() {
+        await step("Click Reset button", async () => {
+            await this.resetButton.click();
+        });
+    }
+
     // Click Header Tab
     async goToHeaderTab() {
         await step("Click Header tab", async () => {
@@ -562,6 +595,8 @@ export class HeaderTab extends BasePage {
             return { firstName, lastName, insurer };
         });
     }
+
+    // Verifies Data in Header Tab on Reload
     async verifyEditedQuoteValuesAfterReload(expected: {
         transmission: string;
         paintGroup: string;
@@ -634,6 +669,60 @@ export class HeaderTab extends BasePage {
             await step(`Insurer Verified: ${expected.insurer}`, async () => {});
             await step(`First Name Verified: ${expected.firstName}`, async () => {});
             await step(`Last Name Verified: ${expected.lastName}`, async () => {});
+        });
+    }
+
+    // Capture Header Fields
+    async captureQuoteFieldValues(): Promise<QuoteFieldValues> {
+        return await step("Capture quote field values from UI", async () => {
+            const regNo = (await this.regoInput.inputValue()).trim();
+            const transmission = await this.transmission.evaluate((select: HTMLSelectElement) => select.selectedOptions[0]?.textContent?.trim() || "");
+            const paintGroup = await this.paintGroup.evaluate((select: HTMLSelectElement) => select.selectedOptions[0]?.textContent?.trim() || "");
+            const color = (await this.colorInput.inputValue()).trim();
+            const vin = (await this.vinInput.inputValue()).trim();
+            const engineNo = (await this.engineInput.inputValue()).trim();
+            const cylinders = (await this.cylInput.inputValue()).trim();
+            const engineSize = (await this.ccInput.inputValue()).trim();
+            const trimCode = (await this.trimCode.inputValue()).trim();
+            const paintCode = (await this.paintCode.inputValue()).trim();
+            const firstName = (await this.firstName.inputValue()).trim();
+            const lastName = (await this.lastName.inputValue()).trim();
+            const insurer = ((await this.selectedInsurer.textContent()) ?? "").trim();
+
+            return {
+                regNo,transmission,paintGroup,color,vin,engineNo,cylinders,engineSize,trimCode,paintCode,firstName,lastName,insurer,
+            };
+        });
+    }
+
+    // Verifies Capture Fields Data
+    async verifyCopiedQuoteValuesMatch(original: QuoteFieldValues,copied: QuoteFieldValues,newQuoteNumber?: string,): Promise<void> {
+        await step("Verify copied quote values match original (UI)", async () => {
+            await attachment("Original Quote Field Values (UI)",JSON.stringify(original, null, 2),"application/json");
+            await attachment("Copied Quote Field Values (UI)",JSON.stringify(copied, null, 2),"application/json");
+            if (newQuoteNumber) {
+                await step(`New Quote Number: ${newQuoteNumber}`, async () => {});
+            }
+
+            const fields: Array<{ label: string; key: keyof QuoteFieldValues }> = [
+                { label: "Registration No.", key: "regNo" },
+                { label: "Transmission", key: "transmission" },
+                { label: "Paint Group", key: "paintGroup" },
+                { label: "Colour", key: "color" },
+                { label: "VIN", key: "vin" },
+                { label: "Engine No.", key: "engineNo" },
+                { label: "Cylinders", key: "cylinders" },
+                { label: "Engine Size", key: "engineSize" },
+                { label: "Trim Code", key: "trimCode" },
+                { label: "Paint Code", key: "paintCode" },
+                { label: "First Name", key: "firstName" },
+                { label: "Last Name", key: "lastName" },
+                { label: "Insurer", key: "insurer" },
+            ];
+            for (const { label, key } of fields) {
+                expect.soft(copied[key], `Verify ${label} matches copied quote`).toBe(original[key]);
+                await step(`${label} - expected: "${original[key]}", actual: "${copied[key]}"`,async () => {});
+            }
         });
     }
 }

@@ -21,7 +21,7 @@ test.describe("Invoice for AH-ON Quotes", () => {
   let assessmentTab: AssessmentTab;
 
   test.beforeEach(async ({ page }) => {
-    await epic("Auto Save");
+    await epic("Smoke");
     await feature("AH-ON Quotes Invoice Creation");
 
     navBarPage = new NavBarPage(page);

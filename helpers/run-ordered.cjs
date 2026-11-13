@@ -7,6 +7,7 @@ const ORDER = [
   "tests/smoke/quoteCreation.csr.spec.ts",
   "tests/smoke/invoiceCreationAHON.csr.spec.ts",
   "tests/smoke/invoiceCreationAHOFF.csr.spec.ts",
+  "tests/smoke/copyQuote.csr.spec.ts",
   "tests/regression/listingPreview.csr.spec.ts",
   "tests/regression/specificRecordPreview.csr.spec.ts",
 ];

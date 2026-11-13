@@ -18,7 +18,7 @@ test.describe("Quote Creation Flow and Validation", () => {
   let quotingTab: QuotingTab;
 
   test.beforeEach(async ({ page }) => {
-    await epic("Auto Save");
+    await epic("Smoke");
     await feature("Quote Creation");
 
     navBarPage = new NavBarPage(page);
