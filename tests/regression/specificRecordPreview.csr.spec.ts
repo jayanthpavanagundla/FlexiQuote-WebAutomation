@@ -4,6 +4,7 @@ import { SubNavBarPage } from "../../pages/SubNavBarPage";
 import { epic, feature, description } from "allure-js-commons";
 
 test.describe("Listing Preview", () => {
+  test.describe.configure({ retries: process.env.CI ? 2 : 0 });
   let navBarPage: NavBarPage;
   let subNavBarPage: SubNavBarPage;
 

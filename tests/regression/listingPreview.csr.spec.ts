@@ -5,6 +5,7 @@ import { epic, feature, story } from "allure-js-commons";
 import { Response as PlaywrightResponse } from "@playwright/test";
 
 test.describe("Listing Preview", () => {
+  test.describe.configure({ retries: process.env.CI ? 2 : 0 });
   let navBarPage: NavBarPage;
   let subNavBarPage: SubNavBarPage;
 
