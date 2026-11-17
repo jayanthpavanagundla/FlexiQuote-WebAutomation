@@ -14,16 +14,22 @@ const ORDER = [
 
 // No args = run all. Args = run only those, still in ORDER's order.
 // Flags (e.g. --project=flexiquote-csr, --headed) are forwarded to Playwright.
-// A bare "tests" (the whole folder) means "all".
+// A bare "tests" (the whole folder) means "all". A folder such as
+// "tests/smoke" or "tests/regression" runs every spec inside it.
 const args = process.argv.slice(2);
 const flags = args.filter((a) => a.startsWith("-"));
-const wanted = args.filter((a) => !a.startsWith("-") && a !== "tests");
-const unknown = wanted.filter((w) => !ORDER.includes(w));
+const wanted = args
+  .filter((a) => !a.startsWith("-") && a !== "tests")
+  .map((a) => a.replace(/\\/g, "/").replace(/\/+$/, ""));
+const matches = (spec, w) => spec === w || spec.startsWith(w + "/");
+const unknown = wanted.filter((w) => !ORDER.some((s) => matches(s, w)));
 if (unknown.length) {
-  console.error(`Unknown spec(s): ${unknown.join(", ")}`);
+  console.error(`Unknown spec(s)/folder(s): ${unknown.join(", ")}`);
   process.exit(2);
 }
-const specs = wanted.length ? ORDER.filter((s) => wanted.includes(s)) : ORDER;
+const specs = wanted.length
+  ? ORDER.filter((s) => wanted.some((w) => matches(s, w)))
+  : ORDER;
 
 const cwd = path.resolve(__dirname, "..");
 
