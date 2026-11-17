@@ -6,6 +6,7 @@ import { BasePage } from "./Base/BasePage.js";
 
 export class SubNavBarPage extends BasePage {
   addNewButton: Locator;
+  backButton: Locator;
   quoteNumberText: Locator;
   createButton: Locator;
   cloudDoneIcon: Locator;
@@ -30,6 +31,7 @@ export class SubNavBarPage extends BasePage {
     super(page);
 
     this.addNewButton = page.getByText("addNew");
+    this.backButton = page.getByText("arrow_backBack");
     this.quoteNumberText = page.locator("div.quote-info span.is-size-4.has-text-weight-bold");
     this.createButton = page.getByText("saveCreate");
     this.cloudDoneIcon = page.locator("span.material-symbols-rounded", { hasText: "cloud_done" }).first();
@@ -140,6 +142,13 @@ export class SubNavBarPage extends BasePage {
   async clickPlusNewButton() {
     await step("Click New button", async () => {
       await this.addNewButton.click();
+    });
+  }
+
+  // Clicking Back Button Method
+  async clickBackButton() {
+    await step("Click Back button", async () => {
+      await this.backButton.click();
     });
   }
 

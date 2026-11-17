@@ -53,7 +53,7 @@ if (!validBrowsers.includes(browserName)) {
 
 export default defineConfig({
   reporter: [["list"], ["html", { open: "never" }], ["allure-playwright"]],
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 0 : 0,
   workers: process.env.CI ? 1 : 1,
   timeout: 60000,
   expect: { timeout: 10000 },
