@@ -60,6 +60,10 @@ test.describe("Invoice for AH-OFF Quotes", () => {
     addedParts = await quotingTab.addQuotingItemsByIndex(2);
     await quotingTab.goToQuotingTab();
     await subNavBarPage.waitForAutoSaveCloudDone();
+    await quotingTab.openManualSectionsTab();
+    await quotingTab.randomPriceForItems();
+    await quotingTab.goToQuotingTab();
+    await subNavBarPage.waitForAutoSaveCloudDone();
   });
 
   test("Invoice Creation", async ({ page }) => {

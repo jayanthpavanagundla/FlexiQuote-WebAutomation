@@ -63,6 +63,11 @@ test.describe("Invoice for AH-ON Quotes", () => {
     addedParts = await quotingTab.addQuotingItemsByIndex(5);
     await quotingTab.goToQuotingTab();
     await subNavBarPage.waitForAutoSaveCloudDone();
+    await subNavBarPage.waitForAutoSaveCloudDone();
+    await quotingTab.openManualSectionsTab();
+    await quotingTab.randomPriceForItems();
+    await quotingTab.goToQuotingTab();
+    await subNavBarPage.waitForAutoSaveCloudDone();
   });
 
   test("Quote Authorisation", async () => {
