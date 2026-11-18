@@ -5,6 +5,7 @@ import { BasePage } from "../Base/BasePage.js";
 export class QuotingTab extends BasePage {
   quotingTab: Locator;
   vehicleSectionsTab: Locator;
+  manualSectionsTab: Locator;
   partsSection: Locator;
   partsRows: Locator;
   
@@ -14,6 +15,7 @@ export class QuotingTab extends BasePage {
     // Quoting Navbar
     this.quotingTab = page.getByText("Quoting");
     this.vehicleSectionsTab = this.page.locator("li", {hasText: "Vehicle Sections"});
+    this.manualSectionsTab = this.page.locator("li", {hasText: "Manual Quote"});
     this.partsSection = page.locator(".quote-items-section.parts");
     this.partsRows = this.partsSection.locator(".item-row-quote-builder-parts");
   }
@@ -29,6 +31,11 @@ export class QuotingTab extends BasePage {
   async openVehicleSectionsTab(): Promise<void> {
     await step("Click Vehicle Sections tab", async () => {
       await this.vehicleSectionsTab.click();
+    });
+  }
+  async openManualSectionsTab(): Promise<void> {
+    await step("Click Manual Sections tab", async () => {
+      await this.manualSectionsTab.click();
     });
   }
 
@@ -62,6 +69,67 @@ export class QuotingTab extends BasePage {
           await step(`Added item (row ${idx + 1}): "${partName}"`,async () => {},);
         }
         return addedPartNames;
+      },
+    );
+  }
+
+  // Random Price for Quoting Items
+  async randomPriceForItems(): Promise<void> {
+    await step("Set random unit price for zero-priced quoting items",async () => {
+      const allPartRows = this.page.locator(".quote-builder-item-row.type-part",);
+        await expect.poll(async () => {
+          const count = await allPartRows.count();
+          let visibleCount = 0;
+            for (let i = 0; i < count; i++) {
+              if (await allPartRows.nth(i).isVisible()) visibleCount++;
+            }
+          return visibleCount;
+        },
+        { timeout: 10000, message: "Waiting for visible part rows" }).toBeGreaterThan(0);
+
+        const rowCount = await allPartRows.count();
+        const priced: { description: string; amount: number }[] = [];
+        let rowNumber = 0;
+
+        for (let i = 0; i < rowCount; i++) {
+          const row = allPartRows.nth(i);
+          if (!(await row.isVisible())) continue;
+          rowNumber++;
+
+          const rowId = await row.getAttribute("id");
+          if (!rowId) continue;
+
+          const descContainer = row.locator('[id$="-itemDesc"]').first();
+          const description =((await descContainer.textContent()) || "").trim() || `Row ${rowNumber}`;
+
+          const totalValue = row.locator(`[id="${rowId}-total-val"]`);
+          const totalText = ((await totalValue.textContent()) || "").trim();
+          const numericTotal = Number(totalText.replace(/[^0-9.]/g, "")) || 0;
+          if (numericTotal > 0) {
+            await step(`Row ${rowNumber} "${description}": already priced ($${numericTotal.toFixed(2)}) - skipped`, async () => {});
+            continue;
+          }
+
+          const randomPrice = Math.floor(Math.random() * (70 - 10 + 1)) + 10;
+          await row.scrollIntoViewIfNeeded();
+          await totalValue.click({ force: true });
+
+          const unitInput = row.locator(`input[id="${rowId}-unit"]`);
+          await unitInput.waitFor({ state: "visible", timeout: 8000 });
+
+          const existingValue = ((await unitInput.inputValue()) || "").trim();
+          if (existingValue === "" ||existingValue === "0" ||existingValue === "0.00") {
+            await unitInput.fill(randomPrice.toString());
+            await unitInput.press("Tab");
+            priced.push({ description, amount: randomPrice });
+            await step(`Row ${rowNumber} "${description}": set unit price to $${randomPrice}.00`,async () => {});
+          } else {
+            await step(`Row ${rowNumber} "${description}": unit already "${existingValue}" - left unchanged`,async () => {});
+          }
+        }
+
+        const total = priced.reduce((s, p) => s + p.amount, 0);
+        await step(priced.length ? `Priced ${priced.length} item(s), total added $${total}.00 - ` + priced.map((p) => `"${p.description}" $${p.amount}`).join(", ") : "No zero-priced items found - nothing changed", async () => {});
       },
     );
   }

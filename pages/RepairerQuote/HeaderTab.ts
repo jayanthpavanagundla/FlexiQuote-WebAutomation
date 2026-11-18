@@ -68,6 +68,7 @@ export class HeaderTab extends BasePage {
     insurerInput: Locator;
     selectedInsurer: Locator;
     claimNumberInput: Locator;
+    estimatorInput: Locator;
     estimateStartDateInput: Locator;
     estimateEndDateInput: Locator;
 
@@ -105,6 +106,7 @@ export class HeaderTab extends BasePage {
         this.insurerInput = page.locator(".multiselect__input");
         this.selectedInsurer = page.locator(".multiselect__single");
         this.claimNumberInput = page.getByRole("textbox", { name: "Claim Number" });
+        this.estimatorInput = this.page.locator('input[placeholder="Quoter"]');
         // Key Dates
         this.estimateStartDateInput = this.page.locator('input[placeholder="Job Start Date"]').first();
         this.estimateEndDateInput = this.page.locator('input[placeholder="Job End Date"]').first();
@@ -517,6 +519,11 @@ export class HeaderTab extends BasePage {
             await this.claimNumberInput.fill(generateInsuranceClaimNo());
         });
     }
+    async enterEstimator(estimator: string): Promise<void> {
+    await step(`Enter Estimator: ${estimator}`, async () => {
+      await this.estimatorInput.fill(estimator);
+    });
+  }
 
     // Key Dates
     async enterEstimateStartDate(): Promise<void> {
