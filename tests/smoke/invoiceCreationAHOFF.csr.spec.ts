@@ -74,10 +74,8 @@ test.describe("Invoice for AH-OFF Quotes", () => {
     await invoiceTab.clickInvoicePlusButton();
     await invoiceTab.clickRaiseInvoiceButton();
     await subNavBarPage.expectToast(`Quote ${quoteNumber} saved`);
-
     // Capture Invoice summary totals from the UI before opening the preview
     const invoiceTotals = await subNavBarPage.fetchHeaderTotals();
-
     // Ok opens the Print Preview in a new tab
     await subNavBarPage.openPreview();
     const previewTab = await subNavBarPage.clickOkButton(true);
@@ -85,17 +83,14 @@ test.describe("Invoice for AH-OFF Quotes", () => {
       subNavBarPage = new SubNavBarPage(previewTab);
     }
     await subNavBarPage.verifyPrintPreviewTitle();
-
     // Compare each UI total against its corresponding label in the PDF
     const extractAmount = (text: string): string => {
       const match = text.match(/\$[\d,]+\.\d{2}/);
       if (!match) {throw new Error(`Unable to extract amount from UI text: "${text}"`)}
       return match[0];
     };
-
     const totalExGst = extractAmount(invoiceTotals.totalExGst);
     const totalPayable = extractAmount(invoiceTotals.totalIncGst);
-
     let pdfResponse: PlaywrightResponse;
     await step(`Verify Total (Ex GST) ${totalExGst} == Sub Total excl. GST ${totalExGst}`, async () => {
         pdfResponse = await subNavBarPage.verifyTextInPdf(`Sub Total excl. GST ${totalExGst}`);

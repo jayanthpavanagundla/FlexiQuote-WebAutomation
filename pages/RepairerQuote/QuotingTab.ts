@@ -6,6 +6,7 @@ export class QuotingTab extends BasePage {
   quotingTab: Locator;
   vehicleSectionsTab: Locator;
   manualSectionsTab: Locator;
+  templatesTab: Locator;
   partsSection: Locator;
   partsRows: Locator;
   
@@ -16,6 +17,7 @@ export class QuotingTab extends BasePage {
     this.quotingTab = page.getByText("Quoting");
     this.vehicleSectionsTab = this.page.locator("li", {hasText: "Vehicle Sections"});
     this.manualSectionsTab = this.page.locator("li", {hasText: "Manual Quote"});
+    this.templatesTab = this.page.locator("li", { hasText: "Templates" });
     this.partsSection = page.locator(".quote-items-section.parts");
     this.partsRows = this.partsSection.locator(".item-row-quote-builder-parts");
   }
@@ -254,6 +256,18 @@ export class QuotingTab extends BasePage {
           expect.soft(actual, `Row ${i + 1} should be "${expected}"`).toBe(expected);
           await step(`Row ${i + 1}: expected="${expected}" actual="${actual ?? "NOT FOUND"}"`,async () => {});
         }
+      },
+    );
+  }
+
+  // Verifying All List options are Disabled
+  async verifyQuotingNavButtonsDisabled(): Promise<void> {
+    await step(
+      "Verify Manual Quote, Templates and Vehicle Sections buttons are disabled",
+      async () => {
+        await expect(this.manualSectionsTab).toHaveClass(/disabled/);
+        await expect(this.templatesTab).toHaveClass(/disabled/);
+        await expect(this.vehicleSectionsTab).toHaveClass(/disabled/);
       },
     );
   }

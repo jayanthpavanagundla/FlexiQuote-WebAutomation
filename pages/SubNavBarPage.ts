@@ -138,6 +138,19 @@ export class SubNavBarPage extends BasePage {
     });
   }
 
+  parseXmlAmount(xml: string, tagName: string): number {
+    const regex = new RegExp(`<${tagName}>\\s*([\\d.]+)\\s*<\\/${tagName}>`);
+    const match = xml.match(regex);
+    if (!match) {
+      throw new Error(`${tagName} not found in XML.`);
+    }
+    const amount = Number(match[1]);
+    if (Number.isNaN(amount)) {
+      throw new Error(`Invalid amount for ${tagName}: ${match[1]}`);
+    }
+    return Math.round((amount + Number.EPSILON) * 100) / 100;
+  }
+
   // New + Button Click
   async clickPlusNewButton() {
     await step("Click New button", async () => {

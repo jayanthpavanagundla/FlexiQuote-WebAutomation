@@ -40,6 +40,10 @@ export class OrmTab extends BasePage {
   submitORMButton: Locator;
   viewMsgs: Locator;
   viewMsgsFirstRow: Locator;
+  submitTaxInvoice: Locator;
+  sendTaxInvoice: Locator;
+  quoteEditingLockedText: Locator;
+  authorisedAmountMismatchMsg: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -77,6 +81,10 @@ export class OrmTab extends BasePage {
     this.submitORMButton = this.page.locator('button[data-tooltip="Submit"]');
     this.viewMsgs = this.page.locator("a.dropdown-item", {hasText: "View Messages"});
     this.viewMsgsFirstRow = this.page.locator(".button.is-primary.is-small").first();
+    this.submitTaxInvoice = this.page.locator("a.dropdown-item", {hasText: "Submit Tax Invoice"});
+    this.sendTaxInvoice = this.page.locator('button[data-tooltip="Send Tax Invoice"]');
+    this.quoteEditingLockedText = this.page.getByText("Quote Editing Locked");
+    this.authorisedAmountMismatchMsg = this.page.locator("article.message.is-warning").filter({ has: this.page.locator(".message-header", { hasText: "Authorised Amount Mismatch" }) });
   }
 
   async openORMTab(): Promise<void> {
@@ -140,6 +148,18 @@ export class OrmTab extends BasePage {
     });
   }
 
+  async clickQMLQuote(): Promise<void> {
+    await step("Select QML Quote from dropdown", async () => {
+      await this.messageTypeOption.selectOption({ label: "QML Quote" });
+    });
+  }
+
+  async clickPaymentAuthorised(): Promise<void> {
+    await step("Select Payment Authorised from dropdown", async () => {
+      await this.messageTypeOption.selectOption({label: "Payment Authorised"});
+    });
+  }
+
   async clickLoadMessageButton(expectedH1?: string,expectedQuoteStatus?: string,): Promise<Page | undefined> {
     if (expectedH1) {
       return await step("Click Load Message, verify preview tab, close it, click Yes, switch to new tab, and verify quote status",async () => {
@@ -200,6 +220,14 @@ export class OrmTab extends BasePage {
   private rebindLocators(): void {
     this.ormTab = this.page.getByRole("link", { name: "message ORM" });
     this.quoteStatusSelect = this.page.locator("tr", { hasText: "Quote Status" }).locator("select");
+    // ORM tab locators used after switching to the new quote tab
+    this.ormDropdown = this.page.getByRole("button", { name: /^ORM$/ });
+    this.submitQuote = this.page.locator("a.dropdown-item", {hasText: "Submit Quote"});
+    this.viewMsgs = this.page.locator("a.dropdown-item", {hasText: "View Messages"});
+    this.submitTaxInvoice = this.page.locator("a.dropdown-item", {hasText: "Submit Tax Invoice"});
+    this.sendTaxInvoice = this.page.locator('button[data-tooltip="Send Tax Invoice"]');
+    this.quoteEditingLockedText = this.page.getByText("Quote Editing Locked");
+    this.authorisedAmountMismatchMsg = this.page.locator("article.message.is-warning").filter({ has: this.page.locator(".message-header", { hasText: "Authorised Amount Mismatch" }) });
   }
 
   async clickContinueAndVerify(expectedH1: string,): Promise<{ quoteTab: Page; quoteNumber: string }> {
@@ -415,9 +443,269 @@ export class OrmTab extends BasePage {
     });
   }
 
-  async clickQMLQuote(): Promise<void> {
-    await step("Select QML Quote from dropdown", async () => {
-      await this.messageTypeOption.selectOption({ label: "QML Quote" });
+
+  generateRandomPartValue(min: number = 10, max: number = 70): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  roundToTwo(value: number): number {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
+  }
+  formatXmlAmount(value: number): string {
+    return Number.isInteger(value) ? String(value) : value.toFixed(2);
+  }
+
+  replaceXmlTagValue(xml: string,tagName: string,value: string,required: boolean = true): string {
+    const regex = new RegExp(`<${tagName}>[\\s\\S]*?<\\/${tagName}>`);
+    if (!regex.test(xml)) {
+      if (required) {
+        throw new Error(`${tagName} tag not found in XML.`);
+      }
+      return xml;
+    }
+    return xml.replace(regex, `<${tagName}>${value}</${tagName}>`);
+  }
+
+  modifyQMLQuoteWithRandomChangedPartValues(xml: string): {xml: string;partValues: number[];grandTotalExTax: number;taxAmount: number;grandTotalIncTax: number} {
+    let updatedXml = xml;
+    updatedXml = this.incrementMessageNo(updatedXml);
+    updatedXml = this.replaceQRWithA(updatedXml);      // Status QR → A
+    updatedXml = this.replaceCPWithA(updatedXml);      // QuoteType CP → A
+    updatedXml = this.addAssessmentBlock(updatedXml);
+    const randomPartValues: number[] = [];
+    // Update QuoteItemValue and PartValue together per QuoteItem (Quantity stays 1)
+    updatedXml = updatedXml.replace(/<QuoteItem>[\s\S]*?<\/QuoteItem>/g,(block) => {
+        const randomValue = this.generateRandomPartValue(10, 70);
+        randomPartValues.push(randomValue);
+        const formatted = this.formatXmlAmount(randomValue);
+        let updated = block;
+        updated = updated.replace(/<QuoteItemValue>[\s\S]*?<\/QuoteItemValue>/,`<QuoteItemValue>${formatted}</QuoteItemValue>`);
+        updated = updated.replace(/<PartValue>[\s\S]*?<\/PartValue>/,`<PartValue>${formatted}</PartValue>`);
+        return updated;
+      },
+    );
+    if (randomPartValues.length === 0) {
+      throw new Error("No QuoteItem blocks found in XML.");
+    }
+    updatedXml = updatedXml.replace(/<UpdateStatus>[\s\S]*?<\/UpdateStatus>/g,"<UpdateStatus>CHANGED</UpdateStatus>");
+    const grandTotalExTax = randomPartValues.reduce((sum, value) => sum + value,0,);
+    const taxAmount = this.roundToTwo(grandTotalExTax * 0.1);
+    const grandTotalIncTax = this.roundToTwo(grandTotalExTax + taxAmount);
+    updatedXml = this.replaceXmlTagValue(updatedXml,"GrandTotalExTax",this.formatXmlAmount(grandTotalExTax));
+    updatedXml = this.replaceXmlTagValue(updatedXml,"TaxAmount",this.formatXmlAmount(taxAmount));
+    updatedXml = this.replaceXmlTagValue(updatedXml,"GrandTotalIncTax",this.formatXmlAmount(grandTotalIncTax),false);
+    this.changedPartValues = randomPartValues;
+    this.changedGrandTotalExTax = grandTotalExTax;
+    this.changedTaxAmount = taxAmount;
+    this.changedGrandTotalIncTax = grandTotalIncTax;
+    return {xml: updatedXml,partValues: randomPartValues,grandTotalExTax,taxAmount,grandTotalIncTax};
+  }
+
+  async getAndModifyQMLQuoteWithRandomChangedPartValues(): Promise<{xml: string;partValues: number[];grandTotalExTax: number;taxAmount: number;grandTotalIncTax: number}> {
+    return await step("Read copied XML, randomize part values, update totals and tax",async () => {
+        const xmlContent = await this.getXmlContent();
+        this.extractedMessageNo = this.extractMessageNo(xmlContent);
+        this.incrementedMessageNo = String(Number(this.extractedMessageNo) + 1);
+        const result = this.modifyQMLQuoteWithRandomChangedPartValues(xmlContent);
+        this.modifiedXml = result.xml;
+        return result;
+      },
+    );
+  }
+
+  modifyQMLQuoteWithExtraItem(xml: string): {xml: string;extraPartValue: number;allPartValues: number[];grandTotalExTax: number;taxAmount: number;grandTotalIncTax: number} {
+    let updatedXml = xml;
+    updatedXml = this.incrementMessageNo(updatedXml);
+    // The app totals from QuoteItemValue (not PartValue), so collect those
+    const existingQuoteItemValues = [...updatedXml.matchAll(/<QuoteItemValue>([\d.]+)<\/QuoteItemValue>/g)].map((m) => Number(m[1]));
+    // Determine the next sequential ItemNo
+    const itemNos = [...updatedXml.matchAll(/<ItemNo>(\d+)<\/ItemNo>/g)].map((m) => Number(m[1]));
+    const nextItemNo = itemNos.length > 0 ? Math.max(...itemNos) + 1 : 1;
+    // Generate a random value with 2 decimal places (e.g. 44.02)
+    const extraPartValue =Math.round((this.generateRandomPartValue(10, 70) + Math.random() + Number.EPSILON) * 100) / 100;
+    const newQuoteItem = `    <QuoteItem>
+      <ItemNo>${nextItemNo}</ItemNo>
+      <Code>NOCODE</Code>
+      <Description>Extra Part</Description>
+      <QuoteItemValue>${extraPartValue.toFixed(2)}</QuoteItemValue>
+      <Part>
+        <PartValue>${extraPartValue.toFixed(2)}</PartValue>
+        <PartQuantity>1</PartQuantity>
+        <PartOrientation>Other</PartOrientation>
+        <PartSource>
+          <OEM PartNumber="Not Available" />
+        </PartSource>
+      </Part>
+      <UpdateStatus>ACCEPTED</UpdateStatus>
+    </QuoteItem>`;
+    updatedXml = updatedXml.replace(
+      "</QuoteItems>",
+      `${newQuoteItem}\n    </QuoteItems>`,
+    );
+    // Mark all items (existing + new) as ACCEPTED
+    updatedXml = updatedXml.replace(/<UpdateStatus>[\s\S]*?<\/UpdateStatus>/g,"<UpdateStatus>ACCEPTED</UpdateStatus>");
+    // Sum all QuoteItemValues (existing + new extra) — this matches what the app displays
+    const allPartValues = [...existingQuoteItemValues, extraPartValue];
+    const grandTotalExTax = this.roundToTwo(allPartValues.reduce((sum, v) => sum + v, 0));
+    const taxAmount = this.roundToTwo(grandTotalExTax * 0.1);
+    const grandTotalIncTax = this.roundToTwo(grandTotalExTax + taxAmount);
+    updatedXml = this.replaceXmlTagValue(updatedXml,"GrandTotalExTax",this.formatXmlAmount(grandTotalExTax));
+    updatedXml = this.replaceXmlTagValue(updatedXml,"TaxAmount",this.formatXmlAmount(taxAmount));
+    updatedXml = this.replaceXmlTagValue(updatedXml,"GrandTotalIncTax",this.formatXmlAmount(grandTotalIncTax),false);
+    return {xml: updatedXml,extraPartValue,allPartValues,grandTotalExTax,taxAmount,grandTotalIncTax};
+  }
+
+  async getAndModifyQMLQuoteWithExtraItem(): Promise<{xml: string;extraPartValue: number;allPartValues: number[];grandTotalExTax: number;taxAmount: number;grandTotalIncTax: number}> {
+    return await step("Read copied XML, append an extra QuoteItem, and update totals",async () => {
+      const xmlContent = await this.getXmlContent();
+      this.extractedMessageNo = this.extractMessageNo(xmlContent);
+      this.incrementedMessageNo = String(Number(this.extractedMessageNo) + 1);
+      const result = this.modifyQMLQuoteWithExtraItem(xmlContent);
+      this.modifiedXml = result.xml;
+      return result;
+    });
+  }
+
+  async clickTaxInvoice(): Promise<void> {
+    await step("Click Submit Tax Invoice from dropdown", async () => {
+      await this.submitTaxInvoice.click();
+    });
+  }
+
+  async clickSendTaxInvoice(): Promise<void> {
+    await step("Click Send Tax Invoice button", async () => {
+      await this.sendTaxInvoice.click();
+    });
+  }
+
+  async waitForQuoteEditingLocked(): Promise<void> {
+    await step("Wait for Quote Editing Locked text", async () => {
+      await expect(this.quoteEditingLockedText).toBeVisible();
+    });
+  }
+
+  async verifySubmitTaxInvoiceDisabled(): Promise<void> {
+    await step("Verify Submit Tax Invoice is disabled", async () => {
+      await expect(this.submitTaxInvoice).toHaveClass(/is-disabled/);
+    });
+  }
+
+  async verifyAuthorisedAmountMismatchVisible(): Promise<void> {
+    await step("Verify 'Authorised Amount Mismatch' warning is visible", async () => {
+      await expect(this.authorisedAmountMismatchMsg).toBeVisible();
+    });
+  }
+
+  extractXmlTagValue(xml: string,tagName: string,fallback: string = ""): string {
+    const regex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`);
+    const match = xml.match(regex);
+    return match ? match[1].trim() : fallback;
+  }
+
+  extractXmlFieldValue(xml: string,tagName: string,fieldName: string,fallback: string = ""): string {
+    const regex = new RegExp(`<${tagName}\\s+FieldName=["']${fieldName}["']>([\\s\\S]*?)<\\/${tagName}>`);
+    const match = xml.match(regex);
+    return match ? match[1].trim() : fallback;
+  }
+
+  escapeXmlValue(value: string): string {
+    return value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&apos;");
+  }
+
+  getCurrentQMLTimestamp(): string {
+    return new Date().toISOString().replace(/\.\d{3}Z$/, "");
+  }
+
+  replaceXmlPlaceholder(xml: string,placeholder: string,value: string): string {
+    return xml.split(`{{${placeholder}}}`).join(this.escapeXmlValue(value));
+  }
+
+  modifyQMLPaymentAuthorised(xml: string): string {
+    const templatePath = path.resolve(__dirname, "../../helpers/orm/payment-authorized.xml");
+    let paymentAuthorisedXml = fs.readFileSync(templatePath, "utf-8");
+    const currentMessageNo = Number(this.extractMessageNo(xml));
+    const incrementedMessageNo = String(currentMessageNo + 1);
+    const underwriterName = this.extractXmlTagValue(xml,"UnderwriterName","Insurance Australia Limited");
+    const insurerAbn = this.extractXmlFieldValue(xml,"InsurerDetail","ABN","11000016722");
+    const repairerId = this.extractXmlTagValue(xml, "RepairerID", "U4073");
+    const repairerName = this.extractXmlTagValue(xml,"RepairerName","SKY Smash & Repair");
+    const repairerAbn = this.extractXmlFieldValue(xml,"RepairerDetails","ABN","11223491505");
+    const vehicleId = this.extractXmlTagValue(xml, "VehicleID");
+    const insuranceClaimNo = this.extractXmlTagValue(xml, "InsuranceClaimNo");
+    const reinstatementNo = this.extractXmlTagValue(xml,"ReinstatementNo","1");
+    const quoteNo = this.extractXmlTagValue(xml, "QuoteNo");
+    const registrationNo = this.extractXmlTagValue(xml, "RegistrationNo");
+    const buildDate = this.extractXmlTagValue(xml, "BuildDate");
+    const bodyStyle = this.extractXmlTagValue(xml, "BodyStyle");
+    const repairerTaxInvoiceNo = this.extractXmlTagValue(xml,"RepairerTaxInvoiceNo");
+    // TaxInvoiceDate from copied XML becomes PayAuthorisedDate
+    const payAuthorisedDate = this.extractXmlTagValue(xml, "TaxInvoiceDate");
+    // TotalPayableAmount from copied XML becomes PaymentAmount
+    const paymentAmount = this.extractXmlTagValue(xml, "TotalPayableAmount");
+    if (!vehicleId) throw new Error("VehicleID not found in copied XML.");
+    if (!insuranceClaimNo) throw new Error("InsuranceClaimNo not found in copied XML.");
+    if (!quoteNo) throw new Error("QuoteNo not found in copied XML.");
+    if (!registrationNo) throw new Error("RegistrationNo not found in copied XML.");
+    if (!buildDate) throw new Error("BuildDate not found in copied XML.");
+    if (!bodyStyle) throw new Error("BodyStyle not found in copied XML.");
+    if (!repairerTaxInvoiceNo) throw new Error("RepairerTaxInvoiceNo not found in copied XML.");
+    if (!payAuthorisedDate) throw new Error("TaxInvoiceDate not found in copied XML.");
+    if (!paymentAmount) throw new Error("TotalPayableAmount not found in copied XML.");
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"TIMESTAMP",this.getCurrentQMLTimestamp());
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"MESSAGE_NO",incrementedMessageNo);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"UNDERWRITER_NAME",underwriterName);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"INSURER_ABN",insurerAbn);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"REPAIRER_ID",repairerId,);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"REPAIRER_NAME",repairerName);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"REPAIRER_ABN",repairerAbn);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"VEHICLE_ID",vehicleId);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"INSURANCE_CLAIM_NO",insuranceClaimNo);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"REINSTATEMENT_NO",reinstatementNo);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"QUOTE_NO",quoteNo);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"REGISTRATION_NO",registrationNo);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"BUILD_DATE",buildDate);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"BODY_STYLE",bodyStyle);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"REPAIRER_TAX_INVOICE_NO",repairerTaxInvoiceNo);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"PAY_AUTHORISED_DATE",payAuthorisedDate);
+    paymentAuthorisedXml = this.replaceXmlPlaceholder(paymentAuthorisedXml,"PAYMENT_AMOUNT",paymentAmount);
+    return paymentAuthorisedXml;
+  }
+
+  async getAndModifyQMLPaymentAuthorised(): Promise<string> {
+    return await step("Read copied XML and create Payment Authorised XML",async () => {
+      const xmlContent = await this.getXmlContent();
+      this.extractedMessageNo = this.extractMessageNo(xmlContent);
+      this.incrementedMessageNo = String(Number(this.extractedMessageNo) + 1);
+      this.modifiedXml = this.modifyQMLPaymentAuthorised(xmlContent);
+      return this.modifiedXml}
+    )
+  }
+
+  async pasteModifiedQMLPaymentAuthorised(): Promise<void> {
+    await step("Paste Payment Authorised XML into CodeMirror editor",async () => {
+      if (!this.modifiedXml) {
+        throw new Error("No Payment Authorised XML found. Ensure getAndModifyQMLPaymentAuthorised() was called first.");
+      }
+      await this.page.locator(".CodeMirror").waitFor({ state: "visible", timeout: 10000 });
+      await this.page.waitForFunction(() => {
+        const cm = (document.querySelector(".CodeMirror") as any) ?.CodeMirror;
+        return !!cm;
+        },{ timeout: 15000 },
+      );
+      await this.page.evaluate((xmlText: string) => {
+        const cmInstance = (document.querySelector(".CodeMirror") as any).CodeMirror;
+          cmInstance.setValue(xmlText);
+          cmInstance.refresh();
+        }, this.modifiedXml);
+      await this.page.waitForFunction((xmlText: string) => {
+        const cm = (document.querySelector(".CodeMirror") as any)?.CodeMirror;
+          return cm && cm.getValue().trim() === xmlText.trim();
+        },this.modifiedXml,{ timeout: 10000 }
+      );
     });
   }
 }
