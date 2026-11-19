@@ -89,10 +89,8 @@ test.describe("Invoice for AH-ON Quotes", () => {
     await invoiceTab.clickInvoiceCheckBox();
     await invoiceTab.clickRaiseInvoiceButton();
     await subNavBarPage.expectToast(`Quote ${quoteNumber} saved`);
-
     // Capture Invoice summary totals from the UI before opening the preview
     const invoiceTotals = await subNavBarPage.fetchHeaderTotals();
-
     // PDF Opens Same Tab
     await subNavBarPage.openPreview();
     const pdfResponsePromise = page.waitForResponse((res) =>
@@ -103,17 +101,14 @@ test.describe("Invoice for AH-ON Quotes", () => {
     await subNavBarPage.clickOkButton();
     const pdfResponse: PlaywrightResponse = await pdfResponsePromise;
     await subNavBarPage.verifyPrintPreviewTitle();
-
     // Compare each UI total against its corresponding label in the PDF
     const extractAmount = (text: string): string => {
       const match = text.match(/\$[\d,]+\.\d{2}/);
       if (!match) {throw new Error(`Unable to extract amount from UI text: "${text}"`)}
       return match[0];
     };
-
     const totalExGstAmount = extractAmount(invoiceTotals.totalExGst);
     const totalPayableAmount = extractAmount(invoiceTotals.totalIncGst);
-
     // AH-ON PDF labels: Total (Ex GST) == TOTAL PARTS, Total (Inc GST) == GRAND TOTAL
     await step(`Verify Total (Ex GST) ${totalExGstAmount} == TOTAL PARTS ${totalExGstAmount}`,async () => {
         await subNavBarPage.verifyTextInPdf(`TOTAL PARTS = ${totalExGstAmount}`,undefined,pdfResponse);
