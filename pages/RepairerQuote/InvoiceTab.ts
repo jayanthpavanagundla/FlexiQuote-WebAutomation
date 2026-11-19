@@ -7,6 +7,8 @@ export class InvoiceTab extends BasePage {
   invoicePlusButton: Locator;
   invoiceCheckBox: Locator;
   raiseInvoiceButton: Locator;
+  voidInvoiceButton: Locator;
+  voidInvoiceYesButton: Locator;
   
   constructor(page: Page) {
     super(page);
@@ -15,7 +17,9 @@ export class InvoiceTab extends BasePage {
     this.invoiceTab = page.getByRole("link", {name: "receipt_long Invoice"});
     this.invoicePlusButton = page.locator(".tooltip > .button");
     this.invoiceCheckBox = page.locator('tbody tr td .pretty > input[type="checkbox"]').first();
-    this.raiseInvoiceButton = page.getByRole('button', { name: 'Raise Invoice' })
+    this.raiseInvoiceButton = page.getByRole('button', { name: 'Raise Invoice' });
+    this.voidInvoiceButton = page.getByRole("button", { name: "Void Invoice" });
+    this.voidInvoiceYesButton = page.locator(".modal-card-foot").getByRole("button", { name: "Yes", exact: true });
   }
   
   // Navigation to Invoice Tab
@@ -46,4 +50,12 @@ export class InvoiceTab extends BasePage {
       await this.raiseInvoiceButton.click();
     });
   }
+
+  // Delete Invoice
+  async clickVoidInvoice() {
+  await step("Click Void Invoice and confirm Yes", async () => {
+    await this.voidInvoiceButton.click();
+    await this.voidInvoiceYesButton.click();
+  });
+}
 }
