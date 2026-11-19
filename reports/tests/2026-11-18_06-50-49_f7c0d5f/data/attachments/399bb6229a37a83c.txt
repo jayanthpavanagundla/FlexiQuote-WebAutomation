@@ -1,0 +1,39 @@
+PartsCheck
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+Item DescriptionUnit PriceQtyLine Value
+TEST 2$200.001$200.00
+Save test1$200.002$400.00
+We are pleased to have supplied the following goods or services :
+To:
+KEITH  HARVIEWork:
+Home:
+Mobile:77777777777
+Fax:
+Email:home@gmail.com
+ABN:
+Atten : 
+Phone:
+Email:
+Reference :  
+SUB TOTAL$600.00
+GST $60.00
+TOTAL AMOUNT PAYABLE$660.00
+REMARKS:
+TAX INVOICE
+Date : 19/10/2026
+Invoice No:  5171647
+Invoice Footer: Thank you very much for your support. We look forward to serving you again.
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully 
+guaranteed.Unfortunately parts prices are beyond our control & subject to supplier invoice. 
+EFTPOS/CARD facilities NOT AVAILABLE. *Payment via cash or direct deposit only. **Please ensure prompt 
+payment with-in 24hours of invoice issue. ***Storage fees of $54.10 + GST will be charged daily/compounded 
+daily,  if invoice not settled with-in 24hours of invoice issue. ****In the event of failure to settle outstanding invoice 
+balance and all/if any storage fees with-in 72hours, a penalty fee of 19% will be charged and compounded weekly 
+on total invoice amount. Including, but not limited to, storage and any associated costs involved. *****If direct 
+depositing, please send remittance of payment before collecting vehicle.  *****No vehicle or works will be released 
+until full payment is received and verified including any/all storage fees and  interest owing. BSB:112 879--A/C:485
+ 370 359--BANK:ST GEORGE BANK--NAME:DORRY STRANKS--REF:INV NO

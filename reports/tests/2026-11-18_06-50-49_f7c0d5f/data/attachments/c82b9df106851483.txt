@@ -1,0 +1,59 @@
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+PartsCheck
+TOTAL LABOUR =$0.00
+Owner :Automation8269 
+Test6663
+Address :
+ 
+Atten :
+Insurer : A.A.M.I                                
+   
+Address :
+ 
+ABN :
+        Quoted By : Ramos
+        Date In : 19/11/2026
+        Date to Complete : 21/11/2026
+        Policy : 
+        Claim No :CLTINC8UA9
+Email :                                                  Insurer Email : 
+Home :                   Mobile :                   Fax :                    Insurer Phone :  
+Make : FORD
+Model : FALCON EF GLI
+Cylinders : 38
+Year : 1 / 1994
+V.I.N. : VINP7CZ65LJLB
+Schedule No. : F579
+Colour : WHITE
+Paint Group: S3   P Code:17415694
+        Registration : RAMFH1APX
+        Body : 4 DOOR
+        Transmission : CVT
+        Km :  7,766        
+PartsTypePart No.Qty      Price   Markup
+593AIR CONDITIONER 
+DRYER
+New10.00$0.00
+873L/H BOOT LID LETTERSNew10.00$0.00
+625FRT SUSPENSION 
+STABILIZER BAR
+New10.00$0.00
+733R/H PARCEL TRAYNew10.00$0.00
+521L/H PARK LAMP GLOBENew900490201800015.25$5.25
+$5.25$0.00
+TOTAL PARTS =$5.25
+                             SUB-TOTAL   $5.25
+     GST   $0.52
+        Signed : ---------------------------------------------                  GRAND TOTAL  $5.78
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully guaranteed.Unfortunately parts 
+prices are beyond our control & subject to supplier invoice. Estimate is based on external inspection. Further internal 
+damage could result in additional costs.
+ESTIMATE NO. 42055
+ESTIMATE
+DATE  : 18/11/2026
+Copyright © 2024 PartsCheck. All rights reserved.
+PAGE 1

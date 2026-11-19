@@ -1,0 +1,369 @@
+Address: 123 George Street, 
+SYDNEY NSW 2000 
+Phone No: +61 491 570 159 
+Email: partscheck@aus.edu 
+ABN: 899 8323 3838
+PartsCheck
+Parts SuppliedPart No.Qty  Non-OEM          PriceMarkup
+504FRT BUMPER BAR 
+COVER
+123.00       
+504L/H FRT BUMPER BAR 
+COVER
+132.00       
+504R/H FRT BUMPER BAR 
+COVER
+123.00       
+505FRT BUMPER BAR 
+MOULD
+13.00       
+505L/H FRT BUMPER BAR 
+MOULD
+00.00       
+505R/H FRT BUMPER BAR 
+MOULD
+14.00       
+506FRT BUMPER BAR 
+REINFORCEMENT
+13.00       
+506L/H FRT BUMPER BAR 
+REINFORCEMENT
+13.00       
+506R/H FRT BUMPER BAR 
+REINFORCEMENT
+12.00       
+507L/H FRT BUMPER BAR 
+BRACKET INNER
+13.00       
+507R/H FRT BUMPER BAR 
+BRACKET INNER
+13.00       
+508L/H FRT BUMPER BAR 
+BRACKET OUTER
+14.00       
+508R/H FRT BUMPER BAR 
+BRACKET OUTER
+12.00       
+509FRT NUMBER PLATE 
+FRAME
+14.00       
+510FRT BUMP BAR FOAM 
+ABSORBER
+10.00       
+510L/H FRT BUMP BAR 
+FOAM ABSORBER
+10.00       
+510R/H FRT BUMP BAR 
+FOAM ABSORBER
+10.00       
+INVOICE NO :  517243/1
+Date : 10/09/2026
+TAX  INVOICE
+To:A.A.M.I
+ABN:92004791744
+ARBN:
+923344456
+Owner: John Cena Iphoe3
+Vehicle:ALFA ROMEO GIULIETTA QUADRIFOGLIO 
+VERDE
+Rego: 016FE9KMS:
+0
+Year:
+1 / 2015
+VIN:
+Atten:Bruno Mars
+Quote No:  41543
+Claim No: 
+Assessor: 
+Repairer Id: RP12345
+Job Start Date:
+Job Completed Date:
+Copyright © 2024 PartsCheck. All rights reserved.PAGE 1
+
+Date : 10/09/2026
+INVOICE NO :  517243/1
+5101FRT BUMPER BAR 
+RETAINER CLIPS
+10.00       
+5101L/H FRT BUMPER BAR 
+RETAINER CLIPS
+10.00       
+5101R/H FRT BUMPER BAR 
+RETAINER CLIPS
+10.00       
+511R/H CRUSH CANS 4444410.00       
+511CRUSH CANS 4444410.00       
+511L/H CRUSH CANS 4444410.00       
+5111FRT BULL-BAR10.00       
+512L/H GRILLE10.00       
+512GRILLE10.00       
+512R/H GRILLE10.00       
+513GRILLE MOULD10.00       
+513R/H GRILLE MOULD10.00       
+513L/H GRILLE MOULD10.00       
+514L/H GRILLE BADGE10.00       
+514GRILLE BADGE10.00       
+514R/H GRILLE BADGE10.00       
+515GRILLE SURROUND10.00       
+515L/H GRILLE 
+SURROUND
+00.00       
+515R/H GRILLE 
+SURROUND
+10.00       
+516L/H GRILLE BRACKET10.00       
+516GRILLE BRACKET10.00       
+516R/H GRILLE BRACKET10.00       
+517DRIVING / FOG LAMP10.00       
+517L/H DRIVING / FOG 
+LAMP
+10.00       
+518L/H PARK LAMP10.00       
+517R/H DRIVING / FOG 
+LAMP
+10.00       
+518R/H PARK LAMP10.00       
+519R/H PARK LAMP RIM10.00       
+519L/H PARK LAMP RIM10.00       
+520L/H PARK LAMP LENS10.00       
+520R/H PARK LAMP LENS00.00       
+521L/H PARK LAMP 
+GLOBE
+00.00       
+521R/H PARK LAMP 
+GLOBE
+00.00       
+522L/H FRT CORNER 
+PANEL
+00.00       
+522R/H FRT CORNER 
+PANEL
+00.00       
+523L/H TURN SIGNAL 
+LAMP
+00.00       
+523R/H TURN SIGNAL 
+LAMP
+00.00       
+524R/H TURN SIGNAL 
+LAMP LENS
+00.00       
+525L/H TURN SIGNAL 
+LAMP GLOBE
+00.00       
+Copyright © 2024 PartsCheck. All rights reserved.PAGE 2
+
+Date : 10/09/2026
+INVOICE NO :  517243/1
+525R/H TURN SIGNAL 
+LAMP GLOBE
+00.00       
+526L/H DRIVING LAMP 
+INSERTS
+00.00       
+526R/H DRIVING LAMP 
+INSERTS
+00.00       
+5261L/H HEADLAMP UPPER 
+MOULD
+00.00       
+5261R/H HEADLAMP UPPER 
+MOULD
+00.00       
+527L/H HEADLAMP ASSY00.00       
+527R/H HEADLAMP ASSY00.00       
+528L/H HEADLAMP DUAL00.00       
+528R/H HEADLAMP DUAL00.00       
+529L/H HEADLAMP LENS00.00       
+529R/H HEADLAMP LENS00.00       
+530R/H HEADLAMP RIM00.00       
+530L/H HEADLAMP RIM00.00       
+531L/H HEADLAMP BEAM00.00       
+531R/H HEADLAMP BEAM00.00       
+532L/H HEADLAMP 
+QUARTZ GLOBE
+00.00       
+532R/H HEADLAMP 
+QUARTZ GLOBE
+00.00       
+533L/H HEADLAMP 
+COVER
+00.00       
+533R/H HEADLAMP 
+COVER
+00.00       
+534R/H HEADLAMP 
+LOWER MOULD
+00.00       
+534L/H HEADLAMP 
+LOWER MOULD
+00.00       
+535FRT APRON PANEL 
+ASSY
+00.00       
+535R/H FRT APRON PANEL 
+ASSY
+00.00       
+535L/H FRT APRON PANEL 
+ASSY
+00.00       
+536FRT APRON PANEL 
+UPPER
+00.00       
+536L/H FRT APRON PANEL 
+UPPER
+00.00       
+536R/H FRT APRON PANEL 
+UPPER
+00.00       
+537R/H FRT APRON PANEL 
+LOWER
+00.00       
+537FRT APRON PANEL 
+LOWER
+00.00       
+537L/H FRT APRON PANEL 
+LOWER
+00.00       
+538FRT GRAVEL TRAY00.00       
+538L/H FRT GRAVEL TRAY00.00       
+538R/H FRT GRAVEL 
+TRAY
+00.00       
+539L/H HEADLAMP 
+BRACKET
+00.00       
+Copyright © 2024 PartsCheck. All rights reserved.PAGE 3
+
+Date : 10/09/2026
+INVOICE NO :  517243/1
+539R/H HEADLAMP 
+BRACKET
+00.00       
+5391L/H FRT APRON 
+BADGE / EMBLEM
+00.00       
+5391FRT APRON BADGE / 
+EMBLEM
+00.00       
+540R/H RADIATOR 
+SUPPORT ASSY
+00.00       
+5391R/H FRT APRON 
+BADGE / EMBLEM
+00.00       
+540L/H RADIATOR 
+SUPPORT ASSY
+00.00       
+540RADIATOR SUPPORT 
+ASSY
+00.00       
+541RADIATOR SUPPORT 
+BRACE
+00.00       
+541L/H RADIATOR 
+SUPPORT BRACE
+00.00       
+541R/H RADIATOR 
+SUPPORT BRACE
+00.00       
+542L/H RADIATOR 
+SUPPORT LOCK PANEL
+00.00       
+542R/H RADIATOR 
+SUPPORT LOCK PANEL
+00.00       
+542RADIATOR SUPPORT 
+LOCK PANEL
+00.00       
+543L/H TOP LOCK 
+WARNING DECAL
+00.00       
+543R/H TOP LOCK 
+WARNING DECAL
+00.00       
+544L/H FRT GUARD00.00       
+545L/H FRT GUARD 
+MOULD
+00.00       
+546L/H FRT GUARD NOSE 
+MOULD
+00.00       
+546R/H FRT GUARD NOSE 
+MOULD
+00.00       
+548L/H FRT GUARD NAME00.00       
+549L/H FRT GUARD 
+BADGE
+00.00       
+549R/H FRT GUARD 
+BADGE
+00.00       
+550L/H FRT GUARD MUD 
+FLAP
+00.00       
+550R/H FRT GUARD MUD 
+FLAP
+00.00       
+551L/H FRT GUARD 
+SPLASHTRAY
+00.00       
+551R/H FRT GUARD 
+SPLASHTRAY
+00.00       
+552R/H FRT GUARD 
+REPEATER LAMP
+00.00       
+553L/H FRT WHEEL ARCH 
+MOULD
+00.00       
+553R/H FRT WHEEL ARCH 
+MOULD
+00.00       
+554R/H FRT WHEEL ARCH 
+FLARE & SEAL
+00.00       
+Copyright © 2024 PartsCheck. All rights reserved.PAGE 4
+
+Date : 10/09/2026
+INVOICE NO :  517243/1
+555L/H SILL PANEL 
+MOULD
+00.00       
+556L/H SILL SKIRT FLARE00.00       
+557BONNET00.00       
+558L/H BONNET MOULD00.00       
+558BONNET MOULD00.00       
+559L/H BONNET PADDING00.00       
+559R/H BONNET PADDING00.00       
+560BONNET BADGE00.00       
+560L/H BONNET BADGE00.00       
+561L/H BONNET HINGE00.00       
+562BONNET STAY/STRUT00.00       
+563BONNET LOCK CABLE00.00       
+562L/H BONNET 
+STAY/STRUT
+00.00       
+109.00
+TOTAL PARTS  $109.00
+Sub-Let                       
+ 
+988TOWING0.00
+995RECOMMISSION AIR0.00
+TOTAL OTHERS$0.00
+                           SUB TOTAL$109.00
+Sub Total excl. GST$109.00
+GST(10.00%)$10.90
+Total amount incl. GST$119.90
+Total Payable incl. GST $119.90
+Invoice Footer: Thank you very much for your support. We look forward to serving you again.
+Quote Footer: We thank you for this opportunity to submit an estimate and all work is fully guaranteed.Unfortunately parts prices 
+are beyond our control & subject to supplier invoice. 
+EFTPOS/CARD facilities NOT AVAILABLE. *Payment via cash or direct deposit only. **Please ensure prompt payment with-
+in 24hours of invoice issue. ***Storage fees of $54.10 + GST will be charged daily/compounded daily,  if invoice not settled 
+with-in 24hours of invoice issue. ****In the event of failure to settle outstanding invoice balance and all/if any storage fees with-
+in 72hours, a penalty fee of 19% will be charged and compounded weekly on total invoice amount. Including, but not limited to, 
+storage and any associated costs involved. *****If direct depositing, please send remittance of payment before collecting vehicle. 
+ *****No vehicle or works will be released until full payment is received and verified including any/all storage fees and  interest 
+owing. BSB:112 879--A/C:485 370 359--BANK:ST GEORGE BANK--NAME:DORRY STRANKS--REF:INV NO
+Copyright © 2024 PartsCheck. All rights reserved.PAGE 5
